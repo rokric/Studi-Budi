@@ -34,16 +34,18 @@
             // 
             // userNameTextBox
             // 
-            this.userNameTextBox.Location = new System.Drawing.Point(277, 61);
+            this.userNameTextBox.Location = new System.Drawing.Point(208, 50);
+            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.userNameTextBox.Name = "userNameTextBox";
-            this.userNameTextBox.Size = new System.Drawing.Size(100, 22);
+            this.userNameTextBox.Size = new System.Drawing.Size(76, 20);
             this.userNameTextBox.TabIndex = 0;
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(287, 109);
+            this.confirmButton.Location = new System.Drawing.Point(215, 89);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
+            this.confirmButton.Size = new System.Drawing.Size(56, 19);
             this.confirmButton.TabIndex = 1;
             this.confirmButton.Text = "Confirm";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -51,12 +53,13 @@
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 249);
+            this.ClientSize = new System.Drawing.Size(490, 202);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.userNameTextBox);
-            this.UserName = "LoginForm";
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "LoginForm";
             this.Text = "LoginForm";
             this.ResumeLayout(false);
             this.PerformLayout();
