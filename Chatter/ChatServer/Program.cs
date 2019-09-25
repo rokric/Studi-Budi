@@ -80,9 +80,9 @@ namespace ChatServer
 
         public void StartClient(TcpClient inClientSocket, string clineNo, Hashtable cList)
         {
-            this.clientSocket = inClientSocket;
-            this.clNo = clineNo;
-            this.clientsList = cList;
+            clientSocket = inClientSocket;
+            clNo = clineNo;
+            clientsList = cList;
             Thread ctThread = new Thread(DoChat);
             ctThread.Start();
         }
