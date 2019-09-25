@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Chattter
+namespace App
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Chattter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ChatForm());
+            Application.Run(new MainFrom());
         }
     }
 }

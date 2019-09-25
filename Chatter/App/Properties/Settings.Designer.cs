@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Chatter.Properties
+namespace App.Properties
 {
 
 
