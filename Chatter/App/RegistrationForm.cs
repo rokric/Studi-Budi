@@ -53,7 +53,7 @@ namespace App
             if (validDataEntered())
             {
                 addData(this.nicknameText.Text, this.passwordText.Text, filePath);
-                Close();
+                Dispose();
             }
             else
             {
