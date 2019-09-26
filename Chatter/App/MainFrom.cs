@@ -11,17 +11,20 @@ using System.Windows.Forms;
 
 namespace App
 {
-    public partial class MainForm : Form
+    public partial class MainFrom : Form
     {
-        public MainForm()
+        public MainFrom()
         {
             InitializeComponent();
         }
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            LoginForm2 loginForm = new LoginForm2();
+            LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
+            ChatClient.ChatForm user = new ChatClient.ChatForm(loginForm.UserName);
+            user.Show();
+            user.ConnectToServer();
         }
 
         private void SignUpButton_Click(object sender, EventArgs e)

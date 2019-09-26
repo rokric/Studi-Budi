@@ -8,35 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
-namespace App
+namespace registration
 {
-    public partial class RegistrationForm : Form
+    public partial class LoginForm2 : Form
     {
-        public RegistrationForm()
+        public LoginForm2()
         {
             InitializeComponent();
         }
 
+        #region Events
         private void PasswordText_TextChanged(object sender, EventArgs e)
         {
-            if(this.passwordText.Text.Length<6)
+            if (this.passwordText.Text.Length < 6)
                 this.passwordLabel.Text = "minimum 6 char password";
             else
                 this.passwordLabel.Text = "password OK";
-            PasswordMatch();
-        }
-
-        private void Password2Text_TextChanged(object sender, EventArgs e)
-        {
-            PasswordMatch();
-        }
-        private void PasswordMatch()
-        {
-            if (!(this.passwordText.Text.Equals(this.password2Text.Text)))
-                this.password2Label.Text = "passwords do not match!";
-            else
-                this.password2Label.Text = "password OK";
         }
 
         private void NicknameText_Leave(object sender, EventArgs e)
@@ -49,12 +36,9 @@ namespace App
 
         private void cButton_Click(object sender, EventArgs e)
         {
-            string filePath = @".\data.txt";
+            string filePath = @"C:\Users\Dautartas\Desktop\STudi Budi\Data.txt";
             if (validDataEntered())
-            {
                 addData(this.nicknameText.Text, this.passwordText.Text, filePath);
-                Close();
-            }
             else
             {
                 this.versionLabel.Text = "BAD DATA ENTERED";
@@ -74,7 +58,7 @@ namespace App
         }
         private bool validDataEntered()
         {
-            if (this.nicknameLabel.Text == "nick OK" && this.passwordLabel.Text == "password OK" && this.password2Label.Text == "password OK")
+            if (this.nicknameLabel.Text == "nick OK" && this.passwordLabel.Text == "password OK")
                 return true;
             else return false;
         }
@@ -92,10 +76,7 @@ namespace App
                 throw new ApplicationException("Error with a text file: ", ex);
             }
         }
+        #endregion
 
-        private void VersionLabel_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
