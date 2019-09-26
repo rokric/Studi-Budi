@@ -22,9 +22,6 @@ namespace App
         {
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
-            ChatClient.ChatForm user = new ChatClient.ChatForm(loginForm.UserName);
-            user.Show();
-            user.ConnectToServer();
         }
 
         private void SignUpButton_Click(object sender, EventArgs e)
