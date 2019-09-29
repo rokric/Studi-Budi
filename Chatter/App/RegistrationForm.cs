@@ -52,7 +52,11 @@ namespace App
             string filePath = @".\data.txt";
             if (validDataEntered())
             {
-                addData(this.nicknameText.Text, this.passwordText.Text, filePath);
+                User newUser = new User();
+                newUser.UserName = nicknameText.Text;
+                newUser.UserType = (string)userTypeBox.SelectedItem;
+                newUser.Password = passwordText.Text;
+                addData(newUser.UserName, newUser.UserType, newUser.Password, filePath);
                 Dispose();
             }
             else
@@ -78,13 +82,13 @@ namespace App
                 return true;
             else return false;
         }
-        private void addData(string nick, string password, string filePath)
+        private void addData(string nick, string userType, string password, string filePath)
         {
             try
             {
                 using (StreamWriter file = new StreamWriter(filePath, true))
                 {
-                    file.WriteLine(nick + "," + password);
+                    file.WriteLine(nick + "," + password + "," + userType);
                 }
             }
             catch (Exception ex)
