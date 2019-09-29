@@ -39,6 +39,7 @@
             this.nicknameLabel = new System.Windows.Forms.Label();
             this.cButton = new System.Windows.Forms.Button();
             this.noAccountButton = new System.Windows.Forms.Button();
+            this.userTypeBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // nicknameText
@@ -47,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nicknameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nicknameText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nicknameText.Location = new System.Drawing.Point(14, 69);
+            this.nicknameText.Location = new System.Drawing.Point(14, 116);
             this.nicknameText.MaxLength = 14;
             this.nicknameText.Name = "nicknameText";
             this.nicknameText.Size = new System.Drawing.Size(224, 23);
@@ -61,7 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.passwordText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.passwordText.Location = new System.Drawing.Point(14, 116);
+            this.passwordText.Location = new System.Drawing.Point(14, 165);
             this.passwordText.MaxLength = 14;
             this.passwordText.Name = "passwordText";
             this.passwordText.PasswordChar = '●';
@@ -78,7 +79,7 @@
             this.registrationLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.registrationLabel.Location = new System.Drawing.Point(12, 13);
             this.registrationLabel.Name = "registrationLabel";
-            this.registrationLabel.Size = new System.Drawing.Size(227, 23);
+            this.registrationLabel.Size = new System.Drawing.Size(227, 32);
             this.registrationLabel.TabIndex = 3;
             this.registrationLabel.Text = "Login";
             this.registrationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,7 +90,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.versionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.versionLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.versionLabel.Location = new System.Drawing.Point(14, 247);
+            this.versionLabel.Location = new System.Drawing.Point(14, 315);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(224, 20);
             this.versionLabel.TabIndex = 4;
@@ -102,7 +103,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.passwordLabel.Location = new System.Drawing.Point(14, 93);
+            this.passwordLabel.Location = new System.Drawing.Point(14, 142);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(224, 20);
             this.passwordLabel.TabIndex = 5;
@@ -115,7 +116,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nicknameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nicknameLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.nicknameLabel.Location = new System.Drawing.Point(14, 47);
+            this.nicknameLabel.Location = new System.Drawing.Point(14, 94);
             this.nicknameLabel.Name = "nicknameLabel";
             this.nicknameLabel.Size = new System.Drawing.Size(224, 19);
             this.nicknameLabel.TabIndex = 7;
@@ -130,7 +131,7 @@
             this.cButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.cButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.cButton.Location = new System.Drawing.Point(76, 152);
+            this.cButton.Location = new System.Drawing.Point(77, 202);
             this.cButton.Name = "cButton";
             this.cButton.Size = new System.Drawing.Size(100, 30);
             this.cButton.TabIndex = 8;
@@ -146,7 +147,7 @@
             this.noAccountButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.noAccountButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noAccountButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.noAccountButton.Location = new System.Drawing.Point(55, 201);
+            this.noAccountButton.Location = new System.Drawing.Point(55, 256);
             this.noAccountButton.Name = "noAccountButton";
             this.noAccountButton.Size = new System.Drawing.Size(140, 30);
             this.noAccountButton.TabIndex = 9;
@@ -154,13 +155,27 @@
             this.noAccountButton.UseVisualStyleBackColor = false;
             this.noAccountButton.Click += new System.EventHandler(this.NoAccountButton_Click);
             // 
+            // userTypeBox
+            // 
+            this.userTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.userTypeBox.FormattingEnabled = true;
+            this.userTypeBox.Items.AddRange(new object[] {
+            "teacher",
+            "student"});
+            this.userTypeBox.Location = new System.Drawing.Point(65, 57);
+            this.userTypeBox.Name = "userTypeBox";
+            this.userTypeBox.Size = new System.Drawing.Size(130, 25);
+            this.userTypeBox.TabIndex = 10;
+            this.userTypeBox.SelectedIndex = 0;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ClientSize = new System.Drawing.Size(255, 270);
+            this.ClientSize = new System.Drawing.Size(255, 338);
+            this.Controls.Add(this.userTypeBox);
             this.Controls.Add(this.noAccountButton);
             this.Controls.Add(this.cButton);
             this.Controls.Add(this.nicknameLabel);
@@ -189,9 +204,10 @@
         private System.Windows.Forms.Label nicknameLabel;
         private System.Windows.Forms.Button cButton;
         private System.Windows.Forms.Button noAccountButton;
+
         #endregion
 
-
+        private System.Windows.Forms.ComboBox userTypeBox;
     }
 }
 

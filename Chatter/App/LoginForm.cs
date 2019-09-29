@@ -13,8 +13,6 @@ namespace App
 {
     public partial class LoginForm : Form
     {
-        public string UserName { get; private set; }
-
         public LoginForm()
         {
             InitializeComponent();
@@ -42,20 +40,28 @@ namespace App
             string filePath = @".\data.txt";
             if (validDataEntered())
             {
-                UserName = nicknameText.Text;
-                ChatClient.ChatForm user = new ChatClient.ChatForm(UserName);
-                user.Show();
-                user.ConnectToServer();
+                User user = new User();
+                user.UserName = nicknameText.Text;
+                user.Password = passwordText.Text;
+                user.UserType = (string)userTypeBox.SelectedItem;
 
-                addData(this.nicknameText.Text, this.passwordText.Text, filePath);
+                addData(user.UserName, user.Password, user.UserType, filePath);
 
-                var mainForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "MainForm").FirstOrDefault();
-                if(mainForm != null)
+                foreach(Form form in Application.OpenForms)
                 {
-                    mainForm.Close();
+                    ///TODO
+                    //for some reasons the returned form name is MainFrom instead of MainForm
+                    if(form.Name == "MainFrom")
+                    {
+                        form.Hide();
+                        break;
+                    }
+           
                 }
 
                 Dispose();
+                ContentForm contentForm = new ContentForm(user);
+                contentForm.ShowDialog();
             }
             else
             {
@@ -80,13 +86,13 @@ namespace App
                 return true;
             else return false;
         }
-        private void addData(string nick, string password, string filePath)
+        private void addData(string nick, string password, string userType, string filePath)
         {
             try
             {
                 using (StreamWriter file = new StreamWriter(filePath, true))
                 {
-                    file.WriteLine(nick + "," + password);
+                    file.WriteLine(nick + "," + password + "," + userType);
                 }
             }
             catch (Exception ex)
