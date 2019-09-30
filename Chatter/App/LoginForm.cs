@@ -19,56 +19,39 @@ namespace App
         }
 
         #region Events
-        private void PasswordText_TextChanged(object sender, EventArgs e)
+        private void ContinueButton_Click(object sender, EventArgs e)
         {
-            if (this.passwordText.Text.Length < 6)
-                this.passwordLabel.Text = "minimum 6 char password";
-            else
-                this.passwordLabel.Text = "password OK";
-        }
+            User tempUser = new User();
+            tempUser.UserName = nicknameText.Text;
+            tempUser.Password = passwordText.Text;
+            tempUser.UserType = (string)userTypeBox.SelectedItem;
 
-        private void NicknameText_Leave(object sender, EventArgs e)
-        {
-            if (this.nicknameText.Text.Length < 5)
-                this.nicknameLabel.Text = "minimum 5 char nick";
-            else
-                this.nicknameLabel.Text = "nick OK";
-        }
-
-        private void cButton_Click(object sender, EventArgs e)
-        {
-            string filePath = @".\data.txt";
-            if (validDataEntered())
+            if (DoesUserExist(tempUser))
             {
-                User user = new User();
-                user.UserName = nicknameText.Text;
-                user.Password = passwordText.Text;
-                user.UserType = (string)userTypeBox.SelectedItem;
-
-                addData(user.UserName, user.Password, user.UserType, filePath);
-
-                foreach(Form form in Application.OpenForms)
+                foreach (Form form in Application.OpenForms)
                 {
                     ///TODO
                     //for some reasons the returned form name is MainFrom instead of MainForm
-                    if(form.Name == "MainFrom")
+                    if (form.Name == "MainFrom")
                     {
                         form.Hide();
                         break;
                     }
-           
+
                 }
 
                 Dispose();
-                ContentForm contentForm = new ContentForm(user);
+                ContentForm contentForm = new ContentForm(tempUser);
                 contentForm.ShowDialog();
-            }
+            }  
             else
             {
+                this.nicknameText.Text = "";
+                this.passwordText.Text = "";
                 this.versionLabel.Text = "BAD DATA ENTERED";
                 Timer timer = new Timer()
                 {
-                    Interval = 1000,
+                    Interval = 2000,
                     Enabled = true
                 };
 
@@ -78,35 +61,39 @@ namespace App
                     timer.Dispose();
                 };
             }
-
         }
-        private bool validDataEntered()
-        {
-            if (this.nicknameLabel.Text == "nick OK" && this.passwordLabel.Text == "password OK")
-                return true;
-            else return false;
-        }
-        private void addData(string nick, string password, string userType, string filePath)
-        {
-            try
-            {
-                using (StreamWriter file = new StreamWriter(filePath, true))
-                {
-                    file.WriteLine(nick + "," + password + "," + userType);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error with a text file: ", ex);
-            }
-        }
-        #endregion
 
         private void NoAccountButton_Click(object sender, EventArgs e)
         {
             Dispose();
             RegistrationForm registrationForm = new RegistrationForm();
             registrationForm.ShowDialog();
+        }
+        #endregion
+
+        private bool DoesUserExist(User user)
+        {
+            string filePath = @".\data.txt";
+            bool found = false;
+
+            using (StreamReader file = new StreamReader(filePath))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] data = line.Split(',');
+
+                    if(user.UserName == data[0] && user.Password == data[1] && user.UserType == data[2])
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                file.Close();
+            }
+
+            return found;
         }
     }
 }

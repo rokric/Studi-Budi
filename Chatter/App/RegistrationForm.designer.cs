@@ -37,7 +37,7 @@
             this.passwordLabel = new System.Windows.Forms.Label();
             this.password2Label = new System.Windows.Forms.Label();
             this.nicknameLabel = new System.Windows.Forms.Label();
-            this.cButton = new System.Windows.Forms.Button();
+            this.continueButton = new System.Windows.Forms.Button();
             this.userTypeBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -110,7 +110,6 @@
             this.versionLabel.TabIndex = 4;
             this.versionLabel.Text = "Version v1.2";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.versionLabel.Click += new System.EventHandler(this.VersionLabel_Click);
             // 
             // passwordLabel
             // 
@@ -153,17 +152,17 @@
             // 
             // cButton
             // 
-            this.cButton.AutoSize = true;
-            this.cButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.cButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.cButton.Location = new System.Drawing.Point(73, 238);
-            this.cButton.Name = "cButton";
-            this.cButton.Size = new System.Drawing.Size(100, 28);
-            this.cButton.TabIndex = 8;
-            this.cButton.Text = "continue";
-            this.cButton.UseVisualStyleBackColor = false;
-            this.cButton.Click += new System.EventHandler(this.cButton_Click);
+            this.continueButton.AutoSize = true;
+            this.continueButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.continueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.continueButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.continueButton.Location = new System.Drawing.Point(73, 238);
+            this.continueButton.Name = "cButton";
+            this.continueButton.Size = new System.Drawing.Size(100, 28);
+            this.continueButton.TabIndex = 8;
+            this.continueButton.Text = "continue";
+            this.continueButton.UseVisualStyleBackColor = false;
+            this.continueButton.Click += new System.EventHandler(this.ContinueButton_Click);
             // 
             // userTypeBox
             // 
@@ -186,7 +185,7 @@
             this.BackColor = System.Drawing.SystemColors.Desktop;
             this.ClientSize = new System.Drawing.Size(255, 327);
             this.Controls.Add(this.userTypeBox);
-            this.Controls.Add(this.cButton);
+            this.Controls.Add(this.continueButton);
             this.Controls.Add(this.nicknameLabel);
             this.Controls.Add(this.password2Label);
             this.Controls.Add(this.passwordLabel);
@@ -216,7 +215,7 @@
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label password2Label;
         private System.Windows.Forms.Label nicknameLabel;
-        private System.Windows.Forms.Button cButton;
+        private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.ComboBox userTypeBox;
     }
 }
