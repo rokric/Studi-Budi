@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -42,17 +35,29 @@ namespace App
         private void NicknameText_Leave(object sender, EventArgs e)
         {
             if (this.nicknameText.Text.Length < 5)
+            {
                 this.nicknameLabel.Text = "minimum 5 char nick";
+            }
+            else if (!IsUserNameFree(nicknameText.Text))
+            {
+                this.nicknameLabel.Text = "user name is not available";
+            }
             else
+            {
                 this.nicknameLabel.Text = "nick OK";
+            } 
         }
 
-        private void cButton_Click(object sender, EventArgs e)
+        private void ContinueButton_Click(object sender, EventArgs e)
         {
             string filePath = @".\data.txt";
-            if (validDataEntered())
+            if (ValidDataEntered())
             {
-                addData(this.nicknameText.Text, this.passwordText.Text, filePath);
+                User newUser = new User();
+                newUser.UserName = nicknameText.Text;
+                newUser.UserType = (string)userTypeBox.SelectedItem;
+                newUser.Password = passwordText.Text;
+                AddData(newUser.UserName, newUser.UserType, newUser.Password, filePath);
                 Dispose();
             }
             else
@@ -60,7 +65,7 @@ namespace App
                 this.versionLabel.Text = "BAD DATA ENTERED";
                 Timer timer = new Timer()
                 {
-                    Interval = 1000,
+                    Interval = 3000,
                     Enabled = true
                 };
 
@@ -70,21 +75,20 @@ namespace App
                     timer.Dispose();
                 };
             }
-
         }
-        private bool validDataEntered()
+        private bool ValidDataEntered()
         {
             if (this.nicknameLabel.Text == "nick OK" && this.passwordLabel.Text == "password OK" && this.password2Label.Text == "password OK")
                 return true;
             else return false;
         }
-        private void addData(string nick, string password, string filePath)
+        private void AddData(string nick, string userType, string password, string filePath)
         {
             try
             {
                 using (StreamWriter file = new StreamWriter(filePath, true))
                 {
-                    file.WriteLine(nick + "," + password);
+                    file.WriteLine(nick + "," + password + "," + userType);
                 }
             }
             catch (Exception ex)
@@ -93,9 +97,29 @@ namespace App
             }
         }
 
-        private void VersionLabel_Click(object sender, EventArgs e)
+        private bool IsUserNameFree(string userName)
         {
+            string filePath = @".\data.txt";
+            bool found = true;
 
+            using (StreamReader file = new StreamReader(filePath))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] data = line.Split(',');
+
+                    if (userName == data[0])
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                file.Close();
+            }
+
+            return found;
         }
     }
 }
