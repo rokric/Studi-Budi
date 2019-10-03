@@ -41,8 +41,19 @@ namespace App
                 }
 
                 Dispose();
-                ContentForm contentForm = new ContentForm(newUser);
-                contentForm.ShowDialog();
+
+                if(newUser.GetType() == "student")
+                {
+                    ContentForm contentForm = new ContentForm(newUser);
+                    contentForm.ShowDialog();
+                }
+                else if(newUser.GetType() == "teacher")
+                {
+                    TeacherForm teacherForm = new TeacherForm((Teacher)newUser);
+                    teacherForm.ShowDialog();
+                }
+
+             
             }  
             else
             {

@@ -45,6 +45,8 @@ namespace App
         {
             get { return username; }
         }
+
+        public abstract new string GetType();
     }
 
     public class Student : User
@@ -58,18 +60,35 @@ namespace App
         {
             return UserName + "," + Password + "," + "student";
         }
+
+        public override string GetType()
+        {
+            return "student";
+        }
     }
 
     public class Teacher : User
     {
+        private List<Subject> subjectsList;
+
         public Teacher(string userName, string password) : base(userName, password)
         {
-
+            subjectsList = new List<Subject>();
         }
 
         public override string ToString()
         {
             return UserName + "," + Password + "," + "teacher";
+        }
+
+        public override string GetType()
+        {
+            return "teacher";
+        }
+
+        public List<Subject> SubjectsList
+        {
+            get { return subjectsList;}
         }
     }  
 }
