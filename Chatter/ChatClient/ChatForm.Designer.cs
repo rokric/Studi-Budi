@@ -36,28 +36,29 @@
             // 
             // chatTextBox
             // 
-            this.chatTextBox.Location = new System.Drawing.Point(55, 28);
-            this.chatTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chatTextBox.Location = new System.Drawing.Point(73, 34);
+            this.chatTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chatTextBox.Multiline = true;
             this.chatTextBox.Name = "chatTextBox";
-            this.chatTextBox.Size = new System.Drawing.Size(316, 199);
+            this.chatTextBox.Size = new System.Drawing.Size(420, 244);
             this.chatTextBox.TabIndex = 3;
             // 
             // messageTextBox
             // 
-            this.messageTextBox.Location = new System.Drawing.Point(55, 265);
-            this.messageTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.messageTextBox.Location = new System.Drawing.Point(73, 326);
+            this.messageTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.messageTextBox.Multiline = true;
             this.messageTextBox.Name = "messageTextBox";
-            this.messageTextBox.Size = new System.Drawing.Size(252, 41);
+            this.messageTextBox.Size = new System.Drawing.Size(335, 50);
             this.messageTextBox.TabIndex = 4;
+            this.messageTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.messageTextBox_KeyPress);
             // 
             // sendButton
             // 
-            this.sendButton.Location = new System.Drawing.Point(314, 265);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sendButton.Location = new System.Drawing.Point(419, 326);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(56, 41);
+            this.sendButton.Size = new System.Drawing.Size(75, 50);
             this.sendButton.TabIndex = 5;
             this.sendButton.Text = "send";
             this.sendButton.UseVisualStyleBackColor = true;
@@ -65,14 +66,14 @@
             // 
             // ChatForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 340);
+            this.ClientSize = new System.Drawing.Size(561, 418);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.chatTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ChatForm";
             this.Text = "Form1";
             this.ResumeLayout(false);

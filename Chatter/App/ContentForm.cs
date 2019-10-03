@@ -33,7 +33,7 @@ namespace App
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.UserName);
+            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.EncryptedUserName);
             chatForm.ConnectToServer();
             chatForm.ShowDialog();
         }

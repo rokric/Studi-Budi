@@ -47,12 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder.cs" />
     <Compile Include="ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ContentForm.Designer.cs">
       <DependentUpon>ContentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextFileClass.cs" />
+    <Compile Include="EncryptionClass.cs" />
     <Compile Include="User.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
