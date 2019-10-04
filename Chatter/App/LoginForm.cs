@@ -21,12 +21,12 @@ namespace App
         #region Events
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            User tempUser = new User();
-            tempUser.UserName = nicknameText.Text;
-            tempUser.Password = passwordText.Text;
-            tempUser.UserType = (string)userTypeBox.SelectedItem;
+            string userName = nicknameText.Text;
+            string password = passwordText.Text;
+            string userType = (String)userTypeBox.SelectedItem;
+            User newUser = Builder.CreateNewUser(userType, userName, password);
 
-            if (DoesUserExist(tempUser))
+            if (TextFileClass.CheckIfUserExists(newUser.ToString()))
             {
                 foreach (Form form in Application.OpenForms)
                 {
@@ -41,8 +41,19 @@ namespace App
                 }
 
                 Dispose();
-                ContentForm contentForm = new ContentForm(tempUser);
-                contentForm.ShowDialog();
+
+                if(newUser.GetType() == "student")
+                {
+                    ContentForm contentForm = new ContentForm(newUser);
+                    contentForm.ShowDialog();
+                }
+                else if(newUser.GetType() == "teacher")
+                {
+                    TeacherForm teacherForm = new TeacherForm((Teacher)newUser);
+                    teacherForm.ShowDialog();
+                }
+
+             
             }  
             else
             {
@@ -70,30 +81,5 @@ namespace App
             registrationForm.ShowDialog();
         }
         #endregion
-
-        private bool DoesUserExist(User user)
-        {
-            string filePath = @".\data.txt";
-            bool found = false;
-
-            using (StreamReader file = new StreamReader(filePath))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    string[] data = line.Split(',');
-
-                    if(user.UserName == data[0] && user.Password == data[1] && user.UserType == data[2])
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                file.Close();
-            }
-
-            return found;
-        }
     }
 }

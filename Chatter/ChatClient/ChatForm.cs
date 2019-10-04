@@ -18,15 +18,13 @@ namespace ChatClient
         {
             this.userName = userName;
             InitializeComponent();
-            this.Text = userName;
+            Text = userName;
+            messageTextBox.Focus();
         }
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            byte[] outStream = Encoding.ASCII.GetBytes(messageTextBox.Text + "$");
-            messageTextBox.Text = "";
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
+            SendMessage();
         }
 
         public void ConnectToServer()
@@ -68,5 +66,20 @@ namespace ChatClient
                
         }
 
+        private void SendMessage()
+        {
+            byte[] outStream = Encoding.ASCII.GetBytes(messageTextBox.Text.Trim() + "$");
+            messageTextBox.Text = "";
+            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Flush();
+        }
+
+        private void messageTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendMessage();
+            }
+        }
     }
 }
