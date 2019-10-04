@@ -128,5 +128,9 @@
       <Name>ChatClient</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataTextFiles\registrationData.txt" />
+    <Content Include="DataTextFiles\teacherSubjectsData.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

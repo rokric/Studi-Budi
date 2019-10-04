@@ -73,7 +73,7 @@ namespace App
 
         public Teacher(string userName, string password) : base(userName, password)
         {
-            subjectsList = new List<Subject>();
+            subjectsList = TextFileClass.ReadTeacherSubjects(UserName);
         }
 
         public override string ToString()

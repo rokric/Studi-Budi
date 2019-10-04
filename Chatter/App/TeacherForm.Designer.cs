@@ -66,6 +66,7 @@
             this.subjectsList.Size = new System.Drawing.Size(238, 328);
             this.subjectsList.TabIndex = 2;
             this.subjectsList.UseCompatibleStateImageBehavior = false;
+            this.subjectsList.View = System.Windows.Forms.View.List;
             // 
             // groupBox1
             // 
@@ -127,6 +128,7 @@
             this.Name = "TeacherForm";
             this.Text = "TeacherForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeacherForm_FormClosing);
+            this.Load += new System.EventHandler(this.TeacherForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

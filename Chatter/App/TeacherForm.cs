@@ -26,8 +26,9 @@ namespace App
                 string name, description;
                 GetData(out name, out description);
                 Subject subject = new Subject(name, description);
-                teacher.SubjectsList.Add(subject);    //TODO: reikia database, nes kitaip vis skirtingam faile reiketu
-                subjectsList.Items.Add(subject.title);//saugoti kiekvieno mokytojo duomenis
+                teacher.SubjectsList.Add(subject);    
+                subjectsList.Items.Add(subject.title);
+                TextFileClass.WriteTeacherSubject(teacher.UserName, subject.title +":" + subject.description);
 
             }
             catch (ArgumentException argumentException)
@@ -56,6 +57,9 @@ namespace App
             {
                 description = descriptionTextBox.Text;
             }
+
+            subjectTextBox.Text = "";
+            descriptionTextBox.Text = "";
         }
 
         private void TeacherForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -70,6 +74,14 @@ namespace App
                     break;
                 }
 
+            }
+        }
+
+        private void TeacherForm_Load(object sender, EventArgs e)
+        {
+            foreach(Subject subject in teacher.SubjectsList)
+            {
+                subjectsList.Items.Add(subject.title);
             }
         }
     }
