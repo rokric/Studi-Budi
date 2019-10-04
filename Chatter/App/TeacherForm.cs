@@ -13,6 +13,7 @@ namespace App
     public partial class TeacherForm : Form
     {
         private Teacher teacher;
+        private bool dataChanged = false;
         public TeacherForm(Teacher teacher)
         {
             this.teacher = teacher;
@@ -28,8 +29,7 @@ namespace App
                 Subject subject = new Subject(name, description);
                 teacher.SubjectsList.Add(subject);    
                 subjectsList.Items.Add(subject.title);
-                TextFileClass.WriteTeacherSubject(teacher.UserName, subject.title +":" + subject.description);
-
+                dataChanged = true;
             }
             catch (ArgumentException argumentException)
             {
@@ -75,6 +75,12 @@ namespace App
                 }
 
             }
+
+            if (dataChanged)
+            {
+                Console.WriteLine("Saving data");
+                TextFileClass.WriteTeacherSubjects(teacher.SubjectsList, teacher.UserName);
+            }
         }
 
         private void TeacherForm_Load(object sender, EventArgs e)
@@ -82,6 +88,39 @@ namespace App
             foreach(Subject subject in teacher.SubjectsList)
             {
                 subjectsList.Items.Add(subject.title);
+            }
+        }
+
+        private void DeleteCourse_Click(object sender, EventArgs e)
+        {
+            if(subjectsList.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select subjects to delete");
+            }
+            else if(subjectsList.SelectedItems.Count > 1)
+            {
+                MessageBox.Show("You can delete only one subject at once");
+            }
+            else
+            {
+                RemoveSubjects();
+                dataChanged = true;
+            }
+        }
+
+        private void RemoveSubjects()
+        {
+            foreach(ListViewItem subjectName in subjectsList.SelectedItems)
+            {
+                foreach (Subject subject in teacher.SubjectsList)
+                {
+                    if (subject.title == subjectName.Text)
+                    {
+                        teacher.SubjectsList.Remove(new Subject(subject.title, subject.description));
+                        subjectsList.Items.Remove(subjectName);
+                        break;
+                    }
+                }
             }
         }
     }

@@ -57,6 +57,7 @@
             this.deleteCourse.TabIndex = 1;
             this.deleteCourse.Text = "Delete course";
             this.deleteCourse.UseVisualStyleBackColor = true;
+            this.deleteCourse.Click += new System.EventHandler(this.DeleteCourse_Click);
             // 
             // subjectsList
             // 

@@ -16,8 +16,6 @@ namespace App
         {
             bool found = false;
 
-            Console.WriteLine("file path: " + filePath);
-
             using (StreamReader file = new StreamReader(filePath+ registrationDataFileName))
             {
                 string line;
@@ -75,13 +73,34 @@ namespace App
             }
         }
 
-        public static void WriteTeacherSubject(string username, string subject)
+        public static void WriteTeacherSubjects(List<Subject> subjects, string userName)
         {
             try
             {
-                using (StreamWriter file = new StreamWriter(filePath + teacherSubjectsFileName, true))
+                string[] text = File.ReadAllLines(filePath + teacherSubjectsFileName);
+                File.Delete(filePath + teacherSubjectsFileName);
+
+                using (StreamWriter writer = new StreamWriter(filePath + teacherSubjectsFileName, true))
                 {
-                    file.WriteLine(username + ":" + subject);
+                    foreach(string line in text)
+                    {
+                        string[] data = line.Split(':');
+
+                        if(data[0] == userName)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            writer.WriteLine(line);
+                        }
+                    }
+
+                    foreach(Subject subject in subjects)
+                    {
+                        writer.WriteLine(userName + ":" + subject.title + ":" + subject.description);
+                    }
+                    writer.Close();
                 }
             }
             catch (Exception ex)
@@ -90,7 +109,7 @@ namespace App
             }
         }
 
-        public static List<Subject>  ReadTeacherSubjects(string userName)
+        public static List<Subject> ReadTeacherSubjects(string userName)
         {
             List<Subject> subjects = new List<Subject>();
 
