@@ -152,5 +152,29 @@ namespace App
 
             return subjects;
         }
+
+        public static List<string> ReadTeachers(string subject)
+        {
+            Encryptor encryptor = new Encryptor();
+            List<string> teachers = new List<string>();
+
+            using (StreamReader file = new StreamReader(filePath + teacherSubjectsFileName))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] data = line.Split(':');
+
+                    if(data[1] == subject)
+                    {
+                        teachers.Add(encryptor.Decrypt(data[0]));
+                    }
+                }
+                file.Close();
+            }
+
+            return teachers;
+        }
     }
 }

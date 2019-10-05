@@ -44,7 +44,7 @@
             // 
             this.startButton.BackColor = System.Drawing.Color.GhostWhite;
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(569, 61);
+            this.startButton.Location = new System.Drawing.Point(802, 61);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(181, 53);
             this.startButton.TabIndex = 0;
@@ -61,6 +61,7 @@
             this.subjectBox.Size = new System.Drawing.Size(231, 37);
             this.subjectBox.TabIndex = 1;
             this.subjectBox.Text = "Choose subject";
+            this.subjectBox.SelectedIndexChanged += new System.EventHandler(this.SubjectBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -72,6 +73,7 @@
             // 
             // teacherBox
             // 
+            this.teacherBox.Enabled = false;
             this.teacherBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.teacherBox.FormattingEnabled = true;
             this.teacherBox.Location = new System.Drawing.Point(43, 105);
@@ -79,6 +81,7 @@
             this.teacherBox.Size = new System.Drawing.Size(231, 37);
             this.teacherBox.TabIndex = 3;
             this.teacherBox.Text = "Choose teacher";
+            this.teacherBox.SelectedIndexChanged += new System.EventHandler(this.TeacherBox_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -90,7 +93,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(328, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 124);
+            this.groupBox1.Size = new System.Drawing.Size(434, 124);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Your selection";
@@ -101,9 +104,8 @@
             this.teacherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.teacherLabel.Location = new System.Drawing.Point(91, 84);
             this.teacherLabel.Name = "teacherLabel";
-            this.teacherLabel.Size = new System.Drawing.Size(53, 20);
+            this.teacherLabel.Size = new System.Drawing.Size(0, 20);
             this.teacherLabel.TabIndex = 3;
-            this.teacherLabel.Text = "label5";
             // 
             // subjectLabel
             // 
@@ -111,9 +113,8 @@
             this.subjectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subjectLabel.Location = new System.Drawing.Point(91, 40);
             this.subjectLabel.Name = "subjectLabel";
-            this.subjectLabel.Size = new System.Drawing.Size(53, 20);
+            this.subjectLabel.Size = new System.Drawing.Size(0, 20);
             this.subjectLabel.TabIndex = 2;
-            this.subjectLabel.Text = "label4";
             // 
             // label3
             // 
@@ -135,20 +136,20 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "subject:";
             // 
-            // ContentForm
+            // StudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkKhaki;
-            this.ClientSize = new System.Drawing.Size(781, 173);
+            this.ClientSize = new System.Drawing.Size(995, 173);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.teacherBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.subjectBox);
             this.Controls.Add(this.startButton);
-            this.Name = "ContentForm";
+            this.Name = "StudentForm";
             this.Text = "ContentForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ContentForm_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StudentForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
