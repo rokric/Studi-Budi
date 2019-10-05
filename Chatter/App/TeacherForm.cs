@@ -48,6 +48,14 @@ namespace App
             else
             {
                 name = (string)subjectsBox.SelectedItem;
+
+                foreach(Subject subject in teacher.SubjectsList)
+                {
+                    if(subject.title == name)
+                    {
+                        throw new ArgumentException("This subject already exists in your profile!");
+                    }
+                }
             }
 
             if(string.IsNullOrEmpty(descriptionTextBox.Text))
