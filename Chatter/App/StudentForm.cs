@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace App
 {
-    public partial class ContentForm : Form
+    public partial class StudentForm : Form
     {
         private IUser user;
 
-        public ContentForm(IUser user)
+        public StudentForm(IUser user)
         {
             InitializeComponent();
             FillSubjectBox();
@@ -33,7 +33,7 @@ namespace App
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.EncryptedUserName);
+            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.DecryptedUserName);
             chatForm.ConnectToServer();
             chatForm.ShowDialog();
         }

@@ -12,6 +12,7 @@ namespace App
         private static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private static string registrationDataFileName = "\\DataTextFiles\\registrationData.txt";
         private static string teacherSubjectsFileName = "\\DataTextFiles\\teacherSubjectsData.txt";
+        private static string subjectsFileName = "\\DataTextFiles\\subjectsData.txt";
         public static bool CheckIfUserExists(string data)
         {
             bool found = false;
@@ -132,6 +133,24 @@ namespace App
 
             return subjects;
 
+        }
+
+        public static List<string> ReadSubjects()
+        {
+            List<string> subjects = new List<string>();
+
+            using (StreamReader file = new StreamReader(filePath + subjectsFileName))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    subjects.Add(line);
+                }
+                file.Close();
+            }
+
+            return subjects;
         }
     }
 }

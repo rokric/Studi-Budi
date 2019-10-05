@@ -12,8 +12,7 @@ namespace App
     {
         string UserName { get; set; }
         string Password { get; set; }
-
-        string EncryptedUserName { get; }
+        string DecryptedUserName { get; }
     }
 
     public abstract class User : IUser
@@ -41,7 +40,7 @@ namespace App
             set { password = value; }
         }
 
-        public string EncryptedUserName
+        public string DecryptedUserName
         {
             get { return username; }
         }
