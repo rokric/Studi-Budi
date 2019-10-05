@@ -44,7 +44,7 @@ namespace App
 
                 if(newUser.GetType() == "student")
                 {
-                    ContentForm contentForm = new ContentForm(newUser);
+                    StudentForm contentForm = new StudentForm(newUser);
                     contentForm.ShowDialog();
                 }
                 else if(newUser.GetType() == "teacher")

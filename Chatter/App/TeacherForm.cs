@@ -18,6 +18,7 @@ namespace App
         {
             this.teacher = teacher;
             InitializeComponent();
+            subjectsBox.Items.AddRange(Builder.CreateSubjects().ToArray());
         }
 
         private void AddCourse_Click(object sender, EventArgs e)
@@ -40,13 +41,13 @@ namespace App
 
         private void GetData(out string name, out string description)
         {
-            if(string.IsNullOrEmpty(subjectTextBox.Text))
+            if(subjectsBox.SelectedItem == null)
             {
-                throw new ArgumentException("Subject field cannot be empty.");
+                throw new ArgumentException("Please select subject!");
             }
             else
             {
-                name = subjectTextBox.Text;
+                name = (string)subjectsBox.SelectedItem;
             }
 
             if(string.IsNullOrEmpty(descriptionTextBox.Text))
@@ -58,7 +59,7 @@ namespace App
                 description = descriptionTextBox.Text;
             }
 
-            subjectTextBox.Text = "";
+            subjectsBox.SelectedItem = null;
             descriptionTextBox.Text = "";
         }
 

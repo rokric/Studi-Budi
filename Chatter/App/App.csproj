@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -48,11 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder.cs" />
-    <Compile Include="ContentForm.cs">
+    <Compile Include="StudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ContentForm.Designer.cs">
-      <DependentUpon>ContentForm.cs</DependentUpon>
+    <Compile Include="StudentForm.Designer.cs">
+      <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Subject.cs" />
     <Compile Include="TeacherForm.cs">
@@ -84,8 +85,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ContentForm.resx">
-      <DependentUpon>ContentForm.cs</DependentUpon>
+    <EmbeddedResource Include="StudentForm.resx">
+      <DependentUpon>StudentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataTextFiles\registrationData.txt" />
+    <Content Include="DataTextFiles\subjectsData.txt" />
     <Content Include="DataTextFiles\teacherSubjectsData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

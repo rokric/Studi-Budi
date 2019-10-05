@@ -1,6 +1,6 @@
 ﻿namespace App
 {
-    partial class ContentForm
+    partial class StudentForm
     {
         /// <summary>
         /// Required designer variable.

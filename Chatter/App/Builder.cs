@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace App
 {
@@ -22,6 +23,11 @@ namespace App
             {
                 return null;
             }
+        }
+
+        public static List<string> CreateSubjects()
+        {
+            return TextFileClass.ReadSubjects();
         }
     }
 }

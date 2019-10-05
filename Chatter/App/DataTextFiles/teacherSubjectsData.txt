@@ -1,4 +1,3 @@
-6AsimmBtIlRMVBbkcf9PaQ==:C++:pointers
-O5Dx7452K5XCp0kZoDX3PA==:Excel:formulas
-O5Dx7452K5XCp0kZoDX3PA==:HTML:main tags
-DujNi3EJUUqa9sHy1yhvQw==:JAVA:packages
+DujNi3EJUUqa9sHy1yhvQw==:Algorithm Theory:functions
+6AsimmBtIlRMVBbkcf9PaQ==:Mathematics:geometry
+O5Dx7452K5XCp0kZoDX3PA==:Computer Architecture:MPL
