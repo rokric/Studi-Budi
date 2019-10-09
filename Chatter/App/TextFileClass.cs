@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace App
@@ -10,7 +11,7 @@ namespace App
     public static class TextFileClass
     {
         private static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-        private static string registrationDataFileName = "\\DataTextFiles\\registrationData.txt";
+        private static string registrationDataFileName = "\\DataTextFiles\\userData.txt";
         private static string teacherSubjectsFileName = "\\DataTextFiles\\teacherSubjectsData.txt";
         private static string subjectsFileName = "\\DataTextFiles\\subjectsData.txt";
         public static bool CheckIfUserExists(string data)
@@ -35,6 +36,30 @@ namespace App
             return found;
         }
 
+        public static string FindUser(string userName, string password)
+        {
+            string jsonValue = "";
+
+            using (StreamReader file = new StreamReader(filePath + registrationDataFileName))
+            {
+                string line;
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    
+                    if (line.Contains("\"UserName\":" + userName + "\"") && 
+                        line.Contains("\"Password\":" + password + "\""));
+                    {
+                        jsonValue = line;
+                        break;
+                    }
+                }
+                file.Close();
+            }
+
+            return jsonValue;
+        }
+
         public static bool CheckIfUserNameIsAvailable(string userName)
         {
             bool found = true;
@@ -45,9 +70,7 @@ namespace App
 
                 while ((line = file.ReadLine()) != null)
                 {
-                    string[] data = line.Split(',');
-
-                    if (userName == data[0])
+                    if (line.Contains("\"UserName\":" + userName + "\""))
                     {
                         found = false;
                         break;

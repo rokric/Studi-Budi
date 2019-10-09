@@ -53,7 +53,6 @@ namespace App
             if (ValidDataEntered())
             {
                 User newUser = Builder.CreateNewUser((string)userTypeBox.SelectedItem, nicknameText.Text, passwordText.Text);
-                TextFileClass.AddData(newUser.ToString());
                 Dispose();
             }
             else

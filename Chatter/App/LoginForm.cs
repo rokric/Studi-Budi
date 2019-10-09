@@ -24,9 +24,9 @@ namespace App
             string userName = nicknameText.Text;
             string password = passwordText.Text;
             string userType = (String)userTypeBox.SelectedItem;
-            User newUser = Builder.CreateNewUser(userType, userName, password);
+            User newUser = null;
 
-            if (TextFileClass.CheckIfUserExists(newUser.ToString()))
+            if ((newUser = Builder.LoadUser(userType, userName, password)) != null)
             {
                 foreach (Form form in Application.OpenForms)
                 {
@@ -54,7 +54,7 @@ namespace App
                 }
 
              
-            }  
+            } 
             else
             {
                 this.nicknameText.Text = "";

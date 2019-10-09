@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,40 @@ namespace App
 {
     public static class Builder
     {
+        public static User LoadUser(string userType, string userName, string password)
+        {
+            string jsonValue = TextFileClass.FindUser(userName, password);
+
+            if (!jsonValue.Equals(""))
+            {
+                if (userType == "student")
+                {
+                    return JsonConvert.DeserializeObject<Student>(jsonValue);
+                }
+                else if (userType == "teacher")
+                {
+                    return JsonConvert.DeserializeObject<Teacher>(jsonValue);
+                }
+            }
+
+            return null;
+        }
+
         public static User CreateNewUser(string userType, string userName, string password)
         {
-            if(userType == "student")
+            if (userType.Equals("student"))
             {
-                return new Student(userName, password);
+                User user = new Student(userName, password);
+                string json = JsonConvert.SerializeObject(user);
+                TextFileClass.AddData(json);
+                return user;
             }
-            else if(userType == "teacher")
+            else if (userType.Equals("teacher"))
             {
-                return new Teacher(userName, password);
+                User user = new Teacher(userName, password);
+                string json = JsonConvert.SerializeObject(user);
+                TextFileClass.AddData(json);
+                return user;
             }
             else
             {

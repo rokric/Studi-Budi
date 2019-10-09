@@ -12,7 +12,8 @@ namespace App
     {
         string UserName { get; set; }
         string Password { get; set; }
-        string DecryptedUserName { get; }
+
+        string GetDecryptedUserName();
     }
 
     public abstract class User : IUser
@@ -40,9 +41,9 @@ namespace App
             set { password = value; }
         }
 
-        public string DecryptedUserName
+        public string GetDecryptedUserName()
         {
-            get { return username; }
+            return username;
         }
 
         public abstract new string GetType();

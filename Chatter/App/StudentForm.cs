@@ -23,7 +23,7 @@ namespace App
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.DecryptedUserName);
+            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.GetDecryptedUserName());
             chatForm.ConnectToServer();
             chatForm.ShowDialog();
         }
