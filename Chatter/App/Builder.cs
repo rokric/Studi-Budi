@@ -12,15 +12,17 @@ namespace App
     {
         public static User LoadUser(string userType, string userName, string password)
         {
+            DataWriter check = new DataWriter(userName,password,userType);
+
             string jsonValue = DataManager.FindUser(userName, password);
 
             if (!jsonValue.Equals(""))
             {
-                if (userType == "student")
+                if (check.profession == "student")
                 {
                     return JsonConvert.DeserializeObject<Student>(jsonValue);
                 }
-                else if (userType == "teacher")
+                else if (check.profession == "teacher")
                 {
                     return JsonConvert.DeserializeObject<Teacher>(jsonValue);
                 }
@@ -32,15 +34,13 @@ namespace App
         {
             if (userType.Equals("student"))
             {
-                User user = new Student(Encryptor.Encrypt(userName), Encryptor.Encrypt(password));
-                string json = JsonConvert.SerializeObject(user);
-                DataManager.AddData(json);
+                User user = new Student(userName, password);
+                DataManager.AddData(userName, password,userType); // TODO-> sends encrypted nick, password and profession boolean is false (not teacher)
             }
             else if (userType.Equals("teacher"))
             {
-                User user = new Teacher(Encryptor.Encrypt(userName), Encryptor.Encrypt(password));
-                string json = JsonConvert.SerializeObject(user);
-                DataManager.AddData(json);
+                User user = new Teacher(userName, password);
+                DataManager.AddData(userName, password, userType);//TODO-> sends encrypted nick, password and profession boolean is true (is teacher)
             }
         }
 

@@ -18,22 +18,20 @@ namespace App.App
         public void LoadUser(string userName, string password, string userType)
         {
             User user = Builder.LoadUser(userType, userName, password);
+            DataWriter check = new DataWriter(userName, password, userType);
 
-            if (user != null)
-            {
-                if (user.Type.Equals("student"))
+                if (userType.Equals("student"))
                 {
                     StudentForm studentForm = new StudentForm((Student)user);
                     studentForm.Show();
                     CloseMainForm();
                 }
-                else if (user.Type.Equals("teacher"))
+                else if (userType.Equals("teacher"))
                 {
                     TeacherForm teacherForm = new TeacherForm((Teacher)user);
                     teacherForm.Show();
                     CloseMainForm();
                 }
-            }
         }
 
         private void CloseMainForm()
