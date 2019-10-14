@@ -12,8 +12,8 @@ namespace App
     public static class DataManager
     {
         private static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-        private static string registrationDataFileName = "\\Data\\userData.txt";
-        private static string subjectsFileName = "\\Data\\subjectsData.txt";
+        private static string registrationDataFileName = "\\Data\\Text Files\\userData.txt";
+        private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
 
         public static bool IsLoginAccepted(string userName, string password)
         {
@@ -94,6 +94,8 @@ namespace App
 
         public static void AddData(string data)
         {
+          /*  DataWriter writer = new DataWriter();
+            writer.write();*/
             try
             {
                 using (StreamWriter file = new StreamWriter(filePath + registrationDataFileName, true))

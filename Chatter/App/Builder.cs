@@ -25,7 +25,6 @@ namespace App
                     return JsonConvert.DeserializeObject<Teacher>(jsonValue);
                 }
             }
-
             return null;
         }
 

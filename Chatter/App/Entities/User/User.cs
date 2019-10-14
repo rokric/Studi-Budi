@@ -9,12 +9,6 @@ using System.Threading.Tasks;
 
 namespace App
 {
-    public interface IUser
-    {
-        string UserName { get; set; }
-        string Password { get; set; }
-        string GetDecryptedUserName();
-    }
 
     public abstract class User : IUser
     {
@@ -46,37 +40,4 @@ namespace App
             return Encryptor.Decrypt(UserName);
         }
     }
-
-    public class Student : User
-    {
-        public Student(string userName, string password):base(userName, password)
-        {
-            
-        }
-
-        public override string Type 
-        {
-            get { return "student"; }
-        }
-    }
-
-    public class Teacher : User
-    {
-        private List<Subject> subjectsList = new List<Subject>();
-
-        public Teacher(string userName, string password) : base(userName, password)
-        {
- 
-        }
-
-        public List<Subject> SubjectsList
-        {
-            get { return subjectsList;}
-        }
-
-        public override string Type
-        {
-            get { return "teacher"; }
-        }
-    }  
 }

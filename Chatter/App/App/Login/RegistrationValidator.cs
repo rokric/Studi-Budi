@@ -6,40 +6,9 @@ using System.Threading.Tasks;
 
 namespace App.App
 {
-    /*
-     * Classes for UI and backend connection 
-     * Registration and login validation
-     */
-
-    public interface ILogin
-    {
-        bool IsCorrect(string userName, string password);
-    }
-
-    public interface IRegistration
-    {
-        void IsUserNameValid(string userName, out string message);
-        void IsPasswordValid(string password, out string message);
-        void IsPasswordMatch(string password, string passwordRepeat, out string message);
-    }
-
-    public abstract class Validator
-    {
-        public Validator(){ }
-    }
-
-    public class LoginValidator : Validator, ILogin
-    {
-
-        public bool IsCorrect(string userName, string password)
-        {
-            return DataManager.IsLoginAccepted(userName, password);
-        }
-    }
-
     public class RegistrationValidator : Validator, IRegistration
     {
-    
+
         public void IsPasswordMatch(string password, string passwordRepeat, out string message)
         {
             if (password.Equals(passwordRepeat))
@@ -56,7 +25,7 @@ namespace App.App
         {
             message = "password ok";
 
-            if(string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(password))
             {
                 message = "cannot be empty";
             }
