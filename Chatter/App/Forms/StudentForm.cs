@@ -25,7 +25,8 @@ namespace App
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ConversationInitializer conversation = new ConversationInitializer(user);
+            ChatForm chatForm = new ChatForm(user);
+            chatForm.ShowDialog();
         }
 
         private void StudentForm_FormClosing(object sender, FormClosingEventArgs e)

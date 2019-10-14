@@ -51,8 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\IConversation.cs" />
     <Compile Include="App\Login\RegistrationValidator.cs" />
-    <Compile Include="App\ConversationInitializer.cs" />
+    <Compile Include="App\Conversation.cs" />
     <Compile Include="App\Login\IRegistration.cs" />
     <Compile Include="App\StudentActivity.cs" />
     <Compile Include="Builder.cs" />
