@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using App.App;
 
 namespace App
 {
     public partial class LoginForm : Form
     {
+        private LoginValidator loginValidator = new LoginValidator();
+
         public LoginForm()
         {
             InitializeComponent();
@@ -21,40 +24,12 @@ namespace App
         #region Events
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            string userName = nicknameText.Text;
-            string password = passwordText.Text;
-            string userType = (String)userTypeBox.SelectedItem;
-            User newUser = null;
-
-            if ((newUser = Builder.LoadUser(userType, userName, password)) != null)
+            if(loginValidator.IsCorrect(nicknameText.Text, passwordText.Text))
             {
-                foreach (Form form in Application.OpenForms)
-                {
-                    ///TODO
-                    //for some reasons the returned form name is MainFrom instead of MainForm
-                    if (form.Name == "MainFrom")
-                    {
-                        form.Hide();
-                        break;
-                    }
-
-                }
-
+                UserLoader userLoader = new UserLoader();
+                userLoader.LoadUser(nicknameText.Text, passwordText.Text, (String)userTypeBox.SelectedItem);
                 Dispose();
-
-                if(newUser.GetType() == "student")
-                {
-                    StudentForm contentForm = new StudentForm(newUser);
-                    contentForm.ShowDialog();
-                }
-                else if(newUser.GetType() == "teacher")
-                {
-                    TeacherForm teacherForm = new TeacherForm((Teacher)newUser);
-                    teacherForm.ShowDialog();
-                }
-
-             
-            } 
+            }
             else
             {
                 this.nicknameText.Text = "";

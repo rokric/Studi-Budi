@@ -12,7 +12,7 @@ namespace App
     {
         public static User LoadUser(string userType, string userName, string password)
         {
-            string jsonValue = TextFileClass.FindUser(userName, password);
+            string jsonValue = DataManager.FindUser(userName, password);
 
             if (!jsonValue.Equals(""))
             {
@@ -29,31 +29,25 @@ namespace App
             return null;
         }
 
-        public static User CreateNewUser(string userType, string userName, string password)
+        public static void CreateUser(string userType, string userName, string password)
         {
             if (userType.Equals("student"))
             {
-                User user = new Student(userName, password);
+                User user = new Student(Encryptor.Encrypt(userName), Encryptor.Encrypt(password));
                 string json = JsonConvert.SerializeObject(user);
-                TextFileClass.AddData(json);
-                return user;
+                DataManager.AddData(json);
             }
             else if (userType.Equals("teacher"))
             {
-                User user = new Teacher(userName, password);
+                User user = new Teacher(Encryptor.Encrypt(userName), Encryptor.Encrypt(password));
                 string json = JsonConvert.SerializeObject(user);
-                TextFileClass.AddData(json);
-                return user;
-            }
-            else
-            {
-                return null;
+                DataManager.AddData(json);
             }
         }
 
         public static List<string> CreateSubjects()
         {
-            return TextFileClass.ReadSubjects();
+            return DataManager.ReadSubjects();
         }
     }
 }

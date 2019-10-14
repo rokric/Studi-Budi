@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace App
 {
-    public class Encryptor
+    public static class Encryptor
     {
-        private readonly string PasswordHash = "P@@Sw0rd";
-        private readonly string SaltKey = "S@LT&KEY";
-        private readonly string VIKey = "@1B2c3D4e5F6g7H8";
+        private static string PasswordHash = "P@@Sw0rd";
+        private static string SaltKey = "S@LT&KEY";
+        private static string VIKey = "@1B2c3D4e5F6g7H8";
 
-        public string Encrypt(string plainText)
+        public static string Encrypt(string plainText)
         {
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
@@ -38,7 +38,7 @@ namespace App
             return Convert.ToBase64String(cipherTextBytes);
         }
 
-        public string Decrypt(string encryptedText)
+        public static string Decrypt(string encryptedText)
         {
             byte[] cipherTextBytes = Convert.FromBase64String(encryptedText);
             byte[] keyBytes = new Rfc2898DeriveBytes(PasswordHash, Encoding.ASCII.GetBytes(SaltKey)).GetBytes(256 / 8);

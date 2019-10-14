@@ -1,0 +1,2 @@
+{"SubjectsList":[{"title":"Discrete Math","description":"fdsfd"},{"title":"Mathematics","description":"fdgfd"}],"Type":"teacher","UserName":"VuWUl0X3jM9BuVGUls9r2w==","Password":"VuWUl0X3jM9BuVGUls9r2w=="}
+{"Type":"student","UserName":"9tP9wQKTaqEhaMLFNkts1Q==","Password":"9tP9wQKTaqEhaMLFNkts1Q=="}

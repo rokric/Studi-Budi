@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.App;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace App
     public partial class StudentForm : Form
     {
         private IUser user;
+        private StudentActivity studentActivity = new StudentActivity();
 
         public StudentForm(IUser user)
         {
@@ -23,17 +25,13 @@ namespace App
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            ChatClient.ChatForm chatForm = new ChatClient.ChatForm(user.GetDecryptedUserName());
-            chatForm.ConnectToServer();
-            chatForm.ShowDialog();
+            ConversationInitializer conversation = new ConversationInitializer(user);
         }
 
         private void StudentForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Form form in Application.OpenForms)
+            foreach (Form form in System.Windows.Forms.Application.OpenForms)
             {
-                ///TODO
-                //for some reasons the returned form name is MainFrom instead of MainForm
                 if (form.Name == "MainFrom")
                 {
                     form.Show();
@@ -47,9 +45,9 @@ namespace App
             teacherBox.Enabled = true;
             teacherBox.Items.Clear();
 
-            teacherBox.Items.AddRange(TextFileClass.ReadTeachers(
-                (string)subjectBox.SelectedItem).ToArray());
-
+            teacherBox.Items.AddRange(
+                studentActivity.LoadTeachersNameBySubject((string)subjectBox.SelectedItem).ToArray());
+                                      
             subjectLabel.Text = (string)subjectBox.SelectedItem;
             teacherLabel.Text = "";
             teacherBox.Text = "Choose teacher";

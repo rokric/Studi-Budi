@@ -51,53 +51,66 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\ConversationInitializer.cs" />
+    <Compile Include="App\StudentActivity.cs" />
     <Compile Include="Builder.cs" />
-    <Compile Include="StudentForm.cs">
+    <Compile Include="Forms\ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentForm.Designer.cs">
+    <Compile Include="Forms\ChatForm.Designer.cs">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StudentForm.Designer.cs">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Subject.cs" />
-    <Compile Include="TeacherForm.cs">
+    <Compile Include="Entities\Subject.cs" />
+    <Compile Include="Forms\TeacherForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeacherForm.Designer.cs">
+    <Compile Include="Forms\TeacherForm.Designer.cs">
       <DependentUpon>TeacherForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextFileClass.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="EncryptionClass.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrationForm.cs">
+    <Compile Include="Forms\RegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationForm.designer.cs">
+    <Compile Include="Forms\RegistrationForm.designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="App\Login.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="StudentForm.resx">
+    <Compile Include="App\UserLoader.cs" />
+    <EmbeddedResource Include="Forms\ChatForm.resx">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StudentForm.resx">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistrationForm.resx">
+    <EmbeddedResource Include="Forms\RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -109,7 +122,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TeacherForm.resx">
+    <EmbeddedResource Include="Forms\TeacherForm.resx">
       <DependentUpon>TeacherForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -127,15 +140,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatClient\ChatClient.csproj">
-      <Project>{c8db1f3b-3e30-409b-8ff1-d43543befe73}</Project>
-      <Name>ChatClient</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataTextFiles\userData.txt" />
-    <Content Include="DataTextFiles\subjectsData.txt" />
-    <Content Include="DataTextFiles\teacherSubjectsData.txt" />
+    <Content Include="Data\userData.txt" />
+    <Content Include="Data\subjectsData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -73,7 +73,7 @@ namespace App
 
         private void TeacherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Form form in Application.OpenForms)
+            foreach (Form form in System.Windows.Forms.Application.OpenForms)
             {
                 ///TODO
                 //for some reasons the returned form name is MainFrom instead of MainForm
@@ -87,8 +87,8 @@ namespace App
 
             if (dataChanged)
             {
+                DataManager.UpdateTeacherInfo(teacher);
                 Console.WriteLine("Saving data");
-                TextFileClass.WriteTeacherSubjects(teacher.SubjectsList, teacher.UserName);
             }
         }
 
