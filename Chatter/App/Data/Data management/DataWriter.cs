@@ -31,7 +31,20 @@ namespace App
         {
             profession = pr;
         }
+        public User ReturnUser()
+        {
+            User user;
+            if (profession.Equals("student"))
+            {
+                user = new Student(Encryptor.Encrypt(nick), Encryptor.Encrypt(password));
+            }
+            else
+            {
+                user = new Teacher(Encryptor.Encrypt(nick), Encryptor.Encrypt(password));
+            }
 
+            return user;
+        }
         public void Write()
         {
             commandText ="INSERT INTO [dbo].[Table]([nick],[password],[profession]) VALUES(@nick, @password, @profession)";

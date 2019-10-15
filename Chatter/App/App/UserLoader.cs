@@ -17,8 +17,9 @@ namespace App.App
         //If user is not registerd in database, builder returns null
         public void LoadUser(string userName, string password, string userType)
         {
-            User user = Builder.LoadUser(userType, userName, password);
+          //  User user = Builder.LoadUser(userType, userName, password);
             DataWriter check = new DataWriter(userName, password, userType);
+            User user = check.ReturnUser();
 
                 if (userType.Equals("student"))
                 {

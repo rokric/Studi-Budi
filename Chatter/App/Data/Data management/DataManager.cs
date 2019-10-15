@@ -24,32 +24,7 @@ namespace App
             return check.IsLoginAccepted();
         }
         // +
-        public static string FindUser(string userName, string password)
-        {
-            string jsonValue = "";
-
-            userName = Encryptor.Encrypt(userName);
-            password = Encryptor.Encrypt(password);
-
-            using (StreamReader file = new StreamReader(filePath + registrationDataFileName))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains("\"UserName\":" + "\"" + userName + "\"") &&
-                        line.Contains("\"Password\":" + "\"" + password + "\""))
-                    {
-                        jsonValue = line;
-                        break;
-                    }
-                }
-                file.Close();
-            }
-
-            return jsonValue;
-        }
-        // -
+  
         public static bool CheckIfUserNameIsAvailable(string userName)
         {
             userName = Encryptor.Encrypt(userName);

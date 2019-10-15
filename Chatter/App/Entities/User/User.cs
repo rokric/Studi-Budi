@@ -14,7 +14,6 @@ namespace App
     {
 
         //constructor arguments are encrypted password and username
-        [JsonConstructor]
         public User(string userName, string password)
         {
             this.UserName = userName;

@@ -10,25 +10,7 @@ namespace App
 {
     public static class Builder
     {
-        public static User LoadUser(string userType, string userName, string password)
-        {
-            DataWriter check = new DataWriter(userName,password,userType);
-
-            string jsonValue = DataManager.FindUser(userName, password);
-
-            if (!jsonValue.Equals(""))
-            {
-                if (check.profession == "student")
-                {
-                    return JsonConvert.DeserializeObject<Student>(jsonValue);
-                }
-                else if (check.profession == "teacher")
-                {
-                    return JsonConvert.DeserializeObject<Teacher>(jsonValue);
-                }
-            }
-            return null;
-        }
+        
 
         public static void CreateUser(string userType, string userName, string password)
         {
