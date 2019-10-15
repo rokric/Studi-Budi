@@ -36,6 +36,7 @@
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.connectButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,12 +120,23 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Subject:";
             // 
+            // connectButton
+            // 
+            this.connectButton.Location = new System.Drawing.Point(23, 381);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(123, 56);
+            this.connectButton.TabIndex = 4;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
+            // 
             // TeacherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkKhaki;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.connectButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.subjectsList);
             this.Controls.Add(this.deleteCourse);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox subjectsBox;
+        private System.Windows.Forms.Button connectButton;
     }
 }

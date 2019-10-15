@@ -132,5 +132,11 @@ namespace App
                 }
             }
         }
+
+        private void ConnectButton_Click(object sender, EventArgs e)
+        {
+            ChatForm chatForm = new ChatForm(teacher, "");
+            chatForm.Show();
+        }
     }
 }
