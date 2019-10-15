@@ -17,6 +17,7 @@ namespace App
         string commandText;
         string commandText2;
 
+        #region Constructors
         public DataWriter(string n)
         {
             nick =n;
@@ -31,6 +32,7 @@ namespace App
         {
             profession = pr;
         }
+        #endregion
         public User ReturnUser()
         {
             User user;
@@ -51,26 +53,14 @@ namespace App
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand(commandText, conn);
-               
+                using (SqlCommand command = new SqlCommand(commandText, conn))
+                {
                     command.Parameters.AddWithValue("@nick", nick);
                     command.Parameters.AddWithValue("@password", password);
                     command.Parameters.AddWithValue("@profession", profession);
                     command.ExecuteNonQuery();
+                }
             }
-        }
-        public void Read()
-        {
-            Console.WriteLine(IsServerConnected());
-            commandText = "SELECT [nick],[password],[profession] FROM [dbo].[Table]";
-            using (var conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand(commandText, conn);
-
-                command.ExecuteNonQuery();
-            }
-            Console.WriteLine(IsServerConnected());
         }
         public bool IsNickAvailable()
         {
@@ -97,19 +87,10 @@ namespace App
                 SqlCommand command = new SqlCommand(commandText, conn);
                 SqlCommand command2 = new SqlCommand(commandText2, conn);
                 command.ExecuteNonQuery();
-                if (command.ExecuteScalar() == null)
-                {
-                    Console.WriteLine("blogai1");
-                    return false;
-                }
-                   
+                if (command.ExecuteScalar() == null) return false;
+                       
                 if (password==command.ExecuteScalar().ToString())
-                {
-                    if (profession == command2.ExecuteScalar().ToString())
-                    {
-                        return true;
-                    }
-                }
+                    if (profession == command2.ExecuteScalar().ToString()) return true;
                 return false;
             }
         }
