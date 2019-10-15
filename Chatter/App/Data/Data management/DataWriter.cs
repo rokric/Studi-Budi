@@ -9,64 +9,111 @@ namespace App
 {
     public class DataWriter
     {
-        public void write()
+        public string nick { get; set; }
+        public string password { get; set; }
+        public string profession { get; set; }
+
+        string connStr = "Data Source=studibudi.database.windows.net;Initial Catalog=Studi-Budi;Persist Security Info=True;User ID=studibudi;Password=Budistudi123";
+        string commandText;
+        string commandText2;
+
+        public DataWriter(string n)
         {
+            nick =n;
+        }
+        public DataWriter(string n, string p )
+            : this(n)
+        {
+             password = p;
+        }
+        public DataWriter(string n, string p, string pr)
+             : this(n,p)
+        {
+            profession = pr;
+        }
 
-            string connStr = "Data Source=studibudi.database.windows.net;Initial Catalog=Studi-Budi;Persist Security Info=True;User ID=studibudi;Password=Budistudi123";
-
+        public void Write()
+        {
+            commandText ="INSERT INTO [dbo].[Table]([nick],[password],[profession]) VALUES(@nick, @password, @profession)";
             using (var conn = new SqlConnection(connStr))
             {
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = @"
-                    INSERT INTO Table(nick,password,profession)
-                    VALUES(@nick, @password, @profession)";
-                    command.Parameters.AddWithValue("@nick", "smth");
-                    command.Parameters.AddWithValue("@password", "smth");
-                    command.Parameters.AddWithValue("@profession", 0);
-
-                    conn.Open();
-                }
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+               
+                    command.Parameters.AddWithValue("@nick", nick);
+                    command.Parameters.AddWithValue("@password", password);
+                    command.Parameters.AddWithValue("@profession", profession);
+                    command.ExecuteNonQuery();
             }
         }
-        public void read() { }
-            /*
-             <appSettings>
-                  <add key="provider" value="System.Data.SqlClient"/>
-
-                  <add key ="connectionString" value="Data Source=studibudi.database.windows.net;Initial Catalog=Studi-Budi;Persist Security Info=True;User ID=studibudi;Password=***********"/>
-             </appSettings>
-  */
-            /*
-            string provider = ConfigurationManager.AppSettings
-                ["provider"];
-            string connectionString = ConfigurationManager.AppSettings
-                ["connectionString"];
-            DbProviderFactory factory =
-                DbProviderFactories.GetFactory(provider);
-
-            using (DbConnection connection =
-                factory.CreateConnection())
+        public void Read()
+        {
+            Console.WriteLine(IsServerConnected());
+            commandText = "SELECT [nick],[password],[profession] FROM [dbo].[Table]";
+            using (var conn = new SqlConnection(connStr))
             {
-                if(connection==null)
-                {
-                    //somethin eroro
-                }
-                connection.ConnectionString = connectionString;
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
 
-                connection.Open();
-
-                DbCommand command = factory.CreateCommand();
-
-                if(command==null )
-                {
-                    //somethin eroro
-                }
-                command.Connection = connection;
-                command.CommandText = ""
-
+                command.ExecuteNonQuery();
             }
-            */
-
+            Console.WriteLine(IsServerConnected());
+        }
+        public bool IsNickAvailable()
+        {
+            string commandText = string.Format("SELECT [nick] FROM [dbo].[Table] WHERE [nick]='{0}'",nick);
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.ExecuteNonQuery();
+                if (command.ExecuteScalar() == null)
+                {
+                    return true;
+                }
+                else return false;
+            }
+        }
+        public bool IsLoginAccepted()
+        {
+            commandText = string.Format("SELECT [password]    FROM [dbo].[Table] WHERE [nick]='{0}'", nick);      
+            commandText2 = string.Format("SELECT [profession] FROM [dbo].[Table] WHERE [nick]='{0}'", nick);      
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                SqlCommand command2 = new SqlCommand(commandText2, conn);
+                command.ExecuteNonQuery();
+                if (command.ExecuteScalar() == null)
+                {
+                    Console.WriteLine("blogai1");
+                    return false;
+                }
+                   
+                if (password==command.ExecuteScalar().ToString())
+                {
+                    if (profession == command2.ExecuteScalar().ToString())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        public bool IsServerConnected()
+            {
+                using (var l_oConnection = new SqlConnection(connStr))
+                {
+                    try
+                    {
+                        l_oConnection.Open();
+                        return true;
+                    }
+                    catch (SqlException)
+                    {
+                        return false;
+                    }
+                }
+            }
     }
 }

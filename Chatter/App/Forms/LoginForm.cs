@@ -24,17 +24,17 @@ namespace App
         #region Events
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            if(loginValidator.IsCorrect(nicknameText.Text, passwordText.Text))
+            if(loginValidator.IsCorrect(nicknameText.Text, passwordText.Text, (string)userTypeBox.SelectedItem))
             {
                 UserLoader userLoader = new UserLoader();
-                userLoader.LoadUser(nicknameText.Text, passwordText.Text, (String)userTypeBox.SelectedItem);
+                userLoader.LoadUser(nicknameText.Text, passwordText.Text, (string)userTypeBox.SelectedItem);
                 Dispose();
             }
             else
             {
-                this.nicknameText.Text = "";
-                this.passwordText.Text = "";
-                this.versionLabel.Text = "BAD DATA ENTERED";
+                nicknameText.Text = "";
+                passwordText.Text = "";
+                versionLabel.Text = "BAD DATA ENTERED";
                 Timer timer = new Timer()
                 {
                     Interval = 2000,
@@ -42,7 +42,7 @@ namespace App
                 };
 
                 timer.Tick += (tsender, ev) => {
-                    this.versionLabel.Text = "Version v1.1";
+                    versionLabel.Text = "Version v1.1";
 
                     timer.Dispose();
                 };

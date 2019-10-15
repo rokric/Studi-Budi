@@ -18,9 +18,9 @@ namespace App.App
     public class LoginValidator : Validator, ILogin
     {
 
-        public bool IsCorrect(string userName, string password)
+        public bool IsCorrect(string userName, string password, string profession)
         {
-            return DataManager.IsLoginAccepted(userName, password);
+            return DataManager.IsLoginAccepted(userName, password, profession);
         }
     }
 

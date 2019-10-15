@@ -16,33 +16,14 @@ namespace App
         private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
         private static string conversationsFileName = "\\Data\\Text Files\\conversations.txt";
 
-        public static bool IsLoginAccepted(string userName, string password)
+        public static bool IsLoginAccepted(string userName, string password, string profession)
         {
-            bool found = false;
-
             userName = Encryptor.Encrypt(userName);
             password = Encryptor.Encrypt(password);
-
-            using (StreamReader file = new StreamReader(filePath + registrationDataFileName))
-            {
-                string line;
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains("\"UserName\":" + "\"" + userName + "\"") &&
-                        line.Contains("\"Password\":" + "\"" + password + "\""))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                file.Close();
-            }
-
-            return found;
+            DataWriter check = new DataWriter(userName, password, profession);
+            return check.IsLoginAccepted();
         }
-
-
-
+        // +
         public static string FindUser(string userName, string password)
         {
             string jsonValue = "";
@@ -68,48 +49,22 @@ namespace App
 
             return jsonValue;
         }
-
+        // -
         public static bool CheckIfUserNameIsAvailable(string userName)
         {
-            bool found = true;
-
             userName = Encryptor.Encrypt(userName);
-
-            using (StreamReader file = new StreamReader(filePath + registrationDataFileName))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains("\"UserName\":\"" + userName + "\""))
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                file.Close();
-            }
-
-            return found;
+            DataWriter check = new DataWriter(userName);
+            return check.IsNickAvailable();
         }
-
-        public static void AddData(string data)
+        // +
+        public static void AddData(string nick, string password, string profession)
         {
-          /*  DataWriter writer = new DataWriter();
-            writer.write();*/
-            try
-            {
-                using (StreamWriter file = new StreamWriter(filePath + registrationDataFileName, true))
-                {
-                    file.WriteLine(data);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error with a text file: ", ex);
-            }
+            nick = Encryptor.Encrypt(nick);
+            password = Encryptor.Encrypt(password);
+            DataWriter writer = new DataWriter(nick, password, profession);
+            writer.Write();    
         }
-
+        // +
         public static List<string> ReadSubjects()
         {
             List<string> subjects = new List<string>();
@@ -127,7 +82,7 @@ namespace App
 
             return subjects;
         }
-
+        //-
         public static List<string> LoadTeachers()
         {
             List<String> teachersListJson = new List<String>();
@@ -148,7 +103,7 @@ namespace App
 
             return teachersListJson;
         }
-
+        //-
         //when teacher subject is changed, that teacher line in file is replaced
         public static void UpdateTeacherInfo(Teacher user)
         {
@@ -178,5 +133,6 @@ namespace App
                 throw new ApplicationException("Error with a text file: ", ex);
             }
         }
+        //-
     }
 }

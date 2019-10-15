@@ -8,6 +8,6 @@ namespace App.App
 {
     public interface ILogin
     {
-        bool IsCorrect(string userName, string password);
+        bool IsCorrect(string userName, string password, string profession);
     }
 }
