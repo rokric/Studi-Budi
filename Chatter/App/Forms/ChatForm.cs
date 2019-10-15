@@ -13,12 +13,12 @@ namespace App
         private IConversation conversation;
         private string userName;
 
-        public ChatForm(IUser user)
+        public ChatForm(IUser user, string teacherName)
         {
             InitializeComponent();
-            conversation = new Conversation(user, PrintMessage);
+            conversation = new Conversation(user, PrintMessage, teacherName);
             conversation.ConnectToServer();
-            Text = userName;
+            Text = user.GetDecryptedUserName();
             messageTextBox.Focus();
         }
 

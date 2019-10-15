@@ -14,20 +14,23 @@ namespace App.App
         private NetworkStream serverStream = default;
         private string readData = null;
         private IUser user;
+        private string teacherName;
         private Action<string> PrintMessage;
 
-        public Conversation(IUser user, Action<string> PrintMessage) 
+        public Conversation(IUser user, Action<string> PrintMessage, string teacherName) 
         {
             this.user = user;
+            this.teacherName = teacherName;
             this.PrintMessage = PrintMessage;
         }
+
 
         public void ConnectToServer()
         {
             clientSocket.Connect("localhost", 8888);
             serverStream = clientSocket.GetStream();
 
-            byte[] outStream = Encoding.ASCII.GetBytes(user.GetDecryptedUserName() + "$");
+            byte[] outStream = Encoding.ASCII.GetBytes(user.GetDecryptedUserName()+":"+teacherName + "$");
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
 

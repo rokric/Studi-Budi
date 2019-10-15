@@ -14,6 +14,7 @@ namespace App
         private static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private static string registrationDataFileName = "\\Data\\Text Files\\userData.txt";
         private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
+        private static string conversationsFileName = "\\Data\\Text Files\\conversations.txt";
 
         public static bool IsLoginAccepted(string userName, string password)
         {

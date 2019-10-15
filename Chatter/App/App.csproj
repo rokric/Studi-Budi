@@ -151,5 +151,11 @@
     <Content Include="Data\Text Files\userData.txt" />
     <Content Include="Data\Text Files\subjectsData.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatServer\ChatServer.csproj">
+      <Project>{5cf8e483-4db8-457a-b43c-72d91eb03cd9}</Project>
+      <Name>ChatServer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
