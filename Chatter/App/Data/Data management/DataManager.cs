@@ -16,6 +16,7 @@ namespace App
         private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
         private static string conversationsFileName = "\\Data\\Text Files\\conversations.txt";
 
+        #region Done Methods
         public static bool IsLoginAccepted(string userName, string password, string profession)
         {
             userName = Encryptor.Encrypt(userName);
@@ -24,7 +25,6 @@ namespace App
             return check.IsLoginAccepted();
         }
         // +
-  
         public static bool CheckIfUserNameIsAvailable(string userName)
         {
             userName = Encryptor.Encrypt(userName);
@@ -40,6 +40,8 @@ namespace App
             writer.Write();    
         }
         // +
+        #endregion
+        #region Not Done Methods
         public static List<string> ReadSubjects()
         {
             List<string> subjects = new List<string>();
@@ -109,5 +111,6 @@ namespace App
             }
         }
         //-
+        #endregion
     }
 }
