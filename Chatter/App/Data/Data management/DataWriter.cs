@@ -18,6 +18,9 @@ namespace App
         string commandText2;
 
         #region Constructors
+        public DataWriter()
+        {
+        }
         public DataWriter(string n)
         {
             nick =n;
@@ -33,6 +36,46 @@ namespace App
             profession = pr;
         }
         #endregion
+        public void InsertSubject(string title)// insert new subject into [teacher subject] table
+        {
+            //get userid by user nick
+            // get user
+            commandText = "INSERT INTO [dbo].[teacher subject]([userid],[subjectid]) VALUES(@userid, @subjectid)";
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(commandText, conn))
+                {
+                    command.Parameters.AddWithValue("@userid", );
+                    command.Parameters.AddWithValue("@subjectid", password);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public List<string> GetSubjects()// get subjects list from 
+        {
+            List<string> subjects = new List<string>();
+            string commandText ="SELECT [title] FROM [dbo].[subjects]";
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.ExecuteNonQuery();
+            }
+            return subjects;
+        }
+        public List<string> GetTeachers()// get teachers list
+        {
+            List<string> subjects = new List<string>();
+            string commandText = "SELECT [title] FROM [dbo].[subjects]";
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.ExecuteNonQuery();
+            }
+            return subjects;
+        }
         public User ReturnUser()
         {
             User user;

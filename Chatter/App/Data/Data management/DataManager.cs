@@ -45,18 +45,8 @@ namespace App
         public static List<string> ReadSubjects()
         {
             List<string> subjects = new List<string>();
-
-            using (StreamReader file = new StreamReader(filePath + subjectsFileName))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    subjects.Add(line);
-                }
-                file.Close();
-            }
-
+            DataWriter check = new DataWriter();
+            check.GetSubjects();
             return subjects;
         }
         //-
@@ -64,51 +54,17 @@ namespace App
         {
             List<String> teachersListJson = new List<String>();
 
-            using (StreamReader file = new StreamReader(filePath + registrationDataFileName))
-            {
-                string line;
-
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains("\"Type\":" + "\"teacher\""))
-                    {
-                        teachersListJson.Add(line);
-                    }
-                }
-                file.Close();
-            }
+            DataWriter check = new DataWriter();
+            check.GetTeachers();
 
             return teachersListJson;
         }
         //-
         //when teacher subject is changed, that teacher line in file is replaced
-        public static void UpdateTeacherInfo(Teacher user)
+        public static void UpdateTeacherInfo(string title, string nick)
         {
-            try
-            {
-                string[] text = File.ReadAllLines(filePath + registrationDataFileName);
-                File.Delete(filePath + registrationDataFileName);
-
-                using (StreamWriter writer = new StreamWriter(filePath + registrationDataFileName, true))
-                {
-                    foreach (string line in text)
-                    {
-                        if (line.Contains("\"UserName\":\"" + user.UserName + "\""))
-                        {
-                            string json = JsonConvert.SerializeObject(user);
-                            writer.WriteLine(json);
-                        }
-                        else
-                        {
-                            writer.WriteLine(line);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Error with a text file: ", ex);
-            }
+            DataWriter check = new DataWriter(nick);
+            check.InsertSubject(title);
         }
         //-
         #endregion

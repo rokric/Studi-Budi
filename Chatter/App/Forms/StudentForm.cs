@@ -20,7 +20,9 @@ namespace App
         {
             this.user = user;
             InitializeComponent();
-            subjectBox.Items.AddRange(Builder.CreateSubjects().ToArray());
+          //  subjectBox.Items.AddRange(Builder.CreateSubjects().ToArray());
+            subjectBox.Items.AddRange(DataManager.ReadSubjects().ToArray());
+            
         }
 
         private void StartButton_Click(object sender, EventArgs e)

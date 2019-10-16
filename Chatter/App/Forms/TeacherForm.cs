@@ -18,7 +18,8 @@ namespace App
         {
             this.teacher = teacher;
             InitializeComponent();
-            subjectsBox.Items.AddRange(Builder.CreateSubjects().ToArray());
+         //   subjectsBox.Items.AddRange(Builder.CreateSubjects().ToArray());
+            subjectsBox.Items.AddRange(DataManager.ReadSubjects().ToArray());
         }
 
         private void AddCourse_Click(object sender, EventArgs e)

@@ -25,10 +25,5 @@ namespace App
                 DataManager.AddData(userName, password, userType);//TODO-> sends encrypted nick, password and profession boolean is true (is teacher)
             }
         }
-
-        public static List<string> CreateSubjects()
-        {
-            return DataManager.ReadSubjects();
-        }
     }
 }
