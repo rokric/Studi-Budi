@@ -14,6 +14,10 @@ namespace App
     {
 
         //constructor arguments are encrypted password and username
+        public User(string userName)
+        {
+            this.UserName = userName;
+        }
         public User(string userName, string password)
         {
             this.UserName = userName;

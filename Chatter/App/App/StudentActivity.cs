@@ -19,9 +19,13 @@ namespace App.App
 
         private void LoadTeachers()
         {
-            foreach(string jsonValue in DataManager.LoadTeachers())
+          /*  foreach (Teacher teacher in DataManager.LoadTeachers())
+                Teachers.Add(teacher);
+          */
+            foreach (string userNick in DataManager.LoadTeachers())
             {
-                Teachers.Add(JsonConvert.DeserializeObject<Teacher>(jsonValue));
+                Teacher t=new Teacher(Encryptor.Encrypt(userNick)/*, Encryptor.Encrypt(password)*/);
+                Teachers.Add(t);
             }
         }
 

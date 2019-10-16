@@ -44,29 +44,23 @@ namespace App
         #region Not Done Methods
         public static List<string> ReadSubjects()
         {
-            List<string> subjects = new List<string>();
             DataWriter check = new DataWriter();
-            check.GetSubjects();
-            return subjects;
+            return check.GetSubjects();
         }
-        //-
+        //+
         public static List<string> LoadTeachers()
         {
-            List<String> teachersListJson = new List<String>();
-
             DataWriter check = new DataWriter();
-            check.GetTeachers();
-
-            return teachersListJson;
+            return  check.GetTeachers();
         }
         //-
         //when teacher subject is changed, that teacher line in file is replaced
         public static void UpdateTeacherInfo(string title, string nick)
         {
-            DataWriter check = new DataWriter(nick);
+            DataWriter check = new DataWriter(Encryptor.Encrypt(nick));
             check.InsertSubject(title);
         }
-        //-
+        //+
         #endregion
     }
 }

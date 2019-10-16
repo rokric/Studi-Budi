@@ -12,13 +12,15 @@ namespace App
 {
     public partial class TeacherForm : Form
     {
+        string nick;
+        string Pav { get; set; }
         private Teacher teacher;
         private bool dataChanged = false;
-        public TeacherForm(Teacher teacher)
+        public TeacherForm(Teacher teacher, string userName)
         {
+            nick = userName;
             this.teacher = teacher;
             InitializeComponent();
-         //   subjectsBox.Items.AddRange(Builder.CreateSubjects().ToArray());
             subjectsBox.Items.AddRange(DataManager.ReadSubjects().ToArray());
         }
 
@@ -28,6 +30,7 @@ namespace App
             {
                 string name, description;
                 GetData(out name, out description);
+                Pav = name;
                 Subject subject = new Subject(name, description);
                 teacher.SubjectsList.Add(subject);    
                 subjectsList.Items.Add(subject.title);
@@ -88,7 +91,7 @@ namespace App
 
             if (dataChanged)
             {
-                DataManager.UpdateTeacherInfo(teacher);
+                DataManager.UpdateTeacherInfo(Pav,nick);
                 Console.WriteLine("Saving data");
             }
         }

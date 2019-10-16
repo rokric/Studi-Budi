@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace App
 {
@@ -38,41 +39,79 @@ namespace App
         #endregion
         public void InsertSubject(string title)// insert new subject into [teacher subject] table
         {
-            //get userid by user nick
-            // get user
-            commandText = "INSERT INTO [dbo].[teacher subject]([userid],[subjectid]) VALUES(@userid, @subjectid)";
+            string userid="",subjectid="";
+
+            //GetValue(userid,nick);
+            commandText = string.Format("SELECT [userid] FROM [dbo].[User] WHERE [nick]='{0}'", nick);
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.ExecuteNonQuery();
+                if (command.ExecuteScalar().ToString() != null)
+                {
+                    Console.WriteLine(command.ExecuteScalar().ToString()+ " userid");
+                    userid = command.ExecuteScalar().ToString();
+                }      
+            }
+           // GetValue(subjectid,title)
+             commandText = string.Format("SELECT [subjectid] FROM [dbo].[subject] WHERE [title]='{0}'", title);
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.ExecuteNonQuery();
+                if (command.ExecuteScalar().ToString() != null)
+                {
+                    Console.WriteLine(command.ExecuteScalar().ToString() + " subjectid");
+                    subjectid = command.ExecuteScalar().ToString();
+                }
+                subjectid = command.ExecuteScalar().ToString();
+            }
+
+            commandText = "INSERT INTO [dbo].[Teaching]([userid],[subjectid]) VALUES(@userid, @subjectid)";
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
                 using (SqlCommand command = new SqlCommand(commandText, conn))
                 {
-                    command.Parameters.AddWithValue("@userid", );
-                    command.Parameters.AddWithValue("@subjectid", password);
+                    command.Parameters.AddWithValue("@userid", userid);
+                    command.Parameters.AddWithValue("@subjectid", subjectid);
                     command.ExecuteNonQuery();
                 }
             }
         }
-        public List<string> GetSubjects()// get subjects list from 
+        
+        public List<string> GetSubjects() 
         {
             List<string> subjects = new List<string>();
-            string commandText ="SELECT [title] FROM [dbo].[subjects]";
+            string commandText = "SELECT [title] FROM [dbo].[Subject]";
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand(commandText, conn);
+                using(IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                        subjects.Add(dr[0].ToString());
+                }
                 command.ExecuteNonQuery();
             }
             return subjects;
         }
-        public List<string> GetTeachers()// get teachers list
+        public List<string> GetTeachers()
         {
             List<string> subjects = new List<string>();
-            string commandText = "SELECT [title] FROM [dbo].[subjects]";
+            string commandText = "SELECT [nick] FROM [dbo].[User] WHERE [profession]='teacher'";
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand(commandText, conn);
-                command.ExecuteNonQuery();
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                        subjects.Add(dr[0].ToString());
+                }
             }
             return subjects;
         }
@@ -92,7 +131,7 @@ namespace App
         }
         public void Write()
         {
-            commandText ="INSERT INTO [dbo].[Table]([nick],[password],[profession]) VALUES(@nick, @password, @profession)";
+            commandText ="INSERT INTO [dbo].[User]([nick],[password],[profession]) VALUES(@nick, @password, @profession)";
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -107,7 +146,7 @@ namespace App
         }
         public bool IsNickAvailable()
         {
-            string commandText = string.Format("SELECT [nick] FROM [dbo].[Table] WHERE [nick]='{0}'",nick);
+            string commandText = string.Format("SELECT [nick] FROM [dbo].[User] WHERE [nick]='{0}'",nick);
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -122,8 +161,8 @@ namespace App
         }
         public bool IsLoginAccepted()
         {
-            commandText = string.Format("SELECT [password]    FROM [dbo].[Table] WHERE [nick]='{0}'", nick);      
-            commandText2 = string.Format("SELECT [profession] FROM [dbo].[Table] WHERE [nick]='{0}'", nick);      
+            commandText = string.Format("SELECT [password]    FROM [dbo].[User] WHERE [nick]='{0}'", nick);      
+            commandText2 = string.Format("SELECT [profession] FROM [dbo].[User] WHERE [nick]='{0}'", nick);      
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();

@@ -9,7 +9,10 @@ namespace App
     public class Teacher : User
     {
         private List<Subject> subjectsList = new List<Subject>();
-
+        public Teacher (string userName) : base(userName)
+        {
+          
+        }
         public Teacher(string userName, string password) : base(userName, password)
         {
 

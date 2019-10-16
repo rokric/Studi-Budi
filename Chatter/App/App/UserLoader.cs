@@ -29,7 +29,7 @@ namespace App.App
                 }
                 else if (userType.Equals("teacher"))
                 {
-                    TeacherForm teacherForm = new TeacherForm((Teacher)user);
+                    TeacherForm teacherForm = new TeacherForm((Teacher)user,userName);
                     teacherForm.Show();
                     CloseMainForm();
                 }
