@@ -148,6 +148,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Text Files\connStr.txt" />
     <Content Include="Data\Text Files\userData.txt" />
     <Content Include="Data\Text Files\subjectsData.txt" />
   </ItemGroup>

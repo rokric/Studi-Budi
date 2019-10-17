@@ -11,7 +11,7 @@ namespace App
 {
     public static class DataManager
     {
-        private static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        public static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private static string registrationDataFileName = "\\Data\\Text Files\\userData.txt";
         private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
         private static string conversationsFileName = "\\Data\\Text Files\\conversations.txt";
@@ -40,8 +40,6 @@ namespace App
             writer.Write();    
         }
         // +
-        #endregion
-        #region Not Done Methods
         public static List<string> ReadSubjects()
         {
             DataWriter check = new DataWriter();

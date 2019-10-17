@@ -28,12 +28,13 @@ namespace App.App
                 Teachers.Add(t);
             }
         }
-
-        public List<Teacher> LoadTeachersBySubject(string subject)
+        //+
+        public List<string> LoadTeachersBySubject(string subject)
         {
-            List<Teacher> teachers = new List<Teacher>();
+            DataWriter cheker = new DataWriter();
+            return cheker.GetTeacherBySubject(subject);
 
-            foreach(Teacher teacher in Teachers)
+            /*foreach(Teacher teacher in Teachers)
             {
                 foreach(Subject sub in teacher.SubjectsList)
                 {
@@ -43,22 +44,26 @@ namespace App.App
                         break;
                     }
                 }
-            }
-
-            return teachers;
+            }*/
+            
         }
-
+        //-
         public List<string> LoadTeachersNameBySubject(string subject)
         {
-            List<Teacher> teachers = LoadTeachersBySubject(subject);
+            List<string> teachers = LoadTeachersBySubject(subject);
             List<string> teachersName = new List<string>();
 
-            foreach(Teacher teacher in teachers)
+            /* foreach(Teacher teacher in teachers)
+             {
+                 teachersName.Add(teacher.GetDecryptedUserName());
+             }*/
+            foreach (string teacher in teachers)
             {
-                teachersName.Add(teacher.GetDecryptedUserName());
+                teachersName.Add(Encryptor.Decrypt(teacher));
             }
 
             return teachersName;
         }
+        //-
     }
 }
