@@ -23,6 +23,8 @@ namespace App
         public DataWriter()
         {
         }
+
+        //paramaters: string n - encrypted username
         public DataWriter(string n)
         {
             nick =n;

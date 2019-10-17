@@ -11,10 +11,7 @@ namespace App
 {
     public static class DataManager
     {
-        public static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-        private static string registrationDataFileName = "\\Data\\Text Files\\userData.txt";
-        private static string subjectsFileName = "\\Data\\Text Files\\subjectsData.txt";
-        private static string conversationsFileName = "\\Data\\Text Files\\conversations.txt";
+        public static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         #region Done Methods
         public static bool IsLoginAccepted(string userName, string password, string profession)
@@ -55,7 +52,7 @@ namespace App
         //when teacher subject is changed, that teacher line in file is replaced
         public static void UpdateTeacherInfo(string title, string nick)
         {
-            DataWriter check = new DataWriter(Encryptor.Encrypt(nick));
+            DataWriter check = new DataWriter(nick);
             check.InsertSubject(title);
         }
 

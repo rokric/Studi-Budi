@@ -13,8 +13,8 @@ namespace App
         //test
         public Subject(string title, string description)
         {
-            this.Title = title;
-            this.Description = description;
+            Title = title;
+            Description = description;
         }
     }
 }

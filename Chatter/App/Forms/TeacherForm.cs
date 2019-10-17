@@ -12,13 +12,9 @@ namespace App
 {
     public partial class TeacherForm : Form
     {
-        string nick;
-        string Pav { get; set; }
         private Teacher teacher;
-        private bool dataChanged = false;
-        public TeacherForm(Teacher teacher, string userName)
+        public TeacherForm(Teacher teacher)
         {
-            nick = userName;
             this.teacher = teacher;
             InitializeComponent();
             subjectsBox.Items.AddRange(DataManager.ReadSubjects().ToArray());
@@ -30,11 +26,10 @@ namespace App
             {
                 string name, description;
                 GetData(out name, out description);
-                Pav = name;
                 Subject subject = new Subject(name, description);
                 teacher.SubjectsList.Add(subject);    
                 subjectsList.Items.Add(subject.Title);
-                dataChanged = true;
+                DataManager.UpdateTeacherInfo(subject.Title, teacher.UserName);
             }
             catch (ArgumentException argumentException)
             {
@@ -77,7 +72,7 @@ namespace App
 
         private void TeacherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Form form in System.Windows.Forms.Application.OpenForms)
+            foreach (Form form in Application.OpenForms)
             {
                 ///TODO
                 //for some reasons the returned form name is MainFrom instead of MainForm
@@ -87,12 +82,6 @@ namespace App
                     break;
                 }
 
-            }
-
-            if (dataChanged)
-            {
-                DataManager.UpdateTeacherInfo(Pav,nick);
-                Console.WriteLine("Saving data");
             }
         }
 
@@ -118,10 +107,10 @@ namespace App
             else
             {
                 RemoveSubjects();
-                dataChanged = true;
             }
         }
 
+        //TODO: database needs to be updated when subject is removed.
         private void RemoveSubjects()
         {
             foreach(ListViewItem subjectName in subjectsList.SelectedItems)
