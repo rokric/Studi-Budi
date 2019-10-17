@@ -11,11 +11,11 @@ namespace App
 {
     public class DataWriter
     {
-        public string nick { get; set; }
-        public string password { get; set; }
-        public string profession { get; set; }
+        public string Nick { get; set; }
+        public string Password { get; set; }
+        public string Profession { get; set; }
 
-        readonly string connStr = ( System.IO.File.ReadAllText(DataManager.filePath+"\\Data\\Text Files\\connStr.txt"));  
+        readonly string connStr = File.ReadAllText(DataManager.filePath+"\\Data\\Text Files\\connStr.txt");  
         string commandText;
         string commandText2;
 
@@ -23,19 +23,21 @@ namespace App
         public DataWriter()
         {
         }
+
+        //paramaters: string n - encrypted username
         public DataWriter(string n)
         {
-            nick =n;
+            Nick =n;
         }
         public DataWriter(string n, string p )
             : this(n)
         {
-             password = p;
+             Password = p;
         }
         public DataWriter(string n, string p, string pr)
              : this(n,p)
         {
-            profession = pr;
+            Profession = pr;
         }
         #endregion
         public List<string> GetTeacherBySubject(string subjectTitle)
@@ -46,13 +48,13 @@ namespace App
             return teachers;*/
             return GetNickByUserId(GetTeacherIdBySubject(GetSubjectIdByTitle(subjectTitle))); 
         }
-        private List<string> GetNickByUserId(List<int> teacherId)
+        private List<string> GetNickByUserId(List<int> usersId)
         {
             List<string> nick = new List<string>();
             string tempCmd= "SELECT [nick] FROM [dbo].[user] WHERE [userid]='{0}'";
-            foreach(int tch in teacherId)
+            foreach(int userId in usersId)
             {
-                commandText = string.Format(tempCmd, tch);
+                commandText = string.Format(tempCmd, userId);
                 using (var conn = new SqlConnection(connStr))
                 {
                     conn.Open();
@@ -118,7 +120,7 @@ namespace App
         }
         public void InsertSubject(string title)// insert new subject into [teacher subject] table
         {
-            string userid = GetUserIdByNick(nick);
+            string userid = GetUserIdByNick(Nick);
                 int subjectid= GetSubjectIdByTitle(title);
 
             commandText = "INSERT INTO [dbo].[Teaching]([userid],[subjectid]) VALUES(@userid, @subjectid)";
@@ -153,7 +155,7 @@ namespace App
         }
         public List<string> GetTeachers()
         {
-            List<string> subjects = new List<string>();
+            List<string> teachersNames = new List<string>();
             string commandText = "SELECT [nick] FROM [dbo].[User] WHERE [profession]='teacher'";
             using (var conn = new SqlConnection(connStr))
             {
@@ -162,21 +164,21 @@ namespace App
                 using (IDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
-                        subjects.Add(dr[0].ToString());
+                        teachersNames.Add(dr[0].ToString());
                 }
             }
-            return subjects;
+            return teachersNames;
         }
         public User ReturnUser()
         {
             User user;
-            if (profession.Equals("student"))
+            if (Profession.Equals("student"))
             {
-                user = new Student(Encryptor.Encrypt(nick), Encryptor.Encrypt(password));
+                user = new Student(Encryptor.Encrypt(Nick), Encryptor.Encrypt(Password));
             }
             else
             {
-                user = new Teacher(Encryptor.Encrypt(nick), Encryptor.Encrypt(password));
+                user = new Teacher(Encryptor.Encrypt(Nick), Encryptor.Encrypt(Password));
             }
 
             return user;
@@ -189,16 +191,16 @@ namespace App
                 conn.Open();
                 using (SqlCommand command = new SqlCommand(commandText, conn))
                 {
-                    command.Parameters.AddWithValue("@nick", nick);
-                    command.Parameters.AddWithValue("@password", password);
-                    command.Parameters.AddWithValue("@profession", profession);
+                    command.Parameters.AddWithValue("@nick", Nick);
+                    command.Parameters.AddWithValue("@password", Password);
+                    command.Parameters.AddWithValue("@profession", Profession);
                     command.ExecuteNonQuery();
                 }
             }
         }
         public bool IsNickAvailable()
         {
-            string commandText = string.Format("SELECT [nick] FROM [dbo].[User] WHERE [nick]='{0}'",nick);
+            string commandText = string.Format("SELECT [nick] FROM [dbo].[User] WHERE [nick]='{0}'",Nick);
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -213,8 +215,8 @@ namespace App
         }
         public bool IsLoginAccepted()
         {
-            commandText = string.Format("SELECT [password]    FROM [dbo].[User] WHERE [nick]='{0}'", nick);      
-            commandText2 = string.Format("SELECT [profession] FROM [dbo].[User] WHERE [nick]='{0}'", nick);      
+            commandText = string.Format("SELECT [password]    FROM [dbo].[User] WHERE [nick]='{0}'", Nick);      
+            commandText2 = string.Format("SELECT [profession] FROM [dbo].[User] WHERE [nick]='{0}'", Nick);      
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -223,11 +225,41 @@ namespace App
                 command.ExecuteNonQuery();
                 if (command.ExecuteScalar() == null) return false;
                        
-                if (password==command.ExecuteScalar().ToString())
-                    if (profession == command2.ExecuteScalar().ToString()) return true;
+                if (Password==command.ExecuteScalar().ToString())
+                    if (Profession == command2.ExecuteScalar().ToString()) return true;
                 return false;
             }
         }
+
+        //parameter: encrypted username
+        //returns all subjects titles from database by teacher's encrypted username
+        public List<string> GetSubjectsByTeacherName()
+        {
+            List<string> teacherSubjects = new List<string>();
+
+            string commandText = 
+                "SELECT [Subject].[title] FROM [dbo].[User], [dbo].[Teaching], [dbo].[Subject]" +
+                "WHERE [User].[nick] = @nick and [Teaching].[userid] = [User].[userid] " +
+                "and [Teaching].[subjectid] = [Subject].[subjectid]";
+
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.Parameters.AddWithValue("@nick", Nick);
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        teacherSubjects.Add(dr[0].ToString());
+                    }
+                      
+                }
+            }
+
+            return teacherSubjects;
+        }
+
         public bool IsServerConnected()
             {
                 using (var l_oConnection = new SqlConnection(connStr))

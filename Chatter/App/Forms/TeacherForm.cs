@@ -12,13 +12,9 @@ namespace App
 {
     public partial class TeacherForm : Form
     {
-        string nick;
-        string Pav { get; set; }
         private Teacher teacher;
-        private bool dataChanged = false;
-        public TeacherForm(Teacher teacher, string userName)
+        public TeacherForm(Teacher teacher)
         {
-            nick = userName;
             this.teacher = teacher;
             InitializeComponent();
             subjectsBox.Items.AddRange(DataManager.ReadSubjects().ToArray());
@@ -30,11 +26,10 @@ namespace App
             {
                 string name, description;
                 GetData(out name, out description);
-                Pav = name;
                 Subject subject = new Subject(name, description);
                 teacher.SubjectsList.Add(subject);    
-                subjectsList.Items.Add(subject.title);
-                dataChanged = true;
+                subjectsList.Items.Add(subject.Title);
+                DataManager.UpdateTeacherInfo(subject.Title, teacher.UserName);
             }
             catch (ArgumentException argumentException)
             {
@@ -55,7 +50,7 @@ namespace App
 
                 foreach(Subject subject in teacher.SubjectsList)
                 {
-                    if(subject.title == name)
+                    if(subject.Title == name)
                     {
                         throw new ArgumentException("This subject already exists in your profile!");
                     }
@@ -77,7 +72,7 @@ namespace App
 
         private void TeacherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Form form in System.Windows.Forms.Application.OpenForms)
+            foreach (Form form in Application.OpenForms)
             {
                 ///TODO
                 //for some reasons the returned form name is MainFrom instead of MainForm
@@ -88,19 +83,14 @@ namespace App
                 }
 
             }
-
-            if (dataChanged)
-            {
-                DataManager.UpdateTeacherInfo(Pav,nick);
-                Console.WriteLine("Saving data");
-            }
         }
 
         private void TeacherForm_Load(object sender, EventArgs e)
         {
-            foreach(Subject subject in teacher.SubjectsList)
+            
+            foreach(string subject in DataManager.GetSubjectsByTeacherName(teacher.UserName))
             {
-                subjectsList.Items.Add(subject.title);
+                subjectsList.Items.Add(subject);
             }
         }
 
@@ -117,19 +107,19 @@ namespace App
             else
             {
                 RemoveSubjects();
-                dataChanged = true;
             }
         }
 
+        //TODO: database needs to be updated when subject is removed.
         private void RemoveSubjects()
         {
             foreach(ListViewItem subjectName in subjectsList.SelectedItems)
             {
                 foreach (Subject subject in teacher.SubjectsList)
                 {
-                    if (subject.title == subjectName.Text)
+                    if (subject.Title == subjectName.Text)
                     {
-                        teacher.SubjectsList.Remove(new Subject(subject.title, subject.description));
+                        teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
                         subjectsList.Items.Remove(subjectName);
                         break;
                     }
