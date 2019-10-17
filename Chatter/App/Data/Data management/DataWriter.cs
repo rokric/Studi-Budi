@@ -251,7 +251,6 @@ namespace App
                 {
                     while (dr.Read())
                     {
-                        Console.WriteLine("data writer: " + dr[0].ToString());
                         teacherSubjects.Add(dr[0].ToString());
                     }
                       
