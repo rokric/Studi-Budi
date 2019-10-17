@@ -8,13 +8,13 @@ namespace App
 {
     public struct Subject
     {
-        public string title;
-        public string description;
+        public string Title { get; set; }
+        public string Description { get; set; }
         //test
         public Subject(string title, string description)
         {
-            this.title = title;
-            this.description = description;
+            this.Title = title;
+            this.Description = description;
         }
     }
 }

@@ -58,6 +58,12 @@ namespace App
             DataWriter check = new DataWriter(Encryptor.Encrypt(nick));
             check.InsertSubject(title);
         }
+
+        public static List<string> GetSubjectsByTeacherName(string name)
+        {
+            DataWriter dataWriter = new DataWriter(name);
+            return dataWriter.GetSubjectsByTeacherName();
+        }
         //+
         #endregion
     }

@@ -33,7 +33,7 @@ namespace App
                 Pav = name;
                 Subject subject = new Subject(name, description);
                 teacher.SubjectsList.Add(subject);    
-                subjectsList.Items.Add(subject.title);
+                subjectsList.Items.Add(subject.Title);
                 dataChanged = true;
             }
             catch (ArgumentException argumentException)
@@ -55,7 +55,7 @@ namespace App
 
                 foreach(Subject subject in teacher.SubjectsList)
                 {
-                    if(subject.title == name)
+                    if(subject.Title == name)
                     {
                         throw new ArgumentException("This subject already exists in your profile!");
                     }
@@ -98,9 +98,10 @@ namespace App
 
         private void TeacherForm_Load(object sender, EventArgs e)
         {
-            foreach(Subject subject in teacher.SubjectsList)
+            
+            foreach(string subject in DataManager.GetSubjectsByTeacherName(teacher.UserName))
             {
-                subjectsList.Items.Add(subject.title);
+                subjectsList.Items.Add(subject);
             }
         }
 
@@ -127,9 +128,9 @@ namespace App
             {
                 foreach (Subject subject in teacher.SubjectsList)
                 {
-                    if (subject.title == subjectName.Text)
+                    if (subject.Title == subjectName.Text)
                     {
-                        teacher.SubjectsList.Remove(new Subject(subject.title, subject.description));
+                        teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
                         subjectsList.Items.Remove(subjectName);
                         break;
                     }

@@ -153,7 +153,7 @@ namespace App
         }
         public List<string> GetTeachers()
         {
-            List<string> subjects = new List<string>();
+            List<string> teachersNames = new List<string>();
             string commandText = "SELECT [nick] FROM [dbo].[User] WHERE [profession]='teacher'";
             using (var conn = new SqlConnection(connStr))
             {
@@ -162,10 +162,10 @@ namespace App
                 using (IDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
-                        subjects.Add(dr[0].ToString());
+                        teachersNames.Add(dr[0].ToString());
                 }
             }
-            return subjects;
+            return teachersNames;
         }
         public User ReturnUser()
         {
@@ -228,6 +228,34 @@ namespace App
                 return false;
             }
         }
+
+        public List<string> GetSubjectsByTeacherName()
+        {
+            List<string> teacherSubjects = new List<string>();
+
+          string commandText = 
+                "SELECT [Subject].[title] FROM [dbo].[User], [dbo].[Teaching], [dbo].[Subject]" +
+                "WHERE [User].[nick] = @nick and [Teaching].[userid] = [User].[userid] " +
+                "and [Teaching].[subjectid] = [Subject].[subjectid]";
+
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.Parameters.AddWithValue("@nick", nick);
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Console.WriteLine("data writer: " + dr[0].ToString());
+                        teacherSubjects.Add(dr[0].ToString());
+                    }
+                      
+                }
+            }
+            return teacherSubjects;
+        }
+
         public bool IsServerConnected()
             {
                 using (var l_oConnection = new SqlConnection(connStr))
