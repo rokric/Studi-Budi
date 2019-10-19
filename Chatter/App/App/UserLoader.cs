@@ -18,10 +18,9 @@ namespace App.App
         public void LoadUser(string userName, string password, string userType)
         {
           //  User user = Builder.LoadUser(userType, userName, password);
-            DataWriter check = new DataWriter(userName, password, userType);
-            User user = check.ReturnUser();
+            User user = DataManager.ReturnUser(userName, password, userType);
 
-                if (userType.Equals("student"))
+            if (userType.Equals("student"))
                 {
                     StudentForm studentForm = new StudentForm((Student)user);
                     studentForm.Show();

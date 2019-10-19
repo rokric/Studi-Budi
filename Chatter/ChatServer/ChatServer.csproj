@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientHandler.cs" />
+    <Compile Include="Database\DataWriter.cs" />
+    <Compile Include="EncryptionClass.cs" />
     <Compile Include="PairHandler.cs" />
     <Compile Include="PairTalk.cs" />
     <Compile Include="Program.cs" />
@@ -56,6 +58,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\connStr.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

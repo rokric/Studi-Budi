@@ -6,22 +6,27 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.IO;
+using System.Reflection;
 
-namespace App
+namespace ChatServer
 {
     public class DataWriter
     {
+        private static Assembly assembly = typeof(DataWriter).GetTypeInfo().Assembly;
+        private static string filePath = Path.Combine(Path.GetFullPath(assembly.Location + @"..\\..\\..\\..\\..\\..\\.."),
+            @"Studi-Budi\\Chatter\\ChatServer\\Database\\connStr.txt");
         public string Nick { get; set; }
         public string Password { get; set; }
         public string Profession { get; set; }
 
-        readonly string connStr = File.ReadAllText(DataManager.filePath+"\\Data\\Text Files\\connStr.txt");  
+        private readonly string connStr = File.ReadAllText(filePath);  
         string commandText;
         string commandText2;
 
         #region Constructors
         public DataWriter()
         {
+
         }
 
         //paramaters: string n - encrypted username
@@ -169,20 +174,7 @@ namespace App
             }
             return teachersNames;
         }
-        public User ReturnUser()
-        {
-            User user;
-            if (Profession.Equals("student"))
-            {
-                user = new Student(Encryptor.Encrypt(Nick), Encryptor.Encrypt(Password));
-            }
-            else
-            {
-                user = new Teacher(Encryptor.Encrypt(Nick), Encryptor.Encrypt(Password));
-            }
-
-            return user;
-        }
+        
         public void Write()
         {
             commandText ="INSERT INTO [dbo].[User]([nick],[password],[profession]) VALUES(@nick, @password, @profession)";

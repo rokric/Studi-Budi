@@ -24,14 +24,14 @@ namespace App.App
           */
             foreach (string userNick in DataManager.LoadTeachers())
             {
-                Teacher t=new Teacher(Encryptor.Encrypt(userNick)/*, Encryptor.Encrypt(password)*/);
+                Teacher t=new Teacher(ChatServer.Encryptor.Encrypt(userNick)/*, Encryptor.Encrypt(password)*/);
                 Teachers.Add(t);
             }
         }
         //+
         public List<string> LoadTeachersBySubject(string subject)
         {
-            DataWriter cheker = new DataWriter();
+            ChatServer.DataWriter cheker = new ChatServer.DataWriter();
             return cheker.GetTeacherBySubject(subject);
 
             /*foreach(Teacher teacher in Teachers)
@@ -59,7 +59,7 @@ namespace App.App
              }*/
             foreach (string teacher in teachers)
             {
-                teachersName.Add(Encryptor.Decrypt(teacher));
+                teachersName.Add(ChatServer.Encryptor.Decrypt(teacher));
             }
 
             return teachersName;
