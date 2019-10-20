@@ -63,6 +63,7 @@ namespace ChatServer
                     PairHandler pairHandler = new PairHandler(
                         (TcpClient)clientsList[pair.ClientName1], pair.ClientName1,
                         (TcpClient)clientsList[pair.ClientName2], pair.ClientName2);
+                    BroadcastOldChat(pairHandler.OldChatHistory, pairHandler.Client1, pairHandler.Client2);
                     pairsHandler.Add(pairHandler);
 
                     clientsList.Remove(pair.ClientName1);
@@ -100,12 +101,12 @@ namespace ChatServer
         private void NotifyThatConversationStarted(PairHandler pair)
         {
             string message = "Conversation started between " + pair.ClientName1 + " and " + pair.ClientName2;
-            BroadcastInformationMessage(pair.Client1, message);
-            BroadcastInformationMessage(pair.Client2, message);
+            BroadcastMessage(pair.Client1, message);
+            BroadcastMessage(pair.Client2, message);
 
         }
 
-        private void BroadcastInformationMessage(TcpClient tcpClient, string message)
+        private void BroadcastMessage(TcpClient tcpClient, string message)
         {
             NetworkStream broadcastStream = tcpClient.GetStream();
             byte[] broadcastBytes = Encoding.ASCII.GetBytes(message);
@@ -135,20 +136,13 @@ namespace ChatServer
             }
         }
 
-        public static void BroadcastOldChat(string message, TcpClient client1, TcpClient client2)
+        public void BroadcastOldChat(List<string> messages, TcpClient client1, TcpClient client2)
         {
-
-            List<TcpClient> pair = new List<TcpClient>();
-            pair.Add(client1);
-            pair.Add(client2);
-
-            foreach (TcpClient tcpClient in pair)
+            foreach(string message in messages)
             {
-                NetworkStream broadcastStream = tcpClient.GetStream();
-                byte[] broadcastBytes = null;
-                broadcastBytes = Encoding.ASCII.GetBytes(message);
-                broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
-                broadcastStream.Flush();
+                BroadcastMessage(client1, message);
+                BroadcastMessage(client2, message);
+                Thread.Sleep(10); //without it messages are printed without breaklines
             }
         }
     }

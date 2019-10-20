@@ -55,22 +55,13 @@ namespace ChatServer
             handler1.StartClient(clientSocket1, clientSocket2, clientName1);
             handler2.StartClient(clientSocket2, clientSocket1, clientName2);
             LoadChatHistory();
-            BroadcastChatHistory();
-        }
-
-        private void BroadcastChatHistory()
-        {
-            foreach (string line in OldChatHistory)
-            {
-                Server.BroadcastOldChat(line, Client1, Client2);
-            }
         }
 
         private void LoadChatHistory()
         {
             DataWriter dataWriter = new DataWriter();
             int id1 = int.Parse(dataWriter.GetUserIdByNick(encryptedClientName1));
-            int id2 = int.Parse(dataWriter.GetUserIdByNick(encryptedClientName1));
+            int id2 = int.Parse(dataWriter.GetUserIdByNick(encryptedClientName2));
 
             foreach (string line in dataWriter.GetSavedChatHistory(id1, id2))
             {

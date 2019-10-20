@@ -67,8 +67,8 @@ namespace ChatServer
                         if(pairHandler.Connected == true)
                         {
                             Server.Broadcast(dataFromClient, clientName, clientSocket, clientSocketFriend);
+                            pairHandler.AddNewRecord(clientName + " : " + dataFromClient);
                         }
-                        pairHandler.AddNewRecord(clientName + " : " + dataFromClient);
                     }
                     
                 }
