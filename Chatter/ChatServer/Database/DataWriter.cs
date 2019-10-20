@@ -107,7 +107,7 @@ namespace ChatServer
             }
             return subjectid;
         }
-        private string GetUserIdByNick(string nick)
+        public string GetUserIdByNick(string nick)
         {
             string userid = "";
             commandText = string.Format("SELECT [userid] FROM [dbo].[User] WHERE [nick]='{0}'", nick);
@@ -208,7 +208,7 @@ namespace ChatServer
         public bool IsLoginAccepted()
         {
             commandText = string.Format("SELECT [password]    FROM [dbo].[User] WHERE [nick]='{0}'", Nick);      
-            commandText2 = string.Format("SELECT [profession] FROM [dbo].[User] WHERE [nick]='{0}'", Nick);      
+            commandText2 = string.Format("SELECT [profession] FROM [dbo].[User] WHERE [nick]='{0}'", Nick);
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -221,6 +221,7 @@ namespace ChatServer
                     if (Profession == command2.ExecuteScalar().ToString()) return true;
                 return false;
             }
+            return true;
         }
 
         //parameter: encrypted username
@@ -267,5 +268,55 @@ namespace ChatServer
                     }
                 }
             }
+
+        public List<string> GetSavedChatHistory(int id1, int id2)
+        {
+            List<string> chatHistory = new List<string>();
+
+            /*string commandText =
+                "SELECT [History].[text] FROM [dbo].[History]" +
+                "WHERE [History].[id1] = @id1 and [History].[id2] = @id2";
+
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(commandText, conn);
+                command.Parameters.AddWithValue("@id1", id1);
+                command.Parameters.AddWithValue("@id2", id2);
+
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        chatHistory.Add(dr[0].ToString());
+                    }
+
+                }
+            }*/
+
+            return chatHistory;
+            
+        }
+
+        public void UpdateChatHistory(int id1, int id2, List<string> chatHistory) 
+        {
+            /*using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                commandText = "INSERT INTO [dbo].[History]([id1],[id2],[line]) VALUES(@id1, @id2, @line)";
+                
+                using (SqlCommand command = new SqlCommand(commandText, conn))
+                {
+                    foreach (string line in chatHistory)
+                    {
+                        command.Parameters.AddWithValue("@line", line);
+                        command.Parameters.AddWithValue("@id1", id1);
+                        command.Parameters.AddWithValue("@id2", id2);
+                        command.ExecuteNonQuery();
+                    }
+                    
+                }
+            }*/
+        }
     }
 }

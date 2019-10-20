@@ -16,6 +16,8 @@ namespace App.App
         private IUser user;
         private string teacherName;
         private Action<string> PrintMessage;
+        private Thread clientThread;
+        private volatile bool connected;
 
         public Conversation(IUser user, Action<string> PrintMessage, string teacherName) 
         {
@@ -34,20 +36,30 @@ namespace App.App
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
 
-            Thread clientThread = new Thread(ReceiveMessage);
+            clientThread = new Thread(ReceiveMessage);
             clientThread.Start();
+            connected = true;
         }
 
         public void ReceiveMessage()
         {
-            while (true)
+            while (connected)
             {
-                serverStream = clientSocket.GetStream();
-                byte[] inStream = new byte[4096];
-                int bytesRead = serverStream.Read(inStream, 0, inStream.Length);
-                string returnData = Encoding.ASCII.GetString(inStream, 0, bytesRead);
-                readData = returnData;
-                PrintMessage(returnData);
+                try
+                {
+                    serverStream = clientSocket.GetStream();
+                    byte[] inStream = new byte[4096];
+                    int bytesRead = serverStream.Read(inStream, 0, inStream.Length);
+                    string returnData = Encoding.ASCII.GetString(inStream, 0, bytesRead);
+                    readData = returnData;
+                    PrintMessage(returnData);
+                }
+                catch (System.IO.IOException)
+                {
+                    connected = false;
+                    Console.WriteLine("Client [" + user.GetDecryptedUserName() + "] disconnected: unable to read data.");
+                }
+               
             }
         }
 
@@ -60,7 +72,8 @@ namespace App.App
 
         public void DisconnectFromServer()
         {
-            throw new NotImplementedException();
+            SendMessage("code:log out");
+            connected = false;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChatServer
@@ -13,6 +14,12 @@ namespace ChatServer
     {
         public Hashtable clientsList = new Hashtable();
         private List<PairTalk> pairs = new List<PairTalk>();
+        private List<PairHandler> pairsHandler = new List<PairHandler>();
+
+        public Server()
+        {
+
+        }
 
         public void Start()
         {
@@ -56,6 +63,10 @@ namespace ChatServer
                     PairHandler pairHandler = new PairHandler(
                         (TcpClient)clientsList[pair.ClientName1], pair.ClientName1,
                         (TcpClient)clientsList[pair.ClientName2], pair.ClientName2);
+                    pairsHandler.Add(pairHandler);
+
+                    clientsList.Remove(pair.ClientName1);
+                    clientsList.Remove(pair.ClientName2);
 
                     Console.WriteLine("Conversation started between " + pair.ClientName1 + " and " + pair.ClientName2);
                     NotifyThatConversationStarted(pairHandler);
@@ -102,7 +113,7 @@ namespace ChatServer
             broadcastStream.Flush();
         }
 
-        public void UpdatePairTalk(string client1, string client2)
+        private void UpdatePairTalk(string client1, string client2)
         {
             pairs.Add(new PairTalk(client1, client2));
         }
@@ -119,6 +130,23 @@ namespace ChatServer
                 NetworkStream broadcastStream = tcpClient.GetStream();
                 byte[] broadcastBytes = null;
                 broadcastBytes = Encoding.ASCII.GetBytes(userName + " : " + message);
+                broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
+                broadcastStream.Flush();
+            }
+        }
+
+        public static void BroadcastOldChat(string message, TcpClient client1, TcpClient client2)
+        {
+
+            List<TcpClient> pair = new List<TcpClient>();
+            pair.Add(client1);
+            pair.Add(client2);
+
+            foreach (TcpClient tcpClient in pair)
+            {
+                NetworkStream broadcastStream = tcpClient.GetStream();
+                byte[] broadcastBytes = null;
+                broadcastBytes = Encoding.ASCII.GetBytes(message);
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 broadcastStream.Flush();
             }
