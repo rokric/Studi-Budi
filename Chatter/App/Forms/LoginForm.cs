@@ -24,10 +24,10 @@ namespace App
         #region Events
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            if(loginValidator.IsCorrect(nicknameText.Text, passwordText.Text, (string)userTypeBox.SelectedItem))
+            if(loginValidator.IsCorrect(ChatServer.Encryptor.Encrypt(nicknameText.Text), ChatServer.Encryptor.Encrypt(passwordText.Text), (string)userTypeBox.SelectedItem))
             {
                 UserLoader userLoader = new UserLoader();
-                userLoader.LoadUser(nicknameText.Text, passwordText.Text, (string)userTypeBox.SelectedItem);
+                userLoader.LoadUser(ChatServer.Encryptor.Encrypt(nicknameText.Text), ChatServer.Encryptor.Encrypt(passwordText.Text), (string)userTypeBox.SelectedItem);
                 Dispose();
             }
             else

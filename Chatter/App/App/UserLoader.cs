@@ -17,21 +17,20 @@ namespace App.App
         //If user is not registerd in database, builder returns null
         public void LoadUser(string userName, string password, string userType)
         {
-          //  User user = Builder.LoadUser(userType, userName, password);
             User user = DataManager.ReturnUser(userName, password, userType);
 
             if (userType.Equals("student"))
-                {
-                    StudentForm studentForm = new StudentForm((Student)user);
-                    studentForm.Show();
-                    CloseMainForm();
-                }
-                else if (userType.Equals("teacher"))
-                {
-                    TeacherForm teacherForm = new TeacherForm((Teacher)user);
-                    teacherForm.Show();
-                    CloseMainForm();
-                }
+            {
+                StudentForm studentForm = new StudentForm((Student)user);
+                studentForm.Show();
+                CloseMainForm();
+            }
+            else if (userType.Equals("teacher"))
+            {
+                TeacherForm teacherForm = new TeacherForm((Teacher)user);
+                teacherForm.Show();
+                CloseMainForm();
+            }
         }
 
         private void CloseMainForm()
@@ -44,14 +43,6 @@ namespace App.App
                     break;
                 }
             }
-        }
-    }
-
-    public class UserRegistry
-    {
-        public void CreateUser(string userName, string password, string userType) 
-        {
-             Builder.CreateUser(userType, userName, password);
         }
     }
 }

@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace App
+namespace App.App
 {
-    public static class Builder
+    public class UserRegistry
     {
-        
-
-        public static void CreateUser(string userType, string userName, string password)
+        public void CreateUser(string userName, string password, string userType)
         {
             if (userType.Equals("student"))
             {
                 User user = new Student(userName, password);
-                DataManager.AddData(userName, password,userType); // TODO-> sends encrypted nick, password and profession boolean is false (not teacher)
+                DataManager.AddData(userName, password, userType); // TODO-> sends encrypted nick, password and profession boolean is false (not teacher)
             }
             else if (userType.Equals("teacher"))
             {
