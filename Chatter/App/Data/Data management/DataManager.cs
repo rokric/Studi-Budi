@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,52 +10,64 @@ namespace App
 {
     public static class DataManager
     {
-        public static string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-
         public static bool IsLoginAccepted(string userName, string password, string profession)
         {
-            userName = Encryptor.Encrypt(userName);
-            password = Encryptor.Encrypt(password);
-            DataWriter check = new DataWriter(userName, password, profession);
+            userName = ChatServer.Encryptor.Encrypt(userName);
+            password = ChatServer.Encryptor.Encrypt(password);
+            ChatServer.DataWriter check = new ChatServer.DataWriter(userName, password, profession);
             return check.IsLoginAccepted();
         }
  
         public static bool CheckIfUserNameIsAvailable(string userName)
         {
-            userName = Encryptor.Encrypt(userName);
-            DataWriter check = new DataWriter(userName);
+            userName = ChatServer.Encryptor.Encrypt(userName);
+            ChatServer.DataWriter check = new ChatServer.DataWriter(userName);
             return check.IsNickAvailable();
         }
-      
+
+        public static User ReturnUser(string userName, string password, string userType)
+        {
+            User user;
+            if (userType.Equals("student"))
+            {
+                user = new Student(ChatServer.Encryptor.Encrypt(userName), ChatServer.Encryptor.Encrypt(password));
+            }
+            else
+            {
+                user = new Teacher(ChatServer.Encryptor.Encrypt(userName), ChatServer.Encryptor.Encrypt(password));
+            }
+
+            return user;
+        }
         public static void AddData(string nick, string password, string profession)
         {
-            nick = Encryptor.Encrypt(nick);
-            password = Encryptor.Encrypt(password);
-            DataWriter writer = new DataWriter(nick, password, profession);
+            nick = ChatServer.Encryptor.Encrypt(nick);
+            password = ChatServer.Encryptor.Encrypt(password);
+            ChatServer.DataWriter writer = new ChatServer.DataWriter(nick, password, profession);
             writer.Write();    
         }
         
         public static List<string> ReadSubjects()
         {
-            DataWriter check = new DataWriter();
+            ChatServer.DataWriter check = new ChatServer.DataWriter();
             return check.GetSubjects();
         }
         
         public static List<string> LoadTeachers()
         {
-            DataWriter check = new DataWriter();
+            ChatServer.DataWriter check = new ChatServer.DataWriter();
             return  check.GetTeachers();
         }
         
         public static void UpdateTeacherInfo(string title, string nick)
         {
-            DataWriter check = new DataWriter(nick);
+            ChatServer.DataWriter check = new ChatServer.DataWriter(nick);
             check.InsertSubject(title);
         }
 
         public static List<string> GetSubjectsByTeacherName(string name)
         {
-            DataWriter dataWriter = new DataWriter(name);
+            ChatServer.DataWriter dataWriter = new ChatServer.DataWriter(name);
             return dataWriter.GetSubjectsByTeacherName();
         }
     }

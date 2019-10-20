@@ -52,5 +52,10 @@ namespace App
             }
 
         }
+
+        private void DisconnectButton_Click(object sender, EventArgs e)
+        {
+            conversation.DisconnectFromServer();
+        }
     }
 }

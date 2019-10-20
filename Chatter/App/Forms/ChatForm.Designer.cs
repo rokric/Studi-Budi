@@ -32,6 +32,7 @@
             this.chatTextBox = new System.Windows.Forms.TextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
+            this.disconnectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chatTextBox
@@ -64,11 +65,22 @@
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
+            // disconnectButton
+            // 
+            this.disconnectButton.Location = new System.Drawing.Point(516, 34);
+            this.disconnectButton.Name = "disconnectButton";
+            this.disconnectButton.Size = new System.Drawing.Size(101, 50);
+            this.disconnectButton.TabIndex = 6;
+            this.disconnectButton.Text = "disconnect";
+            this.disconnectButton.UseVisualStyleBackColor = true;
+            this.disconnectButton.Click += new System.EventHandler(this.DisconnectButton_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 418);
+            this.ClientSize = new System.Drawing.Size(629, 418);
+            this.Controls.Add(this.disconnectButton);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.chatTextBox);
@@ -85,6 +97,7 @@
         private System.Windows.Forms.TextBox chatTextBox;
         private System.Windows.Forms.TextBox messageTextBox;
         private System.Windows.Forms.Button sendButton;
+        private System.Windows.Forms.Button disconnectButton;
     }
 }
 
