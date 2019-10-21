@@ -37,10 +37,13 @@
             // 
             // chatTextBox
             // 
+            this.chatTextBox.BackColor = System.Drawing.Color.White;
             this.chatTextBox.Location = new System.Drawing.Point(73, 34);
             this.chatTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chatTextBox.Multiline = true;
             this.chatTextBox.Name = "chatTextBox";
+            this.chatTextBox.ReadOnly = true;
+            this.chatTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.chatTextBox.Size = new System.Drawing.Size(420, 244);
             this.chatTextBox.TabIndex = 3;
             // 

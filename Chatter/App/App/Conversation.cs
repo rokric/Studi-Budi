@@ -65,9 +65,12 @@ namespace App.App
 
         public void SendMessage(string message)
         {
-            byte[] outStream = Encoding.ASCII.GetBytes(message + "$");
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
+            if (!string.IsNullOrEmpty(message))
+            {
+                byte[] outStream = Encoding.ASCII.GetBytes(message + "$");
+                serverStream.Write(outStream, 0, outStream.Length);
+                serverStream.Flush();
+            }
         }
 
         public void DisconnectFromServer()

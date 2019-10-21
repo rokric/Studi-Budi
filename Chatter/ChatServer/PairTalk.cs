@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChatServer
 {
-    public class PairTalk
+    public class PairTalk : IEquatable<PairTalk>
     {
         public string ClientName1 { get; set; }
         public string ClientName2 { get; set; }
@@ -16,6 +16,16 @@ namespace ChatServer
         {
             ClientName1 = clientName1;
             ClientName2 = clientName2;
+        }
+
+        public bool Equals(PairTalk other)
+        {
+            if (ClientName1.Equals(other.ClientName1) && ClientName2.Equals(other.ClientName2))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace ChatServer
             this.clientSocket = clientSocket;
             this.clientSocketFriend = clientSocketFriend;
             this.clientName = clientName;
+
             clientThread = new Thread(DoChat);
             clientThread.Start();
         }

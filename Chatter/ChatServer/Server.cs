@@ -14,7 +14,6 @@ namespace ChatServer
     {
         public Hashtable clientsList = new Hashtable();
         private List<PairTalk> pairs = new List<PairTalk>();
-        private List<PairHandler> pairsHandler = new List<PairHandler>();
 
         public Server()
         {
@@ -64,10 +63,10 @@ namespace ChatServer
                         (TcpClient)clientsList[pair.ClientName1], pair.ClientName1,
                         (TcpClient)clientsList[pair.ClientName2], pair.ClientName2);
                     BroadcastOldChat(pairHandler.OldChatHistory, pairHandler.Client1, pairHandler.Client2);
-                    pairsHandler.Add(pairHandler);
 
                     clientsList.Remove(pair.ClientName1);
                     clientsList.Remove(pair.ClientName2);
+                    pairs.Remove(pair);
 
                     Console.WriteLine("Conversation started between " + pair.ClientName1 + " and " + pair.ClientName2);
                     NotifyThatConversationStarted(pairHandler);
@@ -116,7 +115,21 @@ namespace ChatServer
 
         private void UpdatePairTalk(string client1, string client2)
         {
-            pairs.Add(new PairTalk(client1, client2));
+            PairTalk pair = new PairTalk(client1, client2);
+            bool alreadyExist = false;
+            foreach(PairTalk pairTalk in pairs)
+            {
+                if(pair.Equals(pairTalk))
+                {
+                    alreadyExist = true;
+                    break;
+                }
+            }
+
+            if (!alreadyExist)
+            {
+                pairs.Add(new PairTalk(client1, client2));
+            }
         }
 
         public static void Broadcast(string message, string userName, TcpClient client1, TcpClient client2)
