@@ -1,0 +1,6 @@
+{"SubjectsList":[{"title":"Discrete Math","description":"fdsfd"},{"title":"Mathematics","description":"fdgfd"}],"Type":"teacher","UserName":"VuWUl0X3jM9BuVGUls9r2w==","Password":"VuWUl0X3jM9BuVGUls9r2w=="}
+{"Type":"student","UserName":"9tP9wQKTaqEhaMLFNkts1Q==","Password":"9tP9wQKTaqEhaMLFNkts1Q=="}
+{"SubjectsList":[],"Type":"teacher","UserName":"r7ATuwoENZruUub9Xb3/uw==","Password":"r7ATuwoENZruUub9Xb3/uw=="}
+{"SubjectsList":[],"Type":"teacher","UserName":"nN8FUaGwuJyo3eS8zPFIlQ==","Password":"mSRnoFfvZXMTGQi7YYzMcw=="}
+{"SubjectsList":[],"Type":"teacher","UserName":"zgL9BwhTzuQ6IxzYacZwjg==","Password":"zgL9BwhTzuQ6IxzYacZwjg=="}
+{"SubjectsList":[{"title":"Algorithms and Data Structures","description":"hgfjh"}],"Type":"teacher","UserName":"7ZxTq4fOFyPuMq3Ew+k8tA==","Password":"7ZxTq4fOFyPuMq3Ew+k8tA=="}
