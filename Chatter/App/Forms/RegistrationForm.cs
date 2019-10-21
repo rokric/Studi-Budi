@@ -40,7 +40,7 @@ namespace App
             if(registrationValidator.IsAccepted(nicknameText.Text, passwordText.Text, password2Text.Text))
             {
                 UserRegistry userRegistry = new UserRegistry();
-                userRegistry.CreateUser(nicknameText.Text, passwordText.Text, (string)userTypeBox.SelectedItem);
+                userRegistry.CreateUser(ChatServer.Encryptor.Encrypt(nicknameText.Text), ChatServer.Encryptor.Encrypt(passwordText.Text), (string)userTypeBox.SelectedItem);
                 Dispose();
             }
             else

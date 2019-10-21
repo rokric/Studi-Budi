@@ -47,7 +47,7 @@ namespace App.App
             {
                 message = "6 chars min";
             }
-            else if (!DataManager.CheckIfUserNameIsAvailable(userName))
+            else if (!DataManager.CheckIfUserNameIsAvailable(ChatServer.Encryptor.Encrypt(userName)))
             {
                 message = "user name is already taken";
             }
