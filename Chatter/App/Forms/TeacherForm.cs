@@ -122,7 +122,8 @@ namespace App
                         Console.WriteLine("zzzz");
                         DataManager.DeleteSubjects(subject.Title, teacher.UserName);
                         subjectsList.Items.Remove(subjectName);
-                        teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
+                        //teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
+                        teacher.SubjectsList.Remove(subject);
                         break;
                     }
                 }
