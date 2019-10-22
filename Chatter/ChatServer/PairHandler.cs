@@ -80,10 +80,10 @@ namespace ChatServer
             int id1 = int.Parse(dataWriter.GetUserIdByNick(encryptedClientName1));
             int id2 = int.Parse(dataWriter.GetUserIdByNick(encryptedClientName2));
 
-            if(newChatHistroy.Count < 10)
-            {
+            //if(newChatHistroy.Count < 10)
+           // {
                 dataWriter.UpdateChatHistory(id1, id2, NewChatHistory);
-            }
+            //}
         
         }
     }

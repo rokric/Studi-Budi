@@ -12,14 +12,19 @@ namespace ChatServer
 {
     public class DataWriter
     {
-        private static Assembly assembly = typeof(DataWriter).GetTypeInfo().Assembly;
-        private static string filePath = Path.Combine(Path.GetFullPath(assembly.Location + @"..\\..\\..\\..\\..\\..\\.."),
-            @"Studi-Budi\\Chatter\\ChatServer\\Database\\connStr.txt");
+        //private static Assembly assembly = typeof(DataWriter).GetTypeInfo().Assembly;
+        /*private static string filePath = Path.Combine(Path.GetFullPath(assembly.Location + @"..\\..\\..\\..\\..\\..\\.."),
+            @"Studi-Budi\\Chatter\\ChatServer\\Database\\connStr.txt");*/
+
+        private static string FilePath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName +
+             @"\ChatServer\Database\connStr.txt";
+
+
         public string Nick { get; set; }
         public string Password { get; set; }
         public string Profession { get; set; }
 
-        private readonly string connStr = File.ReadAllText(filePath);  
+        private readonly string connStr = File.ReadAllText(FilePath);  
         string commandText;
         string commandText2;
 
@@ -33,6 +38,7 @@ namespace ChatServer
         public DataWriter(string n)
         {
             Nick =n;
+            Console.WriteLine("File path: " + FilePath);
         }
         public DataWriter(string n, string p )
             : this(n)
