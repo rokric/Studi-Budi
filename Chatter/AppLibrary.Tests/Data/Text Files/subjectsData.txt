@@ -1,0 +1,7 @@
+﻿Discrete Math
+Mathematics
+Algorithm Theory
+Algorithms and Data Structures
+Computer Architecture
+Database Management System
+Mathematical Logic
