@@ -59,5 +59,11 @@ namespace App
             ChatServer.DataWriter dataWriter = new ChatServer.DataWriter(name);
             return dataWriter.GetSubjectsByTeacherName();
         }
+
+        internal static void DeleteSubjects(string title, string userName)
+        {
+            ChatServer.DataWriter check = new ChatServer.DataWriter(userName);
+            check.DeleteSubjects(title);
+        }
     }
 }

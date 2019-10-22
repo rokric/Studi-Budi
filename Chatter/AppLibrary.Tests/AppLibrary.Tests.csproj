@@ -58,11 +58,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataWriterTests.cs" />
-    <Compile Include="EncriptionTest.cs" />
-    <Compile Include="LogInTests.cs" />
+    <Compile Include="Tests\DataWriterTests.cs" />
+    <Compile Include="Tests\EncriptionTest.cs" />
+    <Compile Include="Tests\LogInTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationTests.cs" />
+    <Compile Include="Tests\RegistrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App\App.csproj">

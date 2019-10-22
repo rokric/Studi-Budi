@@ -20,9 +20,9 @@ namespace ChatServer
              @"\ChatServer\Database\connStr.txt";
 
 
-        public string Nick { get; set; }
-        public string Password { get; set; }
-        public string Profession { get; set; }
+        private string Nick { get; set; }
+        private string Password { get; set; }
+        private string Profession { get; set; }
 
         private readonly string connStr = File.ReadAllText(FilePath);  
         string commandText;
@@ -80,6 +80,18 @@ namespace ChatServer
             }
             return nick;
         }
+
+        public void DeleteSubjects(string title)
+        {
+            commandText = "DELETE FROM [dbo].[Teaching] WHERE userid= @userid AND subjectid= @subjectid";
+            InsertDeleteSubject(title, commandText);
+        }
+        public void InsertSubject(string title)// insert new subject into [teacher subject] table
+        {
+            commandText = "INSERT INTO [dbo].[Teaching]([userid],[subjectid]) VALUES(@userid, @subjectid)";
+            InsertDeleteSubject(title, commandText);
+            
+        }
         private List<int> GetTeacherIdBySubject(int subjectid)
         {
             List<int> teacherId = new List<int>();
@@ -129,12 +141,13 @@ namespace ChatServer
             }
             return userid;
         }
-        public void InsertSubject(string title)// insert new subject into [teacher subject] table
+       
+        private void InsertDeleteSubject(string title, string comm)
         {
-            string userid = GetUserIdByNick(Nick);
-                int subjectid= GetSubjectIdByTitle(title);
+            int userid = int.Parse(GetUserIdByNick(Nick));
+            int subjectid = GetSubjectIdByTitle(title);
 
-            commandText = "INSERT INTO [dbo].[Teaching]([userid],[subjectid]) VALUES(@userid, @subjectid)";
+            commandText = comm;
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherForm));
             this.addCourse = new System.Windows.Forms.Button();
             this.deleteCourse = new System.Windows.Forms.Button();
             this.subjectsList = new System.Windows.Forms.ListView();
@@ -42,9 +43,10 @@
             // 
             // addCourse
             // 
-            this.addCourse.Location = new System.Drawing.Point(256, 228);
+            this.addCourse.Location = new System.Drawing.Point(288, 285);
+            this.addCourse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addCourse.Name = "addCourse";
-            this.addCourse.Size = new System.Drawing.Size(120, 35);
+            this.addCourse.Size = new System.Drawing.Size(135, 44);
             this.addCourse.TabIndex = 0;
             this.addCourse.Text = "Add";
             this.addCourse.UseVisualStyleBackColor = true;
@@ -52,9 +54,10 @@
             // 
             // deleteCourse
             // 
-            this.deleteCourse.Location = new System.Drawing.Point(513, 381);
+            this.deleteCourse.Location = new System.Drawing.Point(577, 476);
+            this.deleteCourse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.deleteCourse.Name = "deleteCourse";
-            this.deleteCourse.Size = new System.Drawing.Size(238, 57);
+            this.deleteCourse.Size = new System.Drawing.Size(268, 71);
             this.deleteCourse.TabIndex = 1;
             this.deleteCourse.Text = "Delete course";
             this.deleteCourse.UseVisualStyleBackColor = true;
@@ -63,9 +66,10 @@
             // subjectsList
             // 
             this.subjectsList.HideSelection = false;
-            this.subjectsList.Location = new System.Drawing.Point(513, 26);
+            this.subjectsList.Location = new System.Drawing.Point(577, 32);
+            this.subjectsList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.subjectsList.Name = "subjectsList";
-            this.subjectsList.Size = new System.Drawing.Size(238, 328);
+            this.subjectsList.Size = new System.Drawing.Size(267, 409);
             this.subjectsList.TabIndex = 2;
             this.subjectsList.UseCompatibleStateImageBehavior = false;
             this.subjectsList.View = System.Windows.Forms.View.List;
@@ -78,9 +82,11 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.addCourse);
-            this.groupBox1.Location = new System.Drawing.Point(23, 26);
+            this.groupBox1.Location = new System.Drawing.Point(26, 32);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(411, 291);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(462, 364);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add new course";
@@ -89,42 +95,45 @@
             // 
             this.subjectsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.subjectsBox.FormattingEnabled = true;
-            this.subjectsBox.Location = new System.Drawing.Point(155, 56);
+            this.subjectsBox.Location = new System.Drawing.Point(174, 70);
+            this.subjectsBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.subjectsBox.Name = "subjectsBox";
-            this.subjectsBox.Size = new System.Drawing.Size(221, 24);
+            this.subjectsBox.Size = new System.Drawing.Size(248, 28);
             this.subjectsBox.TabIndex = 5;
             // 
             // descriptionTextBox
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(155, 101);
+            this.descriptionTextBox.Location = new System.Drawing.Point(174, 126);
+            this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(221, 100);
+            this.descriptionTextBox.Size = new System.Drawing.Size(248, 124);
             this.descriptionTextBox.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 101);
+            this.label2.Location = new System.Drawing.Point(18, 126);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 17);
+            this.label2.Size = new System.Drawing.Size(138, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "You can help with:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 56);
+            this.label1.Location = new System.Drawing.Point(90, 70);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 17);
+            this.label1.Size = new System.Drawing.Size(67, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Subject:";
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(23, 381);
+            this.connectButton.Location = new System.Drawing.Point(26, 476);
+            this.connectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(123, 56);
+            this.connectButton.Size = new System.Drawing.Size(138, 70);
             this.connectButton.TabIndex = 4;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -132,14 +141,16 @@
             // 
             // TeacherForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkKhaki;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.subjectsList);
             this.Controls.Add(this.deleteCourse);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "TeacherForm";
             this.Text = "TeacherForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeacherForm_FormClosing);

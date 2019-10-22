@@ -35,7 +35,6 @@ namespace App
             {
                 MessageBox.Show(argumentException.Message);
             }
-            
         }
 
         private void GetData(out string name, out string description)
@@ -91,6 +90,7 @@ namespace App
             foreach(string subject in DataManager.GetSubjectsByTeacherName(teacher.UserName))
             {
                 subjectsList.Items.Add(subject);
+                teacher.SubjectsList.Add(new Subject(subject, ""));
             }
         }
 
@@ -119,8 +119,10 @@ namespace App
                 {
                     if (subject.Title == subjectName.Text)
                     {
-                        teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
+                        Console.WriteLine("zzzz");
+                        DataManager.DeleteSubjects(subject.Title, teacher.UserName);
                         subjectsList.Items.Remove(subjectName);
+                        teacher.SubjectsList.Remove(new Subject(subject.Title, subject.Description));
                         break;
                     }
                 }
