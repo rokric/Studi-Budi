@@ -1,0 +1,29 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.TeacherPage.ProfileModel
+
+@{
+    ViewData["Title"] = "My subjects";
+}
+<h1> Teacher Subjects </h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Subject
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MySubjects) { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+            </tr>
+        }
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+    </tbody>
+</table>

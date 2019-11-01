@@ -19,11 +19,11 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             _context = context;
         }
 
-        public IList<User> User { get;set; }
+        public IList<User> Users { get;set; }
 
         public async Task OnGetAsync()
         {
-            User = await _context.User.ToListAsync();
+            Users = await _context.User.ToListAsync();
         }
     }
 }
