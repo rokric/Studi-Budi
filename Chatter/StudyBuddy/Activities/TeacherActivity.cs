@@ -1,11 +1,10 @@
-﻿using StudyBuddy.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudyBuddy.Activities
+namespace StudyBuddyLogic.Activities
 {
     public class TeacherActivity
     {

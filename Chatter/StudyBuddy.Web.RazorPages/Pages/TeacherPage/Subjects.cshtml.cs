@@ -11,11 +11,11 @@ using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
-    public class ProfileModel : PageModel
+    public class SubjectsModel : PageModel
     {
         private readonly StudyBuddy.Web.RazorPages.Data.StudiBudiContext _context;
 
-        public ProfileModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
+        public SubjectsModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
         {
             _context = context;
         }

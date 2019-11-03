@@ -6,9 +6,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudyBuddy
+namespace StudyBuddyLogic
 {
-
     public abstract class User : IUser
     {
 

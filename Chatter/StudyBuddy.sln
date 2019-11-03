@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLibrary.Tests", "AppLibrary.Tests\AppLibrary.Tests.csproj", "{AF027198-6045-447C-8A6B-C34787D1A139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddy", "StudyBuddy\StudyBuddy.csproj", "{16A19B78-8935-4495-82DD-C06539BF1305}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddyLogic", "StudyBuddy\StudyBuddyLogic.csproj", "{16A19B78-8935-4495-82DD-C06539BF1305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddy.Web.RazorPages", "StudyBuddy.Web.RazorPages\StudyBuddy.Web.RazorPages.csproj", "{2AFCC730-1D75-4801-BE50-5592EA801443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBuddy.Web.RazorPages", "StudyBuddy.Web.RazorPages\StudyBuddy.Web.RazorPages.csproj", "{2AFCC730-1D75-4801-BE50-5592EA801443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

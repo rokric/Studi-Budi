@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StudyBuddy
+namespace StudyBuddyLogic
 {
     public class Conversation : IConversation
     {
