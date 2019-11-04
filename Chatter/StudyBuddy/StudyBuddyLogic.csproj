@@ -45,6 +45,7 @@
     <Compile Include="Conversation\Conversation.cs" />
     <Compile Include="Conversation\IConversation.cs" />
     <Compile Include="DataManagement\LoginManager.cs" />
+    <Compile Include="Encryption\EncryptionClass.cs" />
     <Compile Include="Helpers\UserFactory.cs" />
     <Compile Include="Login\ILogin.cs" />
     <Compile Include="Login\IRegistration.cs" />

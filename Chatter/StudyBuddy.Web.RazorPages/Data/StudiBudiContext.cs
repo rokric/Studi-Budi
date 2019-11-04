@@ -121,7 +121,7 @@ namespace StudyBuddy.Web.RazorPages.Data
                     .HasMaxLength(50);
             });
 
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<Teaching>().ToTable("Teaching");
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

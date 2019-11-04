@@ -1,0 +1,40 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.TeacherPage.SubjectsModel
+
+@{
+    ViewData["Title"] = "My subjects";
+}
+<h1> Teacher Subjects </h1>
+
+<a asp-page="/TeacherPage/Add" asp-route-teacherID="@Model.TeacherID">Add new subject</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Subject
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MySubjects) { 
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item)
+            </td>
+
+            <td>
+                <form method="post">
+                    <button type="submit" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
+                </form>
+            </td>
+        </tr>
+        }
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+    </tbody>
+</table>

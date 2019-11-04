@@ -13,17 +13,23 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
     public class IndexModel : PageModel
     {
         private readonly StudiBudiContext _context;
+        private int teacherID = 3;
 
         public IndexModel(StudiBudiContext context)
         {
             _context = context;
         }
 
-        public IList<User> User { get;set; }
+        public string TeacherName { get; private set; }
 
         public async Task OnGetAsync()
         {
-            User = await _context.User.ToListAsync();
+            IList<User> teachers = await _context.User.Where(user => user.Profession.Equals("teacher")).ToListAsync();
+            TeacherName = (from t in teachers
+                          where t.Userid == teacherID
+                          select t.Nick).FirstOrDefault();
+
+            TeacherName = StudyBuddyLogic.Encryptor.Decrypt(TeacherName);
         }
     }
 }
