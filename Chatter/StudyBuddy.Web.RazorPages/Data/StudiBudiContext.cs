@@ -5,7 +5,7 @@ using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Data
 {
-    public partial class StudiBudiContext : DbContext
+    public partial class StudiBudiContext : DbContext, IStudiBudiContext
     {
         public StudiBudiContext()
         {
@@ -25,11 +25,10 @@ namespace StudyBuddy.Web.RazorPages.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-              //  optionsBuilder.UseSqlServer();
-            //}
+            /*if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer();
+            }*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

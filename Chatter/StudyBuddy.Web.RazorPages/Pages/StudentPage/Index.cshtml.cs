@@ -9,27 +9,24 @@ using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Models;
 
-namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
+namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 {
     public class IndexModel : PageModel
     {
-        private readonly StudiBudiContext _context;
         private readonly IUserInfoLoader _userInfoLoader;
+        //TODO: student id is hardcoded
+        private int studentID = 4;
 
-        //TODO: teacher id is hardcoded
-        private int teacherID = 3;
-
-        public IndexModel(StudiBudiContext context, IUserInfoLoader userInfoLoader)
+        public IndexModel(IUserInfoLoader userInfoLoader)
         {
-            _context = context;
             _userInfoLoader = userInfoLoader;
         }
 
-        public string TeacherName { get; private set; }
+        public string StudentName { get; private set; }
 
         public async Task OnGetAsync()
         {
-            TeacherName = await _userInfoLoader.GetUserNameById(teacherID);
+            StudentName = await _userInfoLoader.GetUserNameById(studentID);
         }
     }
 }

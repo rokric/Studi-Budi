@@ -1,0 +1,95 @@
+﻿@page 
+@model StudyBuddy.Web.RazorPages.Pages.StudentPage.StudentChatModel
+
+@{
+    ViewData["Title"] = "StudentChat";
+}
+
+<h1>Chat</h1>
+<form>
+    <select asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
+        <option value=""> All </option>
+    </select>
+    <input type="submit" value="Filter" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Teacher Name
+            </th>
+
+            <th>
+                Subject
+            </th>
+
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @foreach (var item in Model.TeachersAndSubjects)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectTitle)
+            </td>
+
+            <td>
+                <form method="post">
+                    <button>Ask question!</button>
+                </form>
+            </td>
+        </tr>
+            }
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
+    </tbody>
+</table>
+
+
+<!---
+<select asp-for="SubjectId" asp-items="Model.SubjectsOptions">
+    <option value=""> All </option>
+</select>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Teacher Name
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       @* @foreach (var item in Model.TeachersNames)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+
+                <td>
+                    <form method="post">
+                        <button>Ask question!</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }*@
+    </tbody>
+</table>
+
+    -->
