@@ -9,15 +9,16 @@
     <div asp-validation-summary="ModelOnly"></div>
     <span asp-validation-for="@Model.Username"></span>
     <span asp-validation-for="@Model.Password"></span>
-
-    <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student</td>
-    <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher</td>
+    <br />    <br />
+    <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student
+    <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher
     <br />
-    Choose an username </td>
-    <input type="text" asp-for="@Model.Username" /></td>
-    <br />
-    Choose a password </td>
-    <input type="password" asp-for="@Model.Password" /></td>
+    Choose an username 
+    <input type="text" asp-for="@Model.Username" /> <br />
+    Choose a password 
+    <input type="password" asp-for="@Model.Password" />   <br />
+    Repeat a password 
+    <input type="password" asp-for="@Model.Password" />
 
     <!--<table>
           <tr>
