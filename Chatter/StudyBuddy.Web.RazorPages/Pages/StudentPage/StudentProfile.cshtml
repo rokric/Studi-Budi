@@ -5,4 +5,41 @@
     ViewData["Title"] = "TeacherProfile";
 }
 
-<h1>Profile</h1>
+
+<style>
+    .Vardas {
+        background-color: blanchedalmond;
+        color: black;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+</style>
+
+
+
+<div class="Vardas">
+    <h1>Profile</h1>
+    <h2>HELLO, @Html.DisplayFor(model => Model.StudentName)</h2>
+    <p>TYPE: STUDENT</p>
+</div>
+
+<p><h3>ACOUNT DATA</h3></p>
+
+<div class="table">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>@Html.DisplayFor(model => Model.StudentName)</th>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td> negalima parodyti</td>
+        </tr>
+        <tr>
+            <td>Student ID</td>
+            <td>@Html.DisplayFor(model => Model.StudentId)</td>
+        </tr>
+    </table>
+</div>
