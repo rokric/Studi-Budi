@@ -19,6 +19,8 @@ namespace StudyBuddy.Web.RazorPages.Data
         public virtual DbSet<Subject> Subject { get; set; }
         public virtual DbSet<Teaching> Teaching { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -68,6 +70,40 @@ namespace StudyBuddy.Web.RazorPages.Data
                     .IsRequired()
                     .HasColumnName("profession")
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Question>(entity =>
+            {
+                entity.Property(e => e.QuestionID).HasColumnName("questionid");
+
+                entity.Property(e => e.StudentName)
+                    .IsRequired()
+                    .HasColumnName("studentname")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TeacherName)
+                    .IsRequired()
+                    .HasColumnName("teachername")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.SubjectTitle)
+                    .IsRequired()
+                    .HasColumnName("subjectitle")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasColumnName("message")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Answer)
+                    .IsRequired(false)
+                    .HasColumnName("answer")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Teaching>().ToTable("Teaching");
