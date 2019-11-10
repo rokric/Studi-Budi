@@ -16,10 +16,7 @@ namespace StudyBuddy.Web.RazorPages.Data
         {
         }
 
-        public virtual DbSet<History> History { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }
-        public virtual DbSet<Subjects> Subjects { get; set; }
-        public virtual DbSet<Table> Table { get; set; }
         public virtual DbSet<Teaching> Teaching { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -33,17 +30,6 @@ namespace StudyBuddy.Web.RazorPages.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<History>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Id1).HasColumnName("id1");
-
-                entity.Property(e => e.Id2).HasColumnName("id2");
-
-                entity.Property(e => e.Text).HasColumnName("text");
-            });
-
             modelBuilder.Entity<Subject>(entity =>
             {
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
@@ -51,42 +37,6 @@ namespace StudyBuddy.Web.RazorPages.Data
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title")
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Subjects>(entity =>
-            {
-                entity.HasKey(e => e.Subjectid)
-                    .HasName("PK__Subjects__ACE14378B63CB419");
-
-                entity.Property(e => e.Subjectid).HasColumnName("subjectid");
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasColumnName("title")
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Table>(entity =>
-            {
-                entity.HasKey(e => e.Subjectid)
-                    .HasName("PK__Table__3214EC079493A81A");
-
-                entity.Property(e => e.Subjectid).HasColumnName("subjectid");
-
-                entity.Property(e => e.Nick)
-                    .IsRequired()
-                    .HasColumnName("nick")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Profession)
-                    .IsRequired()
-                    .HasColumnName("profession")
                     .HasMaxLength(50);
             });
 
