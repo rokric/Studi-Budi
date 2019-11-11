@@ -6,21 +6,47 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class TeacherChatModel : PageModel
     {
-        private readonly StudyBuddy.Web.RazorPages.Data.StudiBudiContext _context;
+        private IQuestionLoader _questionLoader;
+        private IUserInfoLoader _userInfoLoader;
+        private IQuestionAnswerRegister _answerRegister;
 
-        public TeacherChatModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
+        //TODO: teacherID is hardcoded
+        public int TeacherID = 3;
+
+        [BindProperty]
+        public string Answer { get; set; }
+        public TeacherChatModel(IQuestionLoader questionLoader, IUserInfoLoader userInfoLoader, IQuestionAnswerRegister answerRegister)
         {
-            _context = context;
+            _questionLoader = questionLoader;
+            _userInfoLoader = userInfoLoader;
+            _answerRegister = answerRegister;
         }
-        public void OnGet()
+
+        public IList<Question> Questions { get; set; }
+
+        public async Task OnGetAsync()
         {
-            
+            Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(TeacherID), "teacher");
+        }
+
+        public async Task<IActionResult> OnPostAsync(int questionID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            await _answerRegister.RegisterAnswer(questionID, Answer);
+
+            return RedirectToPage("/TeacherPage/TeacherChat");
         }
     }
 }
+

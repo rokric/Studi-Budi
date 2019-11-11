@@ -25,7 +25,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public async Task OnGetAsync(int studentID)
         {
-            Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(studentID));
+            Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(studentID), "student");
         }
     }
 }

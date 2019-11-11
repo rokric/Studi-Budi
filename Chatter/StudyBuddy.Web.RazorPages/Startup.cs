@@ -37,6 +37,7 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<IStudentActivity, StudentActivity>();
             services.AddTransient<IQuestionRegister, QuestionRegister>();
             services.AddTransient<IQuestionLoader, QuestionLoader>();
+            services.AddTransient<IQuestionAnswerRegister, QuestionAnswerRegister>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

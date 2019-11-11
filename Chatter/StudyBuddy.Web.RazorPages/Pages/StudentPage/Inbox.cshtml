@@ -34,10 +34,10 @@
                 @Html.DisplayFor(modelItem => item.SubjectTitle)
             </td>
             <td>
-                <textarea maxlength="500" contenteditable="false"> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
             </td>
             <td>
-                <textarea maxlength="500" contenteditable="false"> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
             </td>
         </tr>
 }

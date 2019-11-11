@@ -8,6 +8,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
 {
     public interface IQuestionLoader
     {
-        Task<List<Question>> GetQuestions(string studentName);
+        Task<List<Question>> GetQuestions(string userName, string userType);
     }
 }
