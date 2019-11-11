@@ -6,6 +6,9 @@
 }
 
 <h1>Chat</h1>
+
+<a asp-page="/StudentPage/Inbox" asp-route-studentID="@Model.StudentID">View my questions</a>
+
 <form>
     <select asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
         <option value=""> All </option>
@@ -42,9 +45,9 @@
             </td>
 
             <td>
-                <form method="post">
-                    <button>Ask question!</button>
-                </form>
+                <a asp-page="/StudentPage/Ask"
+                   asp-route-teacherName="@item.TeacherName" asp-route-subjectTitle="@item.SubjectTitle"
+                   asp-route-studentID="@Model.StudentID"> Ask question! </a>
             </td>
         </tr>
             }
@@ -53,43 +56,3 @@
             }
     </tbody>
 </table>
-
-
-<!---
-<select asp-for="SubjectId" asp-items="Model.SubjectsOptions">
-    <option value=""> All </option>
-</select>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Teacher Name
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-       @* @foreach (var item in Model.TeachersNames)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item)
-                </td>
-
-                <td>
-                    <form method="post">
-                        <button>Ask question!</button>
-                    </form>
-                </td>
-            </tr>
-        }
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }*@
-    </tbody>
-</table>
-
-    -->

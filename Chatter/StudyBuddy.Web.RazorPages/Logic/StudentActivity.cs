@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic.Entities;
 using StudyBuddy.Web.RazorPages.Models;
 using StudyBuddyLogic;
 using System;
@@ -56,11 +57,11 @@ namespace StudyBuddy.Web.RazorPages.Logic
             return Encryptor.Decrypt(userName);
         }
 
-        public async Task<List<Models.TeacherAndSubject>> GetTeachersAndSubjects()
+        public async Task<List<TeacherAndSubject>> GetTeachersAndSubjects()
         {
             List<Models.Teaching> teachings = await _context.Teaching.ToListAsync();
 
-            List <Models.TeacherAndSubject> teachersAndSubjects = teachings.Select(t => new Models.TeacherAndSubject
+            List <TeacherAndSubject> teachersAndSubjects = teachings.Select(t => new TeacherAndSubject
             {
                 TeacherName = GetTeacherNameById(t.Userid),
                 SubjectTitle = GetSubjectTitleById(t.Subjectid)

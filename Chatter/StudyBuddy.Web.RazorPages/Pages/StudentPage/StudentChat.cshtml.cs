@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Logic;
+using StudyBuddy.Web.RazorPages.Logic.Entities;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
@@ -18,6 +19,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         public IList<TeacherAndSubject> TeachersAndSubjects { get; set; }
 
         public SelectList SubjectsTitles { get; set; }
+
+        //TODO: student id is hardcoded
+        public int StudentID = 4;
 
         [BindProperty(SupportsGet = true)]
         public string SubjectTitleFilter { get; set; } //table filter

@@ -1,0 +1,45 @@
+﻿@page "{studentID:int}"
+@model StudyBuddy.Web.RazorPages.Pages.StudentPage.InboxModel
+
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<h1>Inbox</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].TeacherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].SubjectTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Answer)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Questions) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectTitle)
+            </td>
+            <td>
+                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
+            </td>
+            <td>
+                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

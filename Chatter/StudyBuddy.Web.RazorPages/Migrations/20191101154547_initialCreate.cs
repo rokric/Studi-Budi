@@ -6,7 +6,7 @@ namespace StudyBuddy.Web.RazorPages.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "History",
                 columns: table => new
                 {
@@ -88,11 +88,12 @@ namespace StudyBuddy.Web.RazorPages.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.userid);
                 });
+                */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            /*migrationBuilder.DropTable(
                 name: "History");
 
             migrationBuilder.DropTable(
@@ -108,7 +109,7 @@ namespace StudyBuddy.Web.RazorPages.Migrations
                 name: "Teaching");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "User");*/
         }
     }
 }

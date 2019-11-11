@@ -4,7 +4,47 @@
 @{
     ViewData["Title"] = "TeacherChat";
 }
+<h1>Inbox</h1>
 
-<h1>Chat</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].SubjectTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Message)
+            </th>
+            <th>
+                Answer
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Questions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubjectTitle)
+                </td>
+                <td>
+                    <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                </td>
+                <td>
+                    <form metohd="post" asp-route-questionID="@item.QuestionID">
+                        <textarea asp-for="Answer"></textarea>
+                        <input type="submit" value="send"/>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 
