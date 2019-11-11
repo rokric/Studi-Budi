@@ -1,0 +1,13 @@
+﻿@page "{teacherName}/{subjectTitle}/{studentID:int}"
+@model StudyBuddy.Web.RazorPages.Pages.StudentPage.AskModel
+@{
+    ViewData["Title"] = "Ask";
+   
+}
+
+<h1>Ask question!</h1>
+
+<form method="post">
+    <textarea asp-for="Message" maxlength="500"></textarea>
+    <input type="submit" value="Send"/> 
+</form>

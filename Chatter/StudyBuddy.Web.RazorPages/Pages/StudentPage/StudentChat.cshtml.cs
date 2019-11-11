@@ -20,6 +20,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public SelectList SubjectsTitles { get; set; }
 
+        //TODO: student id is hardcoded
+        public int StudentID = 4;
+
         [BindProperty(SupportsGet = true)]
         public string SubjectTitleFilter { get; set; } //table filter
 

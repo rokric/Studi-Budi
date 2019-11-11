@@ -15,6 +15,15 @@ namespace StudyBuddy.Web.RazorPages.Logic
         {
             _context = context;
         }
+
+        public async Task<string> GetEncryptedUserNameById(int id)
+        {
+            string userName;
+            IList<Models.User> students = await _context.User.ToListAsync();
+            userName = students.Where(u => u.Userid == id).Select(u => u.Nick).FirstOrDefault();
+            return userName;
+        }
+
         public async Task<string> GetUserNameById(int id)
         {
             string userName;
