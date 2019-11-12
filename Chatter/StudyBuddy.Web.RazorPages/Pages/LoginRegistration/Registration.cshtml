@@ -1,0 +1,35 @@
+﻿@page "/registration"
+@model StudyBuddy.Web.RazorPages.Pages.LoginRegistration.RegistrationModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Registration</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student
+    <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher
+    <div>
+        Choose an username
+        <input type="text" asp-for="@Model.Username" /> 
+        <span asp-validation-for="@Model.Username"></span>
+    </div>
+    <div>
+        Choose a password
+        <input type="password" asp-for="@Model.Password" />  
+        <span asp-validation-for="@Model.Password"></span>
+    </div>
+    <div>
+        Repeat a password
+        <input type="password" asp-for="@Model.Password2" />
+        <span asp-validation-for="@Model.Password2"></span>
+    </div>
+    <div>
+        <input type="submit" />
+    </div>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+

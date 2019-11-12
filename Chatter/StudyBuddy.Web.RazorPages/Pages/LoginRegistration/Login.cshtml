@@ -1,0 +1,26 @@
+﻿@page "/login"
+@model StudyBuddy.Web.RazorPages.Pages.LoginRegistration.LoginModel
+@Model.Msg
+<h3>Login Form</h3>
+<form method="post" asp-page="Login">
+    <table>
+        <tr>
+            <td> Profession </td>
+            <td> <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student</td>
+            <td> <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher</td>
+        </tr>
+        <tr>
+            <td> Username </td>
+            <td> <input type="text" asp-for="@Model.Username" /></td>
+        </tr>
+        <tr>
+            <td> Password </td>
+            <td> <input type="password" asp-for="@Model.Password" /></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td> <input type="submit" value="Login" /></td>
+        </tr>
+    </table>
+</form>
+
