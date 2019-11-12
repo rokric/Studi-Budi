@@ -10,16 +10,14 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
 {
     public class RegistrationModel : PageModel
     {
-        [BindProperty]
+
+        [BindProperty, Required]
         [StringLength(14, MinimumLength = 5)]
-        [Required]
         public string Username { get; set; }
-        [BindProperty]
+        [BindProperty, Required]
         [StringLength(20, MinimumLength = 5)]
-        [Required]
         public string Password { get; set; }
-        [BindProperty]
-    //    [Compare(Password)]
+        [BindProperty, Required, Compare(nameof(Password), ErrorMessage = "Make sure both passwords are the same")]
         public string Password2 { get; set; }
         [BindProperty]
         public string Profession { get; set; }

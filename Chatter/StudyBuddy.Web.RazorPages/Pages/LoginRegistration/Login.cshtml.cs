@@ -12,12 +12,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
     public class LoginModel : PageModel
     {
         #region Properties
-        [BindProperty]
-        [Required]
+        [BindProperty, Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
-        [BindProperty]
-        [Required]
+        [BindProperty, Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

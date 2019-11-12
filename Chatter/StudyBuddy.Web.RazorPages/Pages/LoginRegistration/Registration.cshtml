@@ -4,45 +4,29 @@
 
 <h1>Registration</h1>
 
-<form method="post" asp-page="Registration">
+<form method="post">
 
     <div asp-validation-summary="ModelOnly"></div>
-    <span asp-validation-for="@Model.Username"></span>
-    <span asp-validation-for="@Model.Password"></span>
-    <br />    <br />
     <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student
     <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher
-    <br />
-    Choose an username 
-    <input type="text" asp-for="@Model.Username" /> <br />
-    Choose a password 
-    <input type="password" asp-for="@Model.Password" />   <br />
-    Repeat a password 
-    <input type="password" asp-for="@Model.Password" />
-
-    <!--<table>
-          <tr>
-            <td> Choose a profession </td>
-            <td> <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" /> Student</td>
-            <td> <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher</td>
-        </tr>
-        <tr>
-            <td> Choose an username </td>
-            <td> <input type="text" asp-for="@Model.Username" /></td>
-        </tr>
-        <tr>
-            <td> Choose a password </td>
-            <td> <input type="password" asp-for="@Model.Password" /></td>
-        </tr>
-        <tr>
-            <td> Repeat a password </td>
-            <td> <input type="password" asp-for="@Model.Password2" /></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td> <input type="submit" value="Register" /></td>
-        </tr>
-    </table>-->
+    <div>
+        Choose an username
+        <input type="text" asp-for="@Model.Username" /> 
+        <span asp-validation-for="@Model.Username"></span>
+    </div>
+    <div>
+        Choose a password
+        <input type="password" asp-for="@Model.Password" />  
+        <span asp-validation-for="@Model.Password"></span>
+    </div>
+    <div>
+        Repeat a password
+        <input type="password" asp-for="@Model.Password2" />
+        <span asp-validation-for="@Model.Password2"></span>
+    </div>
+    <div>
+        <input type="submit" />
+    </div>
 </form>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
