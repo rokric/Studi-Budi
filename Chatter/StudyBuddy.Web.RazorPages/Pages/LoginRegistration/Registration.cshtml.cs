@@ -17,14 +17,15 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         [BindProperty, Required]
         [StringLength(20, MinimumLength = 5)]
         public string Password { get; set; }
-        [BindProperty, Required, Compare(nameof(Password), ErrorMessage = "Make sure both passwords are the same")]
+        [BindProperty, Compare(nameof(Password), ErrorMessage = "Make sure both passwords are the same")]
         public string Password2 { get; set; }
-        [BindProperty]
+
+        [BindProperty, Required]
         public string Profession { get; set; }
        
         public void OnGet()
         {
-
+            RedirectToPage("Index");
         }
     }
 }

@@ -13,11 +13,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
     {
         #region Properties
         [BindProperty, Required]
-        [Display(Name = "Username")]
         public string Username { get; set; }
         [BindProperty, Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [BindProperty]
