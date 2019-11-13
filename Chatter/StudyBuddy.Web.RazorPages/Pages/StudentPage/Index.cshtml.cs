@@ -14,8 +14,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
     public class IndexModel : PageModel
     {
         private readonly IUserInfoLoader _userInfoLoader;
-        //TODO: student id is hardcoded
-        private int studentID = 4;
+        private int StudentID;
 
         public IndexModel(IUserInfoLoader userInfoLoader)
         {
@@ -24,9 +23,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public string StudentName { get; private set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int studentID)
         {
-            StudentName = await _userInfoLoader.GetUserNameById(studentID);
+            StudentID = studentID;
+            StudentName = await _userInfoLoader.GetUserNameById(StudentID);
         }
     }
 }

@@ -18,8 +18,12 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+          public int StudentID = 4;
+
         [BindProperty]
         [Display(Name = "Profession")]
+
+      
         public string Profession { get; set; }
         #endregion
         public string Msg;
@@ -34,7 +38,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         }
         public IActionResult OnPost()
         {
-            if(!String.IsNullOrEmpty(Username)||!String.IsNullOrEmpty(Password))
+            /*if(!String.IsNullOrEmpty(Username)||!String.IsNullOrEmpty(Password))
             {
                 if (Username.Equals("aaa") && Password.Equals("aaa"))
                 {
@@ -50,7 +54,11 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
             else {
                 Msg = "Invalid";
                 return Page();
-            }
+            }*/
+
+            return RedirectToPage("../StudentPage/Index", new { studentID = StudentID });
+
+
         }
     }
 }
