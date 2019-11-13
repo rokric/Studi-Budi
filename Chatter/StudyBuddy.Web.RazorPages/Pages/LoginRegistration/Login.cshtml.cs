@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StudyBuddy.Web.RazorPages.Logic;
 
 namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
 {
@@ -21,12 +22,15 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
           public int StudentID = 4;
 
         [BindProperty]
-        [Display(Name = "Profession")]
-
-      
         public string Profession { get; set; }
         #endregion
-        public string Msg;
+
+        private readonly ILoginChecker _logincheker;
+
+        public LoginModel(ILoginChecker loginCheker)
+        {
+            _logincheker = loginCheker;
+        }
         public void OnGet()
         {
 
@@ -38,27 +42,14 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         }
         public IActionResult OnPost()
         {
-            /*if(!String.IsNullOrEmpty(Username)||!String.IsNullOrEmpty(Password))
-            {
-                if (Username.Equals("aaa") && Password.Equals("aaa"))
-                {
-                    HttpContext.Session.SetString("username", Username);
-                    return RedirectToPage("Logged");
-                }
-                else
-                {
-                    Msg = "Invalid";
-                    return Page();
-                }
-            }
-            else {
-                Msg = "Invalid";
-                return Page();
-            }*/
+            Console.WriteLine(Profession);
+            //Console.WriteLine(Profession.ToString());
 
-            return RedirectToPage("../StudentPage/Index", new { studentID = StudentID });
-
+            if (_logincheker.IsLogCorrect(Username.ToString(), Password.ToString()/*, Profession.ToString())*/))
+                return RedirectToPage("../StudentPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
+            else return Page();
 
         }
+       
     }
 }

@@ -13,9 +13,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class TeacherChatModel : PageModel
     {
-        private IQuestionLoader _questionLoader;
-        private IUserInfoLoader _userInfoLoader;
-        private IQuestionAnswerRegister _answerRegister;
+        private readonly IQuestionLoader _questionLoader;
+        private readonly IUserInfoLoader _userInfoLoader;
+        private readonly IQuestionAnswerRegister _answerRegister;
 
         //TODO: teacherID is hardcoded
         public int TeacherID = 3;

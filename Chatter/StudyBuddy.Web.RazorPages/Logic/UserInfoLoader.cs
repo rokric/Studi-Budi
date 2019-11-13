@@ -10,7 +10,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
 {
     public class UserInfoLoader : IUserInfoLoader
     {
-        private StudiBudiContext _context;
+        private readonly StudiBudiContext _context;
         public UserInfoLoader(StudiBudiContext context)
         {
             _context = context;
@@ -32,5 +32,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
             userName = Encryptor.Decrypt(userName);
             return userName;
         }
+       
     }
 }

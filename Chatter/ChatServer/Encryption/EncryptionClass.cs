@@ -10,9 +10,9 @@ namespace ChatServer
 {
     public static class Encryptor
     {
-        private static string PasswordHash = "P@@Sw0rd";
-        private static string SaltKey = "S@LT&KEY";
-        private static string VIKey = "@1B2c3D4e5F6g7H8";
+        private static readonly string PasswordHash = "P@@Sw0rd";
+        private static readonly string SaltKey = "S@LT&KEY";
+        private static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
         public static string Encrypt(string plainText)
         {

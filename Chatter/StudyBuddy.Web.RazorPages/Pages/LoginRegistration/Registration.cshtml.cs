@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Web.Mvc.Controls;
 
 namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
 {
@@ -16,6 +17,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         public string Username { get; set; }
         [BindProperty, Required]
         [StringLength(20, MinimumLength = 5)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
         [BindProperty, Compare(nameof(Password), ErrorMessage = "Make sure both passwords are the same")]
         public string Password2 { get; set; }

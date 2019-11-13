@@ -11,7 +11,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
 {
     public class QuestionLoader : IQuestionLoader
     {
-        private IStudiBudiContext _context;
+        private readonly IStudiBudiContext _context;
         private Func<string, Task<List<Question>>> questionsGetter;
 
         public QuestionLoader(IStudiBudiContext context)
