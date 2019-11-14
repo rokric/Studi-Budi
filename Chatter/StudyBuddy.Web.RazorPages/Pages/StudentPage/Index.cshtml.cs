@@ -26,6 +26,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         public async Task OnGetAsync(int studentID)
         {
             StudentID = studentID;
+            CurrentUser.UserID = StudentID;
             StudentName = await _userInfoLoader.GetUserNameById(StudentID);
         }
     }

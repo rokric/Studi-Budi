@@ -17,8 +17,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         private readonly IUserInfoLoader _userInfoLoader;
         private readonly IQuestionAnswerRegister _answerRegister;
 
-        //TODO: teacherID is hardcoded
-        public int TeacherID = 3;
+        public int TeacherID;
 
         [BindProperty]
         public string Answer { get; set; }
@@ -33,6 +32,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         public async Task OnGetAsync()
         {
+            TeacherID = CurrentUser.UserID;
             Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(TeacherID), "teacher");
         }
 

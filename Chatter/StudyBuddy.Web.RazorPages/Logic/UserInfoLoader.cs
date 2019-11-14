@@ -11,6 +11,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
     public class UserInfoLoader : IUserInfoLoader
     {
         private readonly StudiBudiContext _context;
+
         public UserInfoLoader(StudiBudiContext context)
         {
             _context = context;

@@ -20,8 +20,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public SelectList SubjectsTitles { get; set; }
 
-        //TODO: student id is hardcoded
-        public int StudentID = 4;
+        public int StudentID { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SubjectTitleFilter { get; set; } //table filter
@@ -32,6 +31,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         }
         public async Task OnGetAsync()
         {
+            StudentID = CurrentUser.UserID;
             List<TeacherAndSubject> teachersAndSubjects = await _studentActivity.GetTeachersAndSubjects();
             teachersAndSubjects =_studentActivity.FilterTeachersAndSubjects(SubjectTitleFilter, teachersAndSubjects);
             SubjectsTitles = new SelectList(await _studentActivity.GetSubjectsTitles());

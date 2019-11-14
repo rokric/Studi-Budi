@@ -44,7 +44,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
                 if (Profession == "student")
                     return RedirectToPage("../StudentPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
                 if (Profession == "teacher")
-                    return RedirectToPage("../TeacherPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
+                    return RedirectToPage("../TeacherPage/Index", new { teacherID = _logincheker.GetUserIDByUserName(Username.ToString()) });
             else return Page();
         }
        
