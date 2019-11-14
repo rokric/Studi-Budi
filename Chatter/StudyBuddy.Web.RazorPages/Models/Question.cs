@@ -14,5 +14,6 @@ namespace StudyBuddy.Web.RazorPages.Models
         public string Message { get; set; }
         public int Status { get; set; }
         public string Answer { get; set; }
+        public int Points { get; set; }
     }
 }

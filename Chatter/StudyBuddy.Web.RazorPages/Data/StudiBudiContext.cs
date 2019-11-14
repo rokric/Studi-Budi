@@ -20,8 +20,6 @@ namespace StudyBuddy.Web.RazorPages.Data
         public virtual DbSet<Teaching> Teaching { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Question> Question { get; set; }
-        public virtual DbSet<Points> Point { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
