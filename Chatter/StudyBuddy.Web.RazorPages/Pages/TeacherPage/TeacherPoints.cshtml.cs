@@ -22,13 +22,13 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         {
             _teacherPoints = teacherPoints;
             _points = points;
-            teacherID = CurrentUser.UserID;
         }
 
         public IList<Question> Question { get;set; }
 
         public async Task OnGetAsync()
         {
+            teacherID = CurrentUser.UserID;
             Question = await _teacherPoints.GetHistoryByTeacherID(teacherID);
             TotalPoints = await _points.GetTotalPoints(teacherID);
         }

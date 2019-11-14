@@ -13,23 +13,19 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class IndexModel : PageModel
     {
-        private readonly StudiBudiContext _context;
         private readonly IUserInfoLoader _userInfoLoader;
+        private int teacherID;
 
-        public int TeacherID { get; private set; }
-
-        public IndexModel(StudiBudiContext context, IUserInfoLoader userInfoLoader)
+        public IndexModel(IUserInfoLoader userInfoLoader)
         {
-            _context = context;
             _userInfoLoader = userInfoLoader;
         }
 
         public string TeacherName { get; private set; }
 
-        public async Task OnGetAsync(int teacherID)
+        public async Task OnGetAsync()
         {
-            TeacherID = teacherID;
-            CurrentUser.UserID = TeacherID;
+            teacherID = CurrentUser.UserID;
             TeacherName = await _userInfoLoader.GetUserNameById(teacherID);
         }
     }

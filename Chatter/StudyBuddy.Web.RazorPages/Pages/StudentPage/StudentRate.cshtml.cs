@@ -30,9 +30,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
             return Page();
         }
 
-        public IActionResult OnPost(int questionID)
+        public async Task<IActionResult> OnPost(int questionID)
         {
-            _studentPoints.AddPoints(questionID, Value);
+            await _studentPoints.AddPoints(questionID, Value);
             return RedirectToPage("/StudentPage/Inbox", new { studentID = CurrentUser.UserID });
         }
     }

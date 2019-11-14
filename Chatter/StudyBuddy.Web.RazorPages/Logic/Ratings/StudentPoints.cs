@@ -17,12 +17,12 @@ namespace StudyBuddy.Web.RazorPages.Logic
             this.context = context;
             this.manager = manager;
         }
-        public void AddPoints(int questionID, int value)
+        public async Task AddPoints(int questionID, int value)
         {
             Question question = manager.FindQuestionById(questionID);
             context.Attach(question);
             question.Points = value;
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public List<int> GetValues()
