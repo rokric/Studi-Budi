@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Questions[0].Answer)
             </th>
+            <th>
+                Rate the answer!
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +41,9 @@
             </td>
             <td>
                 <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+            </td>
+            <td>
+               <a asp-page="/StudentPage/StudentRate" asp-route-questionID="@item.QuestionID"> Rate the answer! </a>
             </td>
         </tr>
 }

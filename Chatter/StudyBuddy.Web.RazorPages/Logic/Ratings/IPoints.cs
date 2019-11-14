@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudyBuddy.Web.RazorPages
+namespace StudyBuddy.Web.RazorPages.Logic.Ratings
 {
-    public interface ITeacherPoints
+    public interface IPoints
     {
-        Task<List<Question>> GetHistoryByTeacherID(int teacherID);
+        Task<int> GetTotalPoints(int teacherID);
     }
 }

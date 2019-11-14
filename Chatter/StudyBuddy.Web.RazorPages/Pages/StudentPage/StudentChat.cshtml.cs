@@ -28,10 +28,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         public StudentChatModel(IStudentActivity studentActivity)
         {
             _studentActivity = studentActivity;
+             StudentID = CurrentUser.UserID;
         }
         public async Task OnGetAsync()
         {
-            StudentID = CurrentUser.UserID;
             List<TeacherAndSubject> teachersAndSubjects = await _studentActivity.GetTeachersAndSubjects();
             teachersAndSubjects =_studentActivity.FilterTeachersAndSubjects(SubjectTitleFilter, teachersAndSubjects);
             SubjectsTitles = new SelectList(await _studentActivity.GetSubjectsTitles());

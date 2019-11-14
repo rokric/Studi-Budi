@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Logic;
@@ -15,13 +16,15 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
     {
         private IQuestionLoader _questionLoader;
         private IUserInfoLoader _userInfoLoader;
+       
+        public IList<Question> Questions { get; set; }
+
         public InboxModel(IQuestionLoader questionLoader, IUserInfoLoader userInfoLoader)
         {
             _questionLoader = questionLoader;
             _userInfoLoader = userInfoLoader;
         }
 
-        public IList<Question> Questions { get;set; }
 
         public async Task OnGetAsync(int studentID)
         {

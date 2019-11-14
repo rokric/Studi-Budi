@@ -1,0 +1,54 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.TeacherPage.TeacherPointsModel
+
+@{
+    ViewData["Title"] = "TeacherPoints";
+}
+
+<h1>Look what others thinks about your answers</h1>
+
+<h2> You have @Model.TotalPoints points</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                Question
+            </th>
+            <th>
+                Your answer
+            </th>
+            <th>
+                Points received
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Question) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

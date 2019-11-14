@@ -1,0 +1,13 @@
+﻿@page "{questionID:int}"
+@model StudyBuddy.Web.RazorPages.Pages.StudentPage.StudentRateModel
+
+@{
+    ViewData["Title"] = "StudentRate";
+}
+
+<h1>Thank you for choosing to leave a feedback!</h1>
+
+<form method="post">
+    <select asp-for="Value" asp-items="Model.Options"></select>
+    <input type="submit" value="Submit!" />
+</form>

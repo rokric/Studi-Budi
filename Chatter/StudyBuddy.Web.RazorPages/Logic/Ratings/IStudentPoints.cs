@@ -8,5 +8,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
     public interface IStudentPoints
     {
         void AddPoints(int questionID, int value);
+        List<int> GetValues();
     }
 }

@@ -24,5 +24,16 @@ namespace StudyBuddy.Web.RazorPages.Logic
             question.Points = value;
             context.SaveChangesAsync();
         }
+
+        public List<int> GetValues()
+        {
+            List<int> values = new List<int>();
+            for(int i = 0; i < 100; i+=10)
+            {
+                values.Add(i);
+            }
+
+            return values;
+        }
     }
 }
