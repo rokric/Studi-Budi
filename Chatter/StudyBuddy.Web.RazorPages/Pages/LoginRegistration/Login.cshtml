@@ -3,21 +3,24 @@
 <h3>Login Form</h3>
 <form method="post" asp-page="Login">
     <div asp-validation-summary="ModelOnly"></div>
-    <input type="radio" name="prof" value="Student" asp-for="@Model.Profession" checked /> Student
-    <input type="radio" name="prof" value="Teacher" asp-for="@Model.Profession" /> Teacher
-    <div>
-        Username
-        <input type="text" asp-for="@Model.Username" />
-        <span asp-validation-for="@Model.Username"></span>
-    </div>
-    <div>
-        Password
-        <input type="password" asp-for="@Model.Password" />
-        <span asp-validation-for="@Model.Password"></span>
-    </div>
-    <div>
-        <input type="submit" value="Login"/>
-    </div>
+
+        <div id="RadioButtonGroup">
+        <input type="radio" value="student" asp-for="@Model.Profession" checked="checked" /> Student
+        <input type="radio" value="teacher" asp-for="@Model.Profession" /> Teacher
+        </div>
+        <div>
+            Username
+            <input type="text" asp-for="@Model.Username" />
+            <span asp-validation-for="@Model.Username"></span>
+        </div>
+        <div>
+            Password
+            <input type="password" asp-for="@Model.Password" />
+            <span asp-validation-for="@Model.Password"></span>
+        </div>
+        <div>
+            <input type="submit" value="Login" />
+        </div>
 </form>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>

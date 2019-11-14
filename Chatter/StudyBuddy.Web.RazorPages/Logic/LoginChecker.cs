@@ -19,11 +19,11 @@ namespace StudyBuddy.Web.RazorPages.Logic
         public int GetUserIDByUserName(string username) =>
             _context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Userid).FirstOrDefault();
 
-        public bool IsLogCorrect(string username, string password/*, string profession*/)
+        public bool IsLogCorrect(string username, string password, string profession)
         {
             if (UserExists(username))
             {
-                if (password == GetPasswordByUserName(username)/* && profession == GetProfessionByUserName(username)*/)
+                if (password == GetPasswordByUserName(username) && profession == GetProfessionByUserName(username))
                     return true;
                 else return false;
             }
@@ -36,7 +36,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
         private string GetPasswordByUserName(string username) =>
             Encryptor.Decrypt(_context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Password).FirstOrDefault());
         private string GetProfessionByUserName(string username) =>
-            Encryptor.Decrypt(_context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Profession).FirstOrDefault());
+            _context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Profession).FirstOrDefault();
 
        
 

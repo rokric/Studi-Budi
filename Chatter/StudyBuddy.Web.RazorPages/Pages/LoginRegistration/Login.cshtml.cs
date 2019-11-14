@@ -19,8 +19,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-          public int StudentID = 4;
-
         [BindProperty]
         public string Profession { get; set; }
         #endregion
@@ -42,13 +40,12 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         }
         public IActionResult OnPost()
         {
-            Console.WriteLine(Profession);
-            //Console.WriteLine(Profession.ToString());
-
-            if (_logincheker.IsLogCorrect(Username.ToString(), Password.ToString()/*, Profession.ToString())*/))
-                return RedirectToPage("../StudentPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
+            if (_logincheker.IsLogCorrect(Username, Password, Profession))
+                if (Profession == "student")
+                    return RedirectToPage("../StudentPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
+                if (Profession == "teacher")
+                    return RedirectToPage("../TeacherPage/Index", new { studentID = _logincheker.GetUserIDByUserName(Username.ToString()) });
             else return Page();
-
         }
        
     }
