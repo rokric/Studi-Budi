@@ -9,5 +9,6 @@ namespace StudyBuddy.Web.RazorPages.Logic.Entities
     {
         public string TeacherName { get; set; }
         public string SubjectTitle { get; set; }
+        public int Points { get; set; }
     }
 }
