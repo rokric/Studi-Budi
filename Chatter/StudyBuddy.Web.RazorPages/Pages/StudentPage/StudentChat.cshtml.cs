@@ -20,8 +20,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public SelectList SubjectsTitles { get; set; }
 
-        //TODO: student id is hardcoded
-        public int StudentID = 4;
+        public int StudentID { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SubjectTitleFilter { get; set; } //table filter
@@ -29,6 +28,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         public StudentChatModel(IStudentActivity studentActivity)
         {
             _studentActivity = studentActivity;
+             StudentID = CurrentUser.UserID;
         }
         public async Task OnGetAsync()
         {

@@ -21,7 +21,6 @@ namespace StudyBuddy.Web.RazorPages.Data
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Question> Question { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             /*if (!optionsBuilder.IsConfigured)

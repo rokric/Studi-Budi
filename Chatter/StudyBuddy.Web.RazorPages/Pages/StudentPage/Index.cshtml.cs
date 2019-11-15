@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
     public class IndexModel : PageModel
     {
         private readonly IUserInfoLoader _userInfoLoader;
-        private int StudentID;
+        private int studentID;
 
         public IndexModel(IUserInfoLoader userInfoLoader)
         {
@@ -23,10 +24,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public string StudentName { get; private set; }
 
-        public async Task OnGetAsync(int studentID)
+        public async Task OnGetAsync()
         {
-            StudentID = studentID;
-            StudentName = await _userInfoLoader.GetUserNameById(StudentID);
+            studentID = CurrentUser.UserID;
+            StudentName = await _userInfoLoader.GetUserNameById(studentID);
         }
     }
 }

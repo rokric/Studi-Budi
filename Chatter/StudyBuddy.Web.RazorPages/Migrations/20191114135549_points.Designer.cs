@@ -2,21 +2,41 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudyBuddy.Web.RazorPages.Data;
 
 namespace StudyBuddy.Web.RazorPages.Migrations
 {
     [DbContext(typeof(StudiBudiContext))]
-    partial class StudiBudiContextModelSnapshot : ModelSnapshot
+    [Migration("20191114135549_points")]
+    partial class points
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Points", b =>
+                {
+                    b.Property<int>("PointsID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("PointsID");
+
+                    b.ToTable("Point");
+                });
 
             modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Question", b =>
                 {
@@ -36,9 +56,6 @@ namespace StudyBuddy.Web.RazorPages.Migrations
                         .HasColumnName("message")
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
-
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnName("status")

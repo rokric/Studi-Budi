@@ -13,15 +13,11 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class IndexModel : PageModel
     {
-        private readonly StudiBudiContext _context;
         private readonly IUserInfoLoader _userInfoLoader;
+        private int teacherID;
 
-        //TODO: teacher id is hardcoded
-        private int teacherID = 3;
-
-        public IndexModel(StudiBudiContext context, IUserInfoLoader userInfoLoader)
+        public IndexModel(IUserInfoLoader userInfoLoader)
         {
-            _context = context;
             _userInfoLoader = userInfoLoader;
         }
 
@@ -29,6 +25,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         public async Task OnGetAsync()
         {
+            teacherID = CurrentUser.UserID;
             TeacherName = await _userInfoLoader.GetUserNameById(teacherID);
         }
     }

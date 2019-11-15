@@ -61,13 +61,27 @@ namespace StudyBuddy.Web.RazorPages.Logic
         {
             List<Models.Teaching> teachings = await _context.Teaching.ToListAsync();
 
-            List <TeacherAndSubject> teachersAndSubjects = teachings.Select(t => new TeacherAndSubject
+            List<TeacherAndSubject> teachersAndSubjects = teachings.Select(t => new TeacherAndSubject
             {
                 TeacherName = GetTeacherNameById(t.Userid),
-                SubjectTitle = GetSubjectTitleById(t.Subjectid)
+                SubjectTitle = GetSubjectTitleById(t.Subjectid),
             }).ToList();
 
+            foreach(TeacherAndSubject item in teachersAndSubjects)
+            {
+                item.Points = await GetPointsBySubjectAndTeacherName(item.SubjectTitle, item.TeacherName);
+            }
+
             return teachersAndSubjects;
+        }
+
+        private async Task<int> GetPointsBySubjectAndTeacherName(string subjectTitle, string teacherName)
+        {
+            teacherName = Encryptor.Encrypt(teacherName);
+            List<Models.Question> questions = await _context.Question.ToListAsync();
+            int value = questions.Where(q => q.SubjectTitle.Equals(subjectTitle) && q.TeacherName.Equals(teacherName)).Select(
+                q => q.Points).Sum();
+            return value;
         }
     }
 }
