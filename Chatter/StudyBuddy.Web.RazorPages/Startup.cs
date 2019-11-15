@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Logic.Ratings;
+using StudyBuddy.Web.RazorPages.Logic.Profile;
 
 namespace StudyBuddy.Web.RazorPages
 {
@@ -45,6 +46,7 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<IStudentPoints, StudentPoints>();
             services.AddTransient<ITeacherPoints, TeacherPoints>();
             services.AddTransient<IPoints, Points>();
+            services.AddTransient<IGetPassword, GetPassword>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
