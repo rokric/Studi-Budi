@@ -35,8 +35,10 @@ namespace StudyBuddy.Web.RazorPages.Logic
         }
         private string GetPasswordByUserName(string username) =>
             Encryptor.Decrypt(_context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Password).FirstOrDefault());
-        private string GetProfessionByUserName(string username) =>
+        public string GetProfessionByUserName(string username) =>
             _context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Profession).FirstOrDefault();
+       
+        
 
        
 
