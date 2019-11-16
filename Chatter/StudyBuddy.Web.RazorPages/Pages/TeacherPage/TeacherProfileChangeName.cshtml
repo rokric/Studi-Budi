@@ -1,0 +1,27 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.TeacherPage.TeacherProfileChangeNameModel
+@{
+    ViewData["Title"] = "TeacherProfileChangeName";
+}
+
+<h1>Coming Soon</h1>
+<br />
+<h1>Change Name</h1>
+<br />
+
+<form method="post">
+
+    <label for="newPassword">New Name:</label>
+
+    <input type="text" asp-for="@Model.Name" />
+
+    <label for="token"> Password </label>
+    <input type="text" asp-for="@Model.Password" />
+
+
+    <input type="submit" value="Change" /><br />
+
+    <h1>@Model.Msg</h1>
+
+
+</form>

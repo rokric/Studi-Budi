@@ -11,5 +11,8 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
         bool IsPasswordMaches(string password, int ID);
         public string GetPasswordByID(int ID);
 
+        Task PasswordChange( string New, int Id);
+        public bool IsPasswordGood(string? password);
+
     }
 }
