@@ -51,6 +51,14 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
             await _context.SaveChangesAsync();
 
         }
+        public async Task NameChange(string New, int Id)
+        {
+            User user = FindUserById(Id);
+            _context.Attach(user);
+            user.Nick = Encryptor.Encrypt(New);
+            await _context.SaveChangesAsync();
+
+        }
 
         public bool IsPasswordGood(string? password)
         {

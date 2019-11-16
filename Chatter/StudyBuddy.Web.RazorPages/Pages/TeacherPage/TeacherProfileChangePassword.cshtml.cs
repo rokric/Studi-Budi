@@ -36,34 +36,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             _getPassword = getPassword;
         }
 
-      /* public IActionResult OnPost()
-        {
-            try
-            {
-                if (_getPassword.IsPasswordMaches(OldPassword.Trim(), teacherID))
-                {
-                    Msg = "old Password is not good";
-                    return Page();
-                }else if(_getPassword.IsPasswordChanged(NewPassword,teacherID))
-                {
-                    Msg = "Password changed ";
-                    return Page();
-                }
-                else
-                {
-                    Msg = "Try again ";
-                    return Page();
-                }
-            }
-            catch (NullReferenceException)
-            {
-                Msg = "password can not be emty";
-                return Page();
-            }
-
-
-
-        }*/
         public void OnGet()
         {
         }

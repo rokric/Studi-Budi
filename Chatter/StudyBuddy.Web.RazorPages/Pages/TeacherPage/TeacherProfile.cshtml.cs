@@ -23,9 +23,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         private readonly IUserInfoLoader _userInfoLoader;
 
 
+
         private int teacherID = CurrentUser.UserID;
         public string TeacherName;
-        public string Msg;
+
 
 
 
