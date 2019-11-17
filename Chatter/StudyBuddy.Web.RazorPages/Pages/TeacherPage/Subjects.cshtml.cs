@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
@@ -18,10 +19,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         public SubjectsModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
         {
             _context = context;
+            TeacherID = CurrentUser.UserID;
         }
-
-        //todo: teacher id is hardcoded but it should be received after user logs in
-        public int TeacherID = 3;
+        public int TeacherID { get; set; }
         public List<string> MySubjects = new List<string>();
 
         public async Task OnGetAsync()
