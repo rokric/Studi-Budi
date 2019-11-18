@@ -36,7 +36,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
                     TeacherName = Encryptor.Encrypt(teacherName),
                     Message = message,
                     StudentName = studentName,
-                    Answer = "Not aswered yet",
+                    Answer = "Not answered yet",
                     Status = 0,
                     SubjectTitle = subjectTitle
                 };

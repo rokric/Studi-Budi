@@ -1,4 +1,5 @@
 ﻿using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic.Ratings;
 using StudyBuddy.Web.RazorPages.Models;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,42 @@ namespace StudyBuddy.Web.RazorPages.Logic
     {
         private StudiBudiContext context;
         private IDBManager manager;
+        private AddPointsEvent addPointsEvent = new AddPointsEvent();
 
         public StudentPoints(StudiBudiContext context, IDBManager manager)
         {
             this.context = context;
             this.manager = manager;
+            addPointsEvent.AddPoints += AddPointsHandler;
         }
-        public async Task AddPoints(int questionID, int value)
+
+        private void AddPointsHandler(object sender, AddPointsEventArgs args)
+        {
+            AddPoints(args.QuestionID, args.Value);
+        }
+
+        private void AddPoints(int questionID, int value)
         {
             Question question = manager.FindQuestionById(questionID);
             context.Attach(question);
             question.Points = value;
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
         public List<int> GetValues()
         {
             List<int> values = new List<int>();
-            for(int i = 0; i < 100; i+=10)
+            for(int i = 10; i <= 100; i+=10)
             {
                 values.Add(i);
             }
 
             return values;
+        }
+
+        public void RegisterPoints(int questionID, int value)
+        {
+            addPointsEvent.RegisterPoints(manager.FindQuestionById(questionID), value);
         }
     }
 }

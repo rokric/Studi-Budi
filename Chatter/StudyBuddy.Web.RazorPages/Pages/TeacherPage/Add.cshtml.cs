@@ -7,49 +7,46 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic.Teacher;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class AddModel : PageModel
     {
-        private readonly StudyBuddy.Web.RazorPages.Data.StudiBudiContext _context;
+        private ITeacherActivity _teacherActivity;
 
         [BindProperty]
         public int SubjectID { get; set; }
         public List<SelectListItem> Options { get; set; }
 
-        public AddModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
+        public AddModel(ITeacherActivity teacherActivity)
         {
-            _context = context;
+            _teacherActivity = teacherActivity;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int teacherID)
         {
-            Options = await _context.Subject.Select(s =>
-                                                 new SelectListItem
-                                                 {
-                                                     Value = s.Subjectid.ToString(),
-                                                     Text = s.Title
-                                                 }).ToListAsync();
+            IList<Subject> availableSubjects = await _teacherActivity.GetAvailableSubjects(teacherID);
+            Options = availableSubjects.Select(s =>
+                                                    new SelectListItem
+                                                    {
+                                                        Value = s.Subjectid.ToString(),
+                                                        Text = s.Title
+                                                    }).ToList();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int teacherID)
+        public IActionResult OnPost(int teacherID)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            if(!_context.Teaching.Any(t => t.Userid == teacherID && t.Subjectid == SubjectID))
-            {
-                _context.Teaching.Add(new Teaching() { Userid = teacherID, Subjectid = SubjectID });
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Subjects");
-            }
+            _teacherActivity.AddSubject(teacherID, SubjectID);
 
-            return Content("Subject already exist!");
+            return RedirectToPage("./Subjects");
         }
     }
 }
