@@ -8,17 +8,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Logic;
+using StudyBuddy.Web.RazorPages.Logic.Teacher;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
     public class SubjectsModel : PageModel
     {
-        private readonly StudyBuddy.Web.RazorPages.Data.StudiBudiContext _context;
+        private ITeacherActivity _teacherActivity;
 
-        public SubjectsModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
+        public SubjectsModel(ITeacherActivity teacherActivity)
         {
-            _context = context;
+            _teacherActivity = teacherActivity;
             TeacherID = CurrentUser.UserID;
         }
         public int TeacherID { get; set; }
@@ -26,21 +27,12 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         public async Task OnGetAsync()
         {
-            IList<Teaching> teachings = await _context.Teaching.ToListAsync();
-            IList<Subject> subjects = await _context.Subject.ToListAsync();
-
-            MySubjects = (from t in teachings
-                         join s in subjects on t.Subjectid equals s.Subjectid
-                         where t.Userid == TeacherID
-                          select s.Title).ToList();
+            MySubjects = await _teacherActivity.GetMySubjects(TeacherID);
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string subjectTitle)
         {
-            int subjectID = await _context.Subject.Where(s => s.Title.Equals(subjectTitle)).Select(s => s.Subjectid).FirstOrDefaultAsync();
-            Teaching teaching = await _context.Teaching.Where(t => t.Userid == TeacherID && t.Subjectid == subjectID).FirstOrDefaultAsync();
-            _context.Remove(teaching);
-            await _context.SaveChangesAsync();
+            await _teacherActivity.DeleteSubject(TeacherID, subjectTitle);
             return Redirect("/TeacherPage/Subjects");
         }
     }

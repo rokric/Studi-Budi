@@ -27,7 +27,24 @@ namespace StudyBuddy.Web.RazorPages.Logic
             _context.Attach(question);
             question.Status = 1;
             question.Answer = answer;
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException exc)
+            {
+                if (!QuestionExists(questionID))
+                {
+                    Console.WriteLine("Error happened while saving answer. Question does not exist in a database");
+                    Console.WriteLine(exc.Message);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
         }
 
         private async Task<Question> FindQuestionById(int questionID)
@@ -36,6 +53,18 @@ namespace StudyBuddy.Web.RazorPages.Logic
             Question question = questions.Where(q => q.QuestionID == questionID).FirstOrDefault();
 
             return question;
+        }
+
+        private bool QuestionExists(int questionID)
+        {
+            if(_context.Question.Any(q => q.QuestionID == questionID))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
