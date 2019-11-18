@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Logic.Profile;
 
-namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
+namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 {
-    public class TeacherProfileChangeNameModel : PageModel
+    public class StudentProfileChangeNameModel : PageModel
     {
         [BindProperty]
         public string Passwordas { get; set; }
         [BindProperty]
         public string Names { get; set; }
 
-        private int teacherId = CurrentUser.UserID;
+        private int studentIds = CurrentUser.UserID;
         public string Mesg;
 
         private IProfile _GetPasswords;
-        private  ILoginChecker _loginchekers;
+        private ILoginChecker _loginchekers;
 
 
 
-        public TeacherProfileChangeNameModel(IProfile getPassword, ILoginChecker logincheker)
+        public StudentProfileChangeNameModel(IProfile getPassword, ILoginChecker logincheker)
         {
             _GetPasswords = getPassword;
             _loginchekers = logincheker;
@@ -37,7 +37,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         public async Task<IActionResult> OnPostAsync()
         {
 
-            if (_GetPasswords.IsPasswordGood(Passwordas) && _GetPasswords.IsPasswordGood(Names) && _GetPasswords.IsPasswordMaches(Passwordas, teacherId))
+            if (_GetPasswords.IsPasswordGood(Passwordas) && _GetPasswords.IsPasswordGood(Names) && _GetPasswords.IsPasswordMaches(Passwordas, studentIds))
             {
 
                 if (_loginchekers.GetProfessionByUserName(Names) != null)
@@ -48,8 +48,8 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
                 else
                 {
                     // pakeisti name
-                        await _GetPasswords.NameChange(Names, teacherId);
-                        return RedirectToPage("/TeacherPage/TeacherProfile");
+                    await _GetPasswords.NameChange(Names, studentIds);
+                    return RedirectToPage("/StudentPage/StudentProfile");
                 }
             }
             else

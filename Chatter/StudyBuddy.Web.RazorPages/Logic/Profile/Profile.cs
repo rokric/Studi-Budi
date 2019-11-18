@@ -8,11 +8,11 @@ using ChatServer;
 
 namespace StudyBuddy.Web.RazorPages.Logic.Profile
 {
-    public class GetPassword : IGetPassword
+    public class Profile : IProfile
     {
 
         private StudiBudiContext _context;
-        public GetPassword(StudiBudiContext context)
+        public Profile(StudiBudiContext context)
         {
             _context = context;
         }
@@ -65,7 +65,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
             if(password==null)
             {
                 return false;
-            }else if(password.Length<4)
+            }else if(password.Length<=5)
             {
                 return false;
             }

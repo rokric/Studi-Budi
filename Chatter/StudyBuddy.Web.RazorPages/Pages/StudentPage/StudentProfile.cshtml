@@ -6,3 +6,70 @@
 }
 
 <h1>Profile</h1>
+<style>
+    .Vardas {
+        background-color: blanchedalmond;
+        color: black;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .btn {
+        border: none;
+        background-color: inherit;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        display: inline-block;
+        color: green;
+    }
+
+        .btn:hover {
+            background: #eee;
+        }
+
+    .tables {
+        border: none;
+    }
+</style>
+
+
+
+<div class="Vardas">
+    <h1>Profile</h1>
+    <h2>HELLO, @Html.DisplayFor(model => Model.StudentName)</h2>
+    <p>TYPE: TEACHER</p>
+</div>
+
+<p><h3>ACOUNT DATA</h3></p>
+
+
+<div class="table">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <td>@Html.DisplayFor(model => Model.StudentName)</td>
+            <td> <a class="btn success" asp-page="/StudentPage/StudentProfileChangeName">Change Name</a> </td>
+        </tr>
+
+        <tr>
+            <td>Password</td>
+
+            <td>
+                <a class="btn success" asp-page="/StudentPage/StudentProfileShowPassword">Show password</a>
+                <!-- <form method="post" asp-page="Profile">-->
+                <!--<button class="btn success" value="ShowPassword" asp-action="check">Show password</button>-->
+                <!-- </form>-->
+
+            </td>
+
+            <td> <a class="btn success" asp-page="/StudentPage/StudentProfileChangePassword">Change Password</a> </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+

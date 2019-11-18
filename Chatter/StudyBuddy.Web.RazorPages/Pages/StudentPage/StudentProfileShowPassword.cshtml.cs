@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Logic.Profile;
-using System.ComponentModel.DataAnnotations;
 
-namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
+namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 {
-    public class TeacherProfileShowPasswordModel : PageModel
+    public class StudentProfileShowPasswordModel : PageModel
     {
 
         [BindProperty]
@@ -21,10 +20,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         private readonly IProfile _GetPassword;
 
-        private int teachersID = CurrentUser.UserID;
+        private int studentID = CurrentUser.UserID;
         public string Msge;
 
-        public TeacherProfileShowPasswordModel( IProfile getPassword)
+        public StudentProfileShowPasswordModel(IProfile getPassword)
         {
             _GetPassword = getPassword;
         }
@@ -33,9 +32,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         {
             try
             {
-                if (_GetPassword.IsPasswordMaches(Passwordd.Trim(), teachersID))
+                if (_GetPassword.IsPasswordMaches(Passwordd.Trim(), studentID))
                 {
-                    Msge = _GetPassword.GetPasswordByID(teachersID);
+                    Msge = _GetPassword.GetPasswordByID(studentID);
                     return Page();
                 }
                 else
