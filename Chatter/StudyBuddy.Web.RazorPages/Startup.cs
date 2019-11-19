@@ -47,7 +47,7 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<IStudentPoints, StudentPoints>();
             services.AddTransient<ITeacherPoints, TeacherPoints>();
             services.AddTransient<IPoints, Points>();
-            services.AddTransient<IGetPassword, GetPassword>();
+            services.AddTransient<IProfile, Profile>();
             services.AddTransient<ITeacherActivity, TeacherActivity>();
         }
 

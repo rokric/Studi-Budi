@@ -31,4 +31,9 @@
     <ProjectReference Include="..\StudyBuddy\StudyBuddyLogic.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Pages\StudentPage\StudentProfile\" />
+  </ItemGroup>
+
 </Project>
