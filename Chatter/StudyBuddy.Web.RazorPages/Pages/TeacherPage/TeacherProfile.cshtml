@@ -41,35 +41,33 @@
 </div>
 
 <p><h3>ACOUNT DATA</h3></p>
-<form method="post" asp-page="Profile">
-    <div class="table">
-        <table class="table">
-            <tr>
-                <th>Name</th>
-                <td colspan="2" align="center">@Html.DisplayFor(model => Model.TeacherName)</td>
-                <td> <button class="btn success">Change name</button> </td>
-            </tr>
-
-            <tr>
-                <td>Password</td>
-                <td>
-                    <input type="text" asp-for="@Model.Password" />
-                    <span asp-validation-for="@Model.Password"></span>
-                    <div>@Model.Msg</div>
-                </td>
-                <td>
-                    <button class="btn success" value="ShowPassword" asp-action="check">Show password</button>
-                </td>
-                <td> <button class="btn success">Change password</button> </td>
-            </tr>
-
-            <tr>
-                <td> ID</td>
-                <td>----------------</td>
-            </tr>
-
-        </table>
 
 
-    </div>
-</form>
+<div class="table">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <td>@Html.DisplayFor(model => Model.TeacherName)</td>
+            <td> <a class="btn success" asp-page="/TeacherPage/TeacherProfileChangeName">Change Name</a> </td>
+        </tr>
+
+        <tr>
+            <td>Password</td>
+
+            <td>
+                <a class="btn success" asp-page="/TeacherPage/TeacherProfileShowPassword">Show password</a>
+                <!-- <form method="post" asp-page="Profile">-->
+                <!--<button class="btn success" value="ShowPassword" asp-action="check">Show password</button>-->
+                <!-- </form>-->
+
+            </td>
+
+            <td> <a class="btn success" asp-page="/TeacherPage/TeacherProfileChangePassword" >Change Password</a> </td>
+        </tr>
+
+
+    </table>
+
+
+</div>
+

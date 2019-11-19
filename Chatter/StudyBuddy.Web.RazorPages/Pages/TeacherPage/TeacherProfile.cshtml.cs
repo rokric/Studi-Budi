@@ -17,42 +17,24 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
     public class TeacherProfileModel : PageModel
     {
 
-        #region Properties
-        [BindProperty, Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-        #endregion
+        
 
 
         private readonly IUserInfoLoader _userInfoLoader;
-        private  IGetPassword _getPassword;
 
-        private int teacherID= CurrentUser.UserID;
+
+
+        private int teacherID = CurrentUser.UserID;
         public string TeacherName;
-        public string Msg;
 
 
 
-        public TeacherProfileModel(IUserInfoLoader userInfoLoader, IGetPassword getPassword)
+
+        public TeacherProfileModel(IUserInfoLoader userInfoLoader)
         {
             _userInfoLoader = userInfoLoader;
-            _getPassword = getPassword;
         }
-       
-        public IActionResult OnPost()
-        {
-            if (_getPassword.IsPasswordMaches(Password.Trim(),teacherID))
-            {
-               Msg = _getPassword.GetPasswordByID(teacherID);
-                return Page();
-            }
-            else
-            {
-                Msg = "password is not correct";
-                return Page();
-            }
-            
-        }
+      
 
         public async Task OnGet()
         {

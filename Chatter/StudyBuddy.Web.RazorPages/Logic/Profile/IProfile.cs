@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace StudyBuddy.Web.RazorPages.Logic.Profile
 {
-    public interface IGetPassword
+    public interface IProfile
     {
         bool IsPasswordMaches(string password, int ID);
         public string GetPasswordByID(int ID);
+
+        Task PasswordChange( string New, int Id);
+         Task NameChange(string New, int Id);
+        public bool IsPasswordGood(string? password);
 
     }
 }
