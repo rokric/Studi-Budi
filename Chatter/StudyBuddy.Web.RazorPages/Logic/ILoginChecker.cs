@@ -7,7 +7,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
 {
     public interface ILoginChecker
     {
-        bool IsLogCorrect(string username, string password, string profession);
+        Task<bool> IsLogCorrect(string username, string password, string profession);
         public int GetUserIDByUserName(string username);
         public string GetProfessionByUserName(string username);
     }

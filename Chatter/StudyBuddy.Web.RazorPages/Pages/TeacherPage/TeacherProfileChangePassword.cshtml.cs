@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyBuddy.Web.RazorPages.Logic;
@@ -25,13 +27,16 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
 
         private IProfile _getPasswords;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        private readonly int TeacherID = CurrentUser.UserID;
+        private readonly int TeacherID;
         public string Msgs;
 
-        public TeacherProfileChangePasswordModel(IProfile getPassword)
+        public TeacherProfileChangePasswordModel(IProfile getPassword, IHttpContextAccessor httpContextAccessor)
         {
             _getPasswords = getPassword;
+            _httpContextAccessor = httpContextAccessor;
+            TeacherID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
         public void OnGet()

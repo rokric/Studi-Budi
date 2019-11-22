@@ -20,6 +20,7 @@
         </div>
         <div>
             <input type="submit" value="Login" />
+            <span style="color:red"> @Html.ValidationMessageFor(model => model.LoginFailed) </span>
         </div>
 </form>
 <script src="~/lib/jquery/dist/jquery.js"></script>

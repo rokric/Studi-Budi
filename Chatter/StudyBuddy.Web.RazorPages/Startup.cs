@@ -14,6 +14,8 @@ using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Logic.Ratings;
 using StudyBuddy.Web.RazorPages.Logic.Profile;
 using StudyBuddy.Web.RazorPages.Logic.Teacher;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace StudyBuddy.Web.RazorPages
 {
@@ -30,10 +32,12 @@ namespace StudyBuddy.Web.RazorPages
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-
+             
             services.AddDbContext<StudiBudiContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("StudiBudiContext")));
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 
             services.AddTransient<IStudiBudiContext, StudiBudiContext>();
             services.AddTransient<IUserInfoLoader, UserInfoLoader>();
@@ -49,6 +53,7 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<IPoints, Points>();
             services.AddTransient<IProfile, Profile>();
             services.AddTransient<ITeacherActivity, TeacherActivity>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +75,7 @@ namespace StudyBuddy.Web.RazorPages
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

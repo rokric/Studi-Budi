@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyBuddy.Web.RazorPages.Logic;
 using StudyBuddy.Web.RazorPages.Logic.Profile;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 {
@@ -20,13 +22,16 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
 
         private readonly IProfile _GetPassword;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        private int teachersID = CurrentUser.UserID;
+        private int teachersID;
         public string Msge;
 
-        public TeacherProfileShowPasswordModel( IProfile getPassword)
+        public TeacherProfileShowPasswordModel(IProfile getPassword, IHttpContextAccessor httpContextAccessor)
         {
             _GetPassword = getPassword;
+            _httpContextAccessor = httpContextAccessor;
+            teachersID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
         public IActionResult OnPost()
