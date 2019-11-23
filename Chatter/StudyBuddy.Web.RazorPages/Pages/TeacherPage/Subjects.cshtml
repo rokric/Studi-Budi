@@ -20,21 +20,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.MySubjects) { 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item)
-            </td>
+        @foreach (var item in Model.MySubjects)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
 
-            <td>
-                <form method="post">
-                    <button type="submit" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
-                </form>
-            </td>
-        </tr>
+                <td>
+                    <form method="post">
+                        <button type="submit" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
+                    </form>
+                </td>
+            </tr>
         }
         @section Scripts {
             @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         }
     </tbody>
 </table>
+
+
+

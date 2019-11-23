@@ -17,28 +17,87 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
     public class TeacherProfileModel : PageModel
     {
 
-        
+        [BindProperty]
+        public string NewPasswords { get; set; }
+
+        [BindProperty]
+        public string NewPasswords2 { get; set; }
+
+
+        [BindProperty]
+        public string OldPasswords { get; set; }
+
+        [BindProperty]
+        public string Name { get; set; }
+
 
 
         private readonly IUserInfoLoader _userInfoLoader;
+        private ILoginChecker _loginchekers;
+        private IProfile _getPasswords;
+        private readonly ILoginChecker _logincheker;
+        private readonly int TeacherID = CurrentUser.UserID;
+        public string Msgs;
 
-
-
-        private int teacherID = CurrentUser.UserID;
         public string TeacherName;
+        public string TeacherPassword;
 
 
 
 
-        public TeacherProfileModel(IUserInfoLoader userInfoLoader)
+        public TeacherProfileModel(IUserInfoLoader userInfoLoader, IProfile getPassword, ILoginChecker logincheker)
         {
+            _getPasswords = getPassword;
+            _logincheker = logincheker;
             _userInfoLoader = userInfoLoader;
         }
       
 
         public async Task OnGet()
         {
-            TeacherName = await _userInfoLoader.GetUserNameById(teacherID);
+            TeacherPassword = _getPasswords.GetPasswordByID(TeacherID);
+            TeacherName = await _userInfoLoader.GetUserNameById(TeacherID);
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if (_getPasswords.IsPasswordGood(NewPasswords) && _getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordMaches(OldPasswords, TeacherID))
+            {
+                await _getPasswords.PasswordChange(NewPasswords, TeacherID);
+                return RedirectToPage("/TeacherPage/TeacherProfile");
+            }
+            else
+            {
+                Msgs = "bad data, try again";
+                return RedirectToPage("/TeacherPage/TeacherProfile");
+
+            }
+
+        }
+
+        public async Task<ActionResult> OnPostKazkasAsync()
+        {
+            //return RedirectToPage("/TeacherPage/TeacherProfileChangeName");
+            if (_getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordGood(Name) && _getPasswords.IsPasswordMaches(OldPasswords, TeacherID))
+            {
+
+                if (_loginchekers.GetProfessionByUserName(Name) != null)
+                {
+                    Msgs = "Bad Name";
+                    return Page();
+                }
+                else
+                {
+                    // pakeisti name
+                    await _getPasswords.NameChange(Name, TeacherID);
+                    return RedirectToPage("/TeacherPage/TeacherProfile");
+                }
+            }
+            else
+            {
+                Msgs = "bad data, try again";
+                return Page();
+            }
         }
     }
 }
