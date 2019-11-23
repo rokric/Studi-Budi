@@ -51,7 +51,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             _logincheker = logincheker;
             _userInfoLoader = userInfoLoader;
         }
-      
+
 
         public async Task OnGet()
         {
@@ -61,6 +61,8 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         public async Task<IActionResult> OnPost()
         {
+
+            //reikia padaryti
             if (_getPasswords.IsPasswordGood(NewPasswords) && _getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordMaches(OldPasswords, TeacherID))
             {
                 await _getPasswords.PasswordChange(NewPasswords, TeacherID);
@@ -78,6 +80,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         public async Task<ActionResult> OnPostKazkasAsync()
         {
             //return RedirectToPage("/TeacherPage/TeacherProfileChangeName");
+            // reikia dar padaryti
             if (_getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordGood(Name) && _getPasswords.IsPasswordMaches(OldPasswords, TeacherID))
             {
 
