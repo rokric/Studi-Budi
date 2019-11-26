@@ -24,6 +24,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         #endregion
 
         private readonly ILoginChecker _logincheker;
+        public string LoginFailed { get; set; }
 
         public LoginModel(ILoginChecker loginCheker)
         {
@@ -38,22 +39,25 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
             HttpContext.Session.Remove("username");
             return Page();
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (_logincheker.IsLogCorrect(Username, Password, Profession))
+            if (await _logincheker.IsLogCorrect(Username, Password, Profession))
+            {
                 if (Profession == "student")
                 {
-                    CurrentUser.UserID = _logincheker.GetUserIDByUserName(Username);
                     return RedirectToPage("../StudentPage/Index");
                 }
-                if (Profession == "teacher")
+                else if (Profession == "teacher")
                 {
-                    CurrentUser.UserID = _logincheker.GetUserIDByUserName(Username);
                     return RedirectToPage("../TeacherPage/Index");
-                }    
-                   
-            else return Page();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("LoginFailed", "Invalid login attempt.");
+            }
+
+            return Page();
         }
-       
     }
 }

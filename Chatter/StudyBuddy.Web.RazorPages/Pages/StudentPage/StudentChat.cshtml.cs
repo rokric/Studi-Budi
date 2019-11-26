@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,6 +17,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
     public class StudentChatModel : PageModel
     {
         private IStudentActivity _studentActivity;
+        private IHttpContextAccessor _httpContextAccessor;
 
         public IList<TeacherAndSubject> TeachersAndSubjects { get; set; }
 
@@ -25,10 +28,11 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         [BindProperty(SupportsGet = true)]
         public string SubjectTitleFilter { get; set; } //table filter
 
-        public StudentChatModel(IStudentActivity studentActivity)
+        public StudentChatModel(IStudentActivity studentActivity, IHttpContextAccessor httpContextAccessor)
         {
             _studentActivity = studentActivity;
-             StudentID = CurrentUser.UserID;
+            _httpContextAccessor = httpContextAccessor;
+             StudentID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
         public async Task OnGetAsync()
         {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,32 +15,16 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 {
     public class StudentProfileModel : PageModel
     {
-        private readonly StudyBuddy.Web.RazorPages.Data.StudiBudiContext _context;
-
-        /*public StudentProfileModel(StudyBuddy.Web.RazorPages.Data.StudiBudiContext context)
-        {
-            _context = context;
-        }
-
-        public void OnGet()
-        {
-
-        }*/
-
-
         private readonly IUserInfoLoader _userInfoLoader;
-
-
-
-        private int studentID = CurrentUser.UserID;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private int studentID;
         public string StudentName;
 
-
-
-
-        public StudentProfileModel(IUserInfoLoader userInfoLoader)
+        public StudentProfileModel(IUserInfoLoader userInfoLoader, IHttpContextAccessor httpContextAccessor)
         {
             _userInfoLoader = userInfoLoader;
+            _httpContextAccessor = httpContextAccessor;
+            studentID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
 
