@@ -16,6 +16,7 @@ using StudyBuddy.Web.RazorPages.Logic.Profile;
 using StudyBuddy.Web.RazorPages.Logic.Teacher;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using StudyBuddy.Web.RazorPages.Logic.Admin;
 
 namespace StudyBuddy.Web.RazorPages
 {
@@ -54,6 +55,7 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<IProfile, Profile>();
             services.AddTransient<ITeacherActivity, TeacherActivity>();
             services.AddTransient<ILogout, Logout>();
+            services.AddTransient<IAdminActivity, AdminActivity>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
