@@ -56,6 +56,8 @@ namespace StudyBuddy.Web.RazorPages
             services.AddTransient<ITeacherActivity, TeacherActivity>();
             services.AddTransient<ILogout, Logout>();
             services.AddTransient<IAdminActivity, AdminActivity>();
+            services.AddTransient<IRequestLoader, RequestsLoader>();
+            services.AddTransient<IReportsLoader, ReportsLoader>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

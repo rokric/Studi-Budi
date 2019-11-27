@@ -64,8 +64,8 @@ namespace StudyBuddy.Web.RazorPages.Tests.AdminTests
 
             DateTime dateTime = DateTime.Now;
             service.SuspendUser(1, dateTime);
-            Assert.AreEqual(1, context.Suspension.Count());
-            Assert.AreEqual(dateTime, context.Suspension.Select(s => s.Until).First());
+            Assert.AreEqual(1, context.Report.Count());
+            Assert.AreEqual(dateTime, context.Report.Select(s => s.Until).First());
         }
 
         override

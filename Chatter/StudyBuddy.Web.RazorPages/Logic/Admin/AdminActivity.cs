@@ -44,7 +44,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
             string message="";
             if (IsValidSuspension(until, ref message))
             {
-                Suspension suspension = new Suspension
+                Report suspension = new Report
                 {
                     UserID = userID,
                     Until = until

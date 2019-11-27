@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace StudyBuddy.Web.RazorPages.Models
 {
-    public class Suspension
+    public class Report
     {
         public int ID { get; set; }
         public int UserID { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Until { get; set; }
+        public string Message { get; set; }
     }
 }
