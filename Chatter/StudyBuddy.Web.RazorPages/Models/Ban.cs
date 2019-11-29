@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace StudyBuddy.Web.RazorPages.Models
 {
-    public class Report
+    public class Ban
     {
         public int ID { get; set; }
         public int UserID { get; set; }
-        public string Message { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Until { get; set; }
     }
 }

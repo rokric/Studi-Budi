@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
+using StudyBuddy.Web.RazorPages.Logic.Entities;
 using StudyBuddy.Web.RazorPages.Models;
 using System;
 using System.Collections.Generic;
@@ -44,13 +45,13 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
             string message="";
             if (IsValidSuspension(until, ref message))
             {
-                Report suspension = new Report
+                Ban ban = new Ban
                 {
                     UserID = userID,
                     Until = until
                 };
 
-                _context.Add(suspension);
+                _context.Add(ban);
                 _context.SaveChanges();
             }
             else
@@ -104,6 +105,57 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
         {
             _context.Add(new Subject { Title = title });
             _context.SaveChanges();
+        }
+
+        //gets reported users and checks if user is already banned
+        public async Task<List<ReportedUser>> GetReportedUsers()
+        {
+            List<int> reportedUsersID = await _context.Report.Select(r => r.UserID).Distinct().ToListAsync();
+            List<int> bannedUsersID = await _context.Ban.Select(b => b.UserID).Distinct().ToListAsync();
+
+            List<ReportedUser> reportedUsers = new List<ReportedUser>();
+
+            foreach(var reportedUser in reportedUsersID)
+            {
+                if (bannedUsersID.Contains(reportedUser))
+                {
+                    reportedUsers.Add(new ReportedUser
+                    {
+                        UserID = reportedUser,
+                        Banned = true
+                    });
+                }
+                else
+                {
+                    reportedUsers.Add(new ReportedUser
+                    {
+                        UserID = reportedUser,
+                        Banned = false
+                    });
+                }
+            }
+                
+            /*List<ReportedUser> reportedUsers = reports.GroupJoin(bans, report => report.UserID,
+                ban => ban.UserID,
+                (report, ban) => new ReportedUser
+                {
+                    UserID = report.UserID,
+                    Banned = true
+
+                }).DefaultIfEmpty(new ReportedUser
+                {
+                    UserID = 
+                    Banned = false
+
+                }).ToList();
+
+            foreach(var item in reportedUsers)
+            {
+                Console.WriteLine(item.UserID);
+                Console.WriteLine(item.Banned);
+            }*/
+
+            return reportedUsers;
         }
     }
 }

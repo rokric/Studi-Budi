@@ -22,6 +22,7 @@ namespace StudyBuddy.Web.RazorPages.Data
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<SubjectRequest> SubjectRequest { get; set; }
         public virtual DbSet<Report> Report { get; set; }
+        public virtual DbSet<Ban> Ban { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -120,10 +121,6 @@ namespace StudyBuddy.Web.RazorPages.Data
                  .IsRequired()
                  .HasColumnName("message")
                  .HasMaxLength(500);
-
-                entity.Property(e => e.Until)
-                    .HasColumnName("until");
-
             });
 
             modelBuilder.Entity<SubjectRequest>(entity =>
@@ -139,6 +136,19 @@ namespace StudyBuddy.Web.RazorPages.Data
                  .HasColumnName("title")
                  .HasMaxLength(50);
 
+            });
+
+            modelBuilder.Entity<Ban>(entity =>
+            {
+                entity.Property(e => e.ID).HasColumnName("id");
+
+                entity.Property(e => e.UserID)
+                    .IsRequired()
+                    .HasColumnName("userid");
+
+                entity.Property(e => e.Until)
+                 .IsRequired()
+                 .HasColumnName("until");
             });
 
             modelBuilder.Entity<Teaching>().ToTable("Teaching");
