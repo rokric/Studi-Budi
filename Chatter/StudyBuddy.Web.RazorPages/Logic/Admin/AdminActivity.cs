@@ -124,6 +124,8 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
                         UserID = reportedUser,
                         Banned = true
                     });
+
+                    bannedUsersID.Remove(reportedUser);
                 }
                 else
                 {
@@ -133,6 +135,15 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
                         Banned = false
                     });
                 }
+            }
+
+            foreach(var bannedUser in bannedUsersID)
+            {
+                reportedUsers.Add(new ReportedUser
+                {
+                    UserID = bannedUser,
+                    Banned = true
+                });
             }
                 
             /*List<ReportedUser> reportedUsers = reports.GroupJoin(bans, report => report.UserID,
@@ -156,6 +167,20 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
             }*/
 
             return reportedUsers;
+        }
+
+        public async Task CancelBan(int userID)
+        {
+            Ban ban = await _context.Ban.Where(b => b.UserID == userID).FirstOrDefaultAsync();
+            _context.Remove(ban);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteReport(int reportID)
+        {
+            Report report = await _context.Report.Where(r => r.ID == reportID).FirstOrDefaultAsync();
+            _context.Remove(report);
+            await _context.SaveChangesAsync();
         }
     }
 }

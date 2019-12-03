@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,6 +25,12 @@ namespace StudyBuddy.Web.RazorPages.Pages.AdminPage
         public string Now { get; set; }
 
         //properties for user banning
+        [PageRemote(
+            ErrorMessage = "Date is already gone.",
+            AdditionalFields = "__RequestVerificationToken",
+            HttpMethod = "post",
+            PageHandler = "CheckDate"
+        )]
         [BindProperty]
         public DateTime DateForBan { get; set; }
 
@@ -45,8 +52,31 @@ namespace StudyBuddy.Web.RazorPages.Pages.AdminPage
 
         public IActionResult OnPost(int userID)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             _adminActivity.SuspendUser(userID, DateForBan);
             return RedirectToPage("/AdminPage/Reports");
+        }
+
+        public async Task<IActionResult> OnPostCancelAsync(int userID)
+        {
+            await _adminActivity.CancelBan(userID);
+            return RedirectToPage("/AdminPage/Reports");
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int reportID)
+        {
+            await _adminActivity.DeleteReport(reportID);
+            return RedirectToPage("/AdminPage/Reports");
+        }
+
+        public JsonResult OnPostCheckDate()
+        {
+            var valid = DateForBan > DateTime.Now.Date;
+            return new JsonResult(valid);
         }
     }
 }
