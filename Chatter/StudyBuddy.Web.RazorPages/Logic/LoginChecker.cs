@@ -25,19 +25,30 @@ namespace StudyBuddy.Web.RazorPages.Logic
         public int GetUserIDByUserName(string username) =>
             _context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Userid).FirstOrDefault();
 
-        public async Task<bool> IsLogCorrect(string username, string password, string profession)
+        //returns 0 if user is student or teacher
+        //returns 1 if user is admin
+        //return -1 if login failed
+        public async Task<int> IsLogCorrect(string username, string password, string profession)
         {
             if (UserExists(username))
             {
-                if (password == GetPasswordByUserName(username) && profession == GetProfessionByUserName(username))
+                if (password == GetPasswordByUserName(username))
                 {
-                    await CreateCookie(username);
-                    return true;
-                }
+                    if(profession == GetProfessionByUserName(username))
+                    {
+                        await CreateCookie(username);
+                        return 0;
+                    }
+                    else if(GetProfessionByUserName(username) == "admin")
+                    {
+                        await CreateCookie(username);
+                        return 1;
+                    }
                     
-                else return false;
+                }
             }
-            else return false;
+
+            return -1;
         }
 
         private async Task CreateCookie(string username)
