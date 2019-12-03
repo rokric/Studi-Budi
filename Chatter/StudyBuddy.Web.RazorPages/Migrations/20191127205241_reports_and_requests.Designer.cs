@@ -3,42 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudyBuddy.Web.RazorPages.Data;
 
 namespace StudyBuddy.Web.RazorPages.Migrations
 {
     [DbContext(typeof(StudiBudiContext))]
-    partial class StudiBudiContextModelSnapshot : ModelSnapshot
+    [Migration("20191127205241_reports_and_requests")]
+    partial class reports_and_requests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Ban", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Until")
-                        .HasColumnName("until")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserID")
-                        .HasColumnName("userid")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Ban");
-                });
 
             modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Question", b =>
                 {
@@ -102,6 +83,10 @@ namespace StudyBuddy.Web.RazorPages.Migrations
                         .HasColumnName("message")
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
+
+                    b.Property<DateTime>("Until")
+                        .HasColumnName("until")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")
                         .HasColumnName("userid")

@@ -1,0 +1,121 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.AdminPage.ReportsModel
+
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Create two unequal columns that floats next to each other */
+    .column {
+        float: left;
+        padding: 10px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
+<div class="row">
+    <div class="column" style="padding-right:50px">
+        <h1>Reports</h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>
+                        UserID
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Reports)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                        <td>
+                            <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                        </td>
+                        <td>
+                            <form method="post">
+                                <input type="submit" value="Delete" asp-page-handler="Delete" asp-route-reportID="@item.ID" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="column">
+        <h1> Reported users </h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>
+                        UserID
+                    </th>
+                    <th>
+                        Ban this user
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ReportedUsers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+
+                        @if (item.Banned)
+                        {
+                            <td>
+                                Banned
+                                <form method="post">
+                                    <input type="submit" value="Cancel" asp-page-handler="Cancel" asp-route-userID="@item.UserID" />
+                                </form>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <form method="post" asp-route-userID="@item.UserID">
+                                    <input type="date" asp-for="@Model.DateForBan" value="@Model.Now" />
+                                    <input type="submit" value="Ban" />
+                                    <span style="color:red" asp-validation-for="@Model.DateForBan"></span>
+                                </form>
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById('datePicker').value = new Date().toDateInputValue();
+</script>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+}
+
+

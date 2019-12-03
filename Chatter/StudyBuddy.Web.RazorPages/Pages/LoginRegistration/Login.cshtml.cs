@@ -51,6 +51,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
                 {
                     return RedirectToPage("../TeacherPage/Index");
                 }
+                else if (Profession == "admin")
+                {
+                    return RedirectToPage("../AdminPage/Index");
+                }
             }
             else
             {

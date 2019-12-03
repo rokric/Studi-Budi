@@ -30,7 +30,12 @@ namespace StudyBuddy.Web.RazorPages.Logic
             string userName;
             IList<Models.User> students = await _context.User.ToListAsync();
             userName = students.Where(u => u.Userid == id).Select(u => u.Nick).FirstOrDefault();
-            userName = Encryptor.Decrypt(userName);
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                userName = Encryptor.Decrypt(userName);
+            }
+            
             return userName;
         }
        

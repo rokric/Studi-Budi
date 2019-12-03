@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddyLogic", "StudyBud
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBuddy.Web.RazorPages", "StudyBuddy.Web.RazorPages\StudyBuddy.Web.RazorPages.csproj", "{2AFCC730-1D75-4801-BE50-5592EA801443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyBuddy.Web.RazorPages.Tests", "StudyBuddy.Web.RazorPages.Tests\StudyBuddy.Web.RazorPages.Tests.csproj", "{85EB5BBD-7764-4B5F-A328-A84D0E3417FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBuddy.Web.RazorPages.Tests", "StudyBuddy.Web.RazorPages.Tests\StudyBuddy.Web.RazorPages.Tests.csproj", "{85EB5BBD-7764-4B5F-A328-A84D0E3417FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
