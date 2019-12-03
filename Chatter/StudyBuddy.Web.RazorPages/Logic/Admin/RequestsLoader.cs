@@ -21,5 +21,10 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
         {
             return await context.SubjectRequest.ToListAsync();
         }
+
+        public async Task<List<Subject>> GetSubjects()
+        {
+            return await context.Subject.ToListAsync();
+        }
     }
 }

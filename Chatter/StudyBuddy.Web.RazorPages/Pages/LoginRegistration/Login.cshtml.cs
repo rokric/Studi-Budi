@@ -41,7 +41,8 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if (await _logincheker.IsLogCorrect(Username, Password, Profession))
+            int loginStatus = await _logincheker.IsLogCorrect(Username, Password, Profession);
+            if (loginStatus == 0)
             {
                 if (Profession == "student")
                 {
@@ -51,10 +52,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
                 {
                     return RedirectToPage("../TeacherPage/Index");
                 }
-                else if (Profession == "admin")
-                {
-                    return RedirectToPage("../AdminPage/Index");
-                }
+            }
+            else if(loginStatus == 1)
+            {
+                return RedirectToPage("../AdminPage/Index");
             }
             else
             {

@@ -37,7 +37,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
         public async Task DenyNewSubjectRequest(int requestID)
         {
             _context.Remove(await GetSubjectRequestByID(requestID));
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void SuspendUser(int userID, DateTime until)
@@ -82,7 +82,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
 
             if (CheckIfNewSubjectAlreadyExist(request.Title))
             {
-                message = "subject already exist.";
+                message = "subject already exists.";
                 return false;
             }
 
@@ -181,6 +181,37 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
             Report report = await _context.Report.Where(r => r.ID == reportID).FirstOrDefaultAsync();
             _context.Remove(report);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSubject(int subjectID)
+        {
+            await DeleteTeachings(subjectID);
+
+            Subject subject = await _context.Subject.Where(r => r.Subjectid == subjectID).FirstOrDefaultAsync();
+            _context.Remove(subject);
+            await _context.SaveChangesAsync();
+        }
+
+        //delete all related teachings after removing subject
+        private async Task DeleteTeachings(int subjectID)
+        {
+            List<Teaching> teachingsToRemove = await _context.Teaching.Where(t => t.Subjectid == subjectID).ToListAsync();
+            _context.RemoveRange(teachingsToRemove);
+            await _context.SaveChangesAsync();
+        }
+
+        //admin adds new subject to database
+        public void AddSubject(string title)
+        {
+            string message = "";
+            if (IsValidNewSubject(new SubjectRequest { Title = title }, ref message))
+            {
+                AddNewSubject(title);
+            }
+            else
+            {
+                throw new ArgumentException(message);
+            }
         }
     }
 }
