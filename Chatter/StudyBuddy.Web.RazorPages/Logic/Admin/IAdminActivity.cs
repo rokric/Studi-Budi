@@ -14,5 +14,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
         Task<List<ReportedUser>> GetReportedUsers();
         Task CancelBan(int userID);
         Task DeleteReport(int reportID);
+        Task DeleteSubject(int subjectID);
+        void AddSubject(string title);
     }
 }

@@ -25,17 +25,13 @@ namespace StudyBuddy.Web.RazorPages.Pages.AdminPage
         public string Now { get; set; }
 
         //properties for user banning
-        [PageRemote(
-            ErrorMessage = "Date is already gone.",
-            AdditionalFields = "__RequestVerificationToken",
-            HttpMethod = "post",
-            PageHandler = "CheckDate"
-        )]
         [BindProperty]
         public DateTime DateForBan { get; set; }
 
         [BindProperty]
         public int UserID { get; set; }
+
+        public string ErrorDate { get; set; }
 
         public ReportsModel(IReportsLoader reportsLoader, IAdminActivity adminActivity)
         {
@@ -43,22 +39,31 @@ namespace StudyBuddy.Web.RazorPages.Pages.AdminPage
             _adminActivity = adminActivity;
         }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGetAsync(string message = "")
         {
             Reports = await _reportsLoader.GetReports();
             ReportedUsers = await _adminActivity.GetReportedUsers();
             Now = DateTime.Now.Date.ToShortDateString();
+
+            if(message != "")
+            {
+                ModelState.AddModelError("ErrorDate", message);
+            }
+
+            return Page();
         }
 
         public IActionResult OnPost(int userID)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
+                _adminActivity.SuspendUser(userID, DateForBan);
+                return RedirectToPage();
             }
-
-            _adminActivity.SuspendUser(userID, DateForBan);
-            return RedirectToPage("/AdminPage/Reports");
+            catch(ArgumentException exc)
+            {
+                return RedirectToAction("OnGetAsync", new { message = exc.Message });
+            }
         }
 
         public async Task<IActionResult> OnPostCancelAsync(int userID)
@@ -71,12 +76,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.AdminPage
         {
             await _adminActivity.DeleteReport(reportID);
             return RedirectToPage("/AdminPage/Reports");
-        }
-
-        public JsonResult OnPostCheckDate()
-        {
-            var valid = DateForBan > DateTime.Now.Date;
-            return new JsonResult(valid);
         }
     }
 }

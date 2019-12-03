@@ -9,5 +9,6 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
     public interface IRequestLoader
     {
         Task<List<SubjectRequest>> GetRequests();
+        Task<List<Subject>> GetSubjects();
     }
 }
