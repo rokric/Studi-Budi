@@ -33,9 +33,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
             studentID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
-        public IActionResult OnPost()
+  /*      public IActionResult OnPost()
         {
-            try
+            /*try
             {
                 if (_GetPassword.IsPasswordMaches(Passwordd.Trim(), studentID))
                 {
@@ -54,7 +54,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
                 return Page();
             }
 
-        }
+        }*/
 
         public void OnGet()
         {

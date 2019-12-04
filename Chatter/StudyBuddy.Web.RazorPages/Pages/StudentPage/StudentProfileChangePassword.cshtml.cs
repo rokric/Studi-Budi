@@ -38,9 +38,9 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
 
 
-        public async Task<IActionResult> OnPost()
+  /*      public async Task<IActionResult> OnPost()
         {
-            if (_getPasswords.IsPasswordGood(NewPasswords) && _getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordMaches(OldPasswords, StudentID))
+          /*  if (_getPasswords.IsPasswordGood(NewPasswords) && _getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordMaches(OldPasswords, StudentID))
             {
                 await _getPasswords.PasswordChange(NewPasswords, StudentID);
                 return RedirectToPage("/StudentPage/StudentProfile");
@@ -51,6 +51,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
                 return Page();
             }
 
-        }
+        }*/
     }
 }

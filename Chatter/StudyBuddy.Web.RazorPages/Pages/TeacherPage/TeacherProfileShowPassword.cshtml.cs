@@ -33,7 +33,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             _httpContextAccessor = httpContextAccessor;
             teachersID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
-
+/*
         public IActionResult OnPost()
         {
             try
@@ -60,6 +60,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         public void OnGet()
         {
 
-        }
+        }*/
     }
 }

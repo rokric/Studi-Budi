@@ -44,7 +44,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         }
 
 
-
+/*
         public async Task<IActionResult> OnPost()
         {
             if (_getPasswords.IsPasswordGood(NewPasswords) && _getPasswords.IsPasswordGood(OldPasswords) && _getPasswords.IsPasswordMaches(OldPasswords, TeacherID))
@@ -58,6 +58,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
                 return Page();
             }
             
-        }
+        }*/
     }
 }

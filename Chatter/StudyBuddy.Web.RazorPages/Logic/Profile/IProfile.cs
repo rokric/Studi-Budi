@@ -8,12 +8,13 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 {
     public interface IProfile
     {
-        bool IsPasswordMaches(string password, int ID);
+        bool IsPasswordMaches(string password, string name);
         public string GetPasswordByID(int ID);
 
         Task PasswordChange( string New, int Id);
          Task NameChange(string New, int Id);
-        public bool IsPasswordGood(string? password);
+        public bool IsPasswordGood(string password);
+        public bool IsPasswordsMaches(string password, string password2);
 
     }
 }

@@ -22,18 +22,22 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
             // return "rrrrrrrrrrrppppl";
             return Encryptor.Decrypt(_context.User.Where(u => u.Userid == ID).Select(u => u.Password).FirstOrDefault());
         }
-
-        public bool IsPasswordMaches(string password, int ID)
+        public string GetPasswordByname(string name)
         {
-            Console.WriteLine(GetPasswordByID(ID) + "   " + password);
-            if (string.Equals(GetPasswordByID(ID), password))//GetPasswordByID(ID).Equals(password))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            // return "rrrrrrrrrrrppppl";
+            return Encryptor.Decrypt(_context.User.Where(u => u.Nick == name).Select(u => u.Password).FirstOrDefault());
+        }
 
+        public bool IsPasswordMaches(string password, string name)
+        {
+            for(int i=0; i<1000; i++)Console.WriteLine(/*GetPasswordByID(ID)*/ name + "   " + password);
+             if (string.Equals(GetPasswordByname(name), password))//GetPasswordByID(ID).Equals(password))
+             {
+                 return true;
+             } else
+             {
+                 return false;
+             }
         }
 
         public User FindUserById(int ID)
@@ -60,7 +64,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 
         }
 
-        public bool IsPasswordGood(string? password)
+        public bool IsPasswordGood(string password)
         {
             if(password==null)
             {
@@ -72,6 +76,20 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 
             return true;
         }
+
+        public bool IsPasswordsMaches(string password, string password2)
+        {
+            if (password == null || password2 == null)
+            {
+                return false;
+            }
+            else if (password.Equals(password2))
+            {
+                return true;
+            }
+            return false;
+        }
+
 
     }
 }

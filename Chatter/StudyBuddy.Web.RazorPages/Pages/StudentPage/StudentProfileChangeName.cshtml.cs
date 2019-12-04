@@ -39,10 +39,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         {
 
         }
-        public async Task<IActionResult> OnPostAsync()
+    /*    public async Task<IActionResult> OnPostAsync()
         {
 
-            if (_GetPasswords.IsPasswordGood(Passwordas) && _GetPasswords.IsPasswordGood(Names) && _GetPasswords.IsPasswordMaches(Passwordas, studentIds))
+          /*  if (_GetPasswords.IsPasswordGood(Passwordas) && _GetPasswords.IsPasswordGood(Names) && _GetPasswords.IsPasswordMaches(Passwordas, studentIds))
             {
 
                 if (_loginchekers.GetProfessionByUserName(Names) != null)
@@ -62,6 +62,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
                 Mesg = "bad data, try again";
                 return Page();
             }
-        }
+        }*/
     }
 }
