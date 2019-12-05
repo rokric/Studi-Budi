@@ -62,7 +62,6 @@
 
     <div class="column">
         <h1> Reported users </h1>
-        <span style="color:red"> @Html.ValidationMessageFor(model => model.ErrorDate) </span>
         <table class="table" border="1">
             <thead>
                 <tr>
@@ -85,7 +84,7 @@
                         @if (item.Banned)
                         {
                             <td>
-                                Banned
+                                Banned since:  @Html.DisplayFor(modelItem => item.Since)
                                 <form method="post">
                                     <input type="submit" value="Cancel" asp-page-handler="Cancel" asp-route-userID="@item.UserID" />
                                 </form>
@@ -95,7 +94,6 @@
                         {
                             <td>
                                 <form method="post" asp-route-userID="@item.UserID">
-                                    <input type="date" asp-for="@Model.DateForBan" value="@Model.Now" />
                                     <input type="submit" value="Ban" />
                                 </form>
                             </td>
@@ -109,6 +107,7 @@
 </div>
 
 <script>
-    document.getElementById('datePicker').value = new Date().toDateInputValue();
-</script>
+    function(date) {
 
+    }
+</script>

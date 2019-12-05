@@ -40,35 +40,16 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
             await _context.SaveChangesAsync();
         }
 
-        public void SuspendUser(int userID, DateTime until)
+        public void SuspendUser(int userID, DateTime since)
         {
-            string message="";
-            if (IsValidSuspension(until, ref message))
+            Ban ban = new Ban
             {
-                Ban ban = new Ban
-                {
-                    UserID = userID,
-                    Until = until
-                };
+                UserID = userID,
+                Until = since
+            };
 
-                _context.Add(ban);
-                _context.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException("User cannot be banned: " + message);
-            }
-        }
-
-        private bool IsValidSuspension(DateTime until, ref string message)
-        {
-            if(until.Date < DateTime.Now.Date)
-            {
-                message = "Date is not valid. It has already gone.";
-                return false;
-            }
-
-            return true;
+            _context.Add(ban);
+            _context.SaveChanges();
         }
 
         private bool IsValidNewSubject(SubjectRequest request, ref string message)
@@ -110,61 +91,27 @@ namespace StudyBuddy.Web.RazorPages.Logic.Admin
         //gets reported users and checks if user is already banned
         public async Task<List<ReportedUser>> GetReportedUsers()
         {
-            List<int> reportedUsersID = await _context.Report.Select(r => r.UserID).Distinct().ToListAsync();
-            List<int> bannedUsersID = await _context.Ban.Select(b => b.UserID).Distinct().ToListAsync();
-
+            List<Report> reports = await _context.Report.ToListAsync();
+            List<Ban> bans = await _context.Ban.ToListAsync();
             List<ReportedUser> reportedUsers = new List<ReportedUser>();
 
-            foreach(var reportedUser in reportedUsersID)
-            {
-                if (bannedUsersID.Contains(reportedUser))
+            reportedUsers = reports.GroupJoin(bans, r => r.UserID, b => b.UserID,
+                (r, reported) => reported.Select(b => new ReportedUser
                 {
-                    reportedUsers.Add(new ReportedUser
-                    {
-                        UserID = reportedUser,
-                        Banned = true
-                    });
-
-                    bannedUsersID.Remove(reportedUser);
-                }
-                else
-                {
-                    reportedUsers.Add(new ReportedUser
-                    {
-                        UserID = reportedUser,
-                        Banned = false
-                    });
-                }
-            }
-
-            foreach(var bannedUser in bannedUsersID)
-            {
-                reportedUsers.Add(new ReportedUser
-                {
-                    UserID = bannedUser,
-                    Banned = true
-                });
-            }
-                
-            /*List<ReportedUser> reportedUsers = reports.GroupJoin(bans, report => report.UserID,
-                ban => ban.UserID,
-                (report, ban) => new ReportedUser
-                {
-                    UserID = report.UserID,
-                    Banned = true
-
+                    UserID = r.UserID,
+                    Banned = true,
+                    Since = b.Until.ToShortDateString()
                 }).DefaultIfEmpty(new ReportedUser
                 {
-                    UserID = 
-                    Banned = false
-
-                }).ToList();
+                    UserID = r.UserID,
+                    Banned = false,
+                    Since = DateTime.Now.ToShortDateString()
+                })).SelectMany(e => e.Select(x => x)).GroupBy(e => e.UserID).Select(x => x.First()).ToList();
 
             foreach(var item in reportedUsers)
             {
-                Console.WriteLine(item.UserID);
-                Console.WriteLine(item.Banned);
-            }*/
+                Console.WriteLine(item.UserID + " " + item.Banned + " " + item.Since);
+            }
 
             return reportedUsers;
         }
