@@ -19,19 +19,22 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 
         public string GetPasswordByID(int ID)
         {
-            // return "rrrrrrrrrrrppppl";
-            return Encryptor.Decrypt(_context.User.Where(u => u.Userid == ID).Select(u => u.Password).FirstOrDefault());
+            return (_context.User.Where(u => u.Userid == ID).Select(u => u.Password).FirstOrDefault());
         }
+        public string GetProfesionByID(int ID)
+        {
+            return (_context.User.Where(u => u.Userid == ID).Select(u => u.Profession).FirstOrDefault());
+        }
+
         public string GetPasswordByname(string name)
         {
-            // return "rrrrrrrrrrrppppl";
+
             return Encryptor.Decrypt(_context.User.Where(u => u.Nick == name).Select(u => u.Password).FirstOrDefault());
         }
 
-        public bool IsPasswordMaches(string password, string name)
+        public bool IsPasswordMaches(string password, int id)
         {
-            for(int i=0; i<1000; i++)Console.WriteLine(/*GetPasswordByID(ID)*/ name + "   " + password);
-             if (string.Equals(GetPasswordByname(name), password))//GetPasswordByID(ID).Equals(password))
+             if (string.Equals(GetPasswordByID(id), Encryptor.Encrypt(password)))
              {
                  return true;
              } else
@@ -64,7 +67,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 
         }
 
-        public bool IsPasswordGood(string password)
+        public bool IsStringGood(string password)
         {
             if(password==null)
             {
@@ -77,13 +80,13 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
             return true;
         }
 
-        public bool IsPasswordsMaches(string password, string password2)
+        public bool IsStringsMaches(string password, string password2)
         {
             if (password == null || password2 == null)
             {
                 return false;
             }
-            else if (password.Equals(password2))
+            else if (password.Equals(password2) && IsStringGood(password))
             {
                 return true;
             }
