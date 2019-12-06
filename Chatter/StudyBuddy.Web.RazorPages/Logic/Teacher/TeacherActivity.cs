@@ -22,6 +22,13 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
              _context.SaveChanges();
         }
 
+        //creates request to admin for adding new custom subject
+        public void AddSubject(int teacherID, string title)
+        {
+            _context.SubjectRequest.Add(new SubjectRequest {UserID = teacherID, Title = title });
+            _context.SaveChanges();
+        }
+
         public async Task DeleteSubject(int teacherID, string subjectTitle)
         {
             int subjectID = await _context.Subject.Where(s => s.Title.Equals(subjectTitle)).Select(s => s.Subjectid).FirstOrDefaultAsync();
