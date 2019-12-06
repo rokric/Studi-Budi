@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Chatter/StudyBuddy.Web.RazorPages/Logic/LoginChecking/ILoginChecker.cs
+/Chatter/StudyBuddy.Web.RazorPages/Logic/LoginChecking/LoginChecker.cs
