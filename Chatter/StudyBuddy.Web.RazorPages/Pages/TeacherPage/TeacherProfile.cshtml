@@ -123,12 +123,7 @@
             <td>Password</td>
 
             <td>
-                <a class="btn success">@Html.DisplayFor(model => Model.TeacherPassword)</a>
-
-                <!-- <form method="post" asp-page="Profile">-->
-                <!--<button class="btn success" value="ShowPassword" asp-action="check">Show password</button>-->
-                <!-- </form>-->
-
+                ******
             </td>
 
             <td><button id="Password" class="btn success">Change Password</button><!-- <a class="btn success" asp-page="/TeacherPage/TeacherProfileChangePassword">Change Password</a> --></td>
@@ -140,8 +135,9 @@
 
 </div>
 
-
-<h1>@Model.Msgs</h1>
+<h1>
+    @TempData["Msgs"]
+</h1>
 
 <br />
 
@@ -150,10 +146,10 @@
 
 
 
-<!-- The Modal -->
+<!--popup for password-->
 <div id="myModal" class="modal">
 
-    <!-- Modal content -->
+
     <div class="modal-content">
         <span class="closes">&times;</span>
 
@@ -179,13 +175,13 @@
 
 </div>
 
-
+<!--popup for name-->
 <div id="myOtherModal" class="modal">
 
-    <!-- Modal content-->
+
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Not working </h2>
+
         <form asp-page-handler="Kazkas" method="post">
 
             <label for="newName">New Name:</label>
@@ -202,7 +198,7 @@
     </div>
 </div>
 
-
+<!--makes pop up window to show-->
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
