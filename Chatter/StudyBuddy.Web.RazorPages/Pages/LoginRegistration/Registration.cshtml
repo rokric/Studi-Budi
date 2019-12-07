@@ -1,33 +1,47 @@
 ﻿@page "/registration"
 @model StudyBuddy.Web.RazorPages.Pages.LoginRegistration.RegistrationModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<h1>Registration</h1>
 @Model.Msg
 <form method="post">
+    <fieldset>
+        <div asp-validation-summary="ModelOnly"></div>
+        <legend style="text-align:center">Registration</legend>
 
-    <div asp-validation-summary="ModelOnly"></div>
-    <div id="RadioButtonGroup">
-        <input type="radio" value="student" asp-for="@Model.Profession" checked="checked" /> Student
-        <input type="radio" value="teacher" asp-for="@Model.Profession" /> Teacher
-    </div>
-    <div>
-        Choose an username
-        <input type="text" asp-for="@Model.Username" />
-        <span asp-validation-for="@Model.Username"></span>
-    </div>
-    <div>
-        Choose a password
-        <input type="password" asp-for="@Model.Password" />
-        <span asp-validation-for="@Model.Password"></span>
-    </div>
-    <div>
-        Repeat a password
-        <input type="password" asp-for="@Model.Password2" />
-        <span asp-validation-for="@Model.Password2"></span>
-    </div>
-    <div>
-        <input type="submit" value="Register" />
-    </div>
+        <div id="RadioButtonGroup" class="form-group">
+            <div class="custom-control custom-radio">
+                <input type="radio" value="student" id="s" class="custom-control-input" asp-for="@Model.Profession" checked="checked" />
+                <label class="custom-control-label" for="s">Student</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" value="teacher" id="t" class="custom-control-input" asp-for="@Model.Profession" />
+                <label class="custom-control-label" for="t">Teacher</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Username">Choose an username</label>
+            <input type="text" class="form-control" asp-for="@Model.Username" id="Username" placeholder="Enter username" />
+            <span asp-validation-for="@Model.Username"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Choose a password</label>
+            <input type="password" class="form-control" asp-for="@Model.Password" id="Password" aria-describedby="passwordHelp" placeholder="Enter password" />
+            <small id="passwordHelp" class="form-text text-muted">Choose your password wisely</small>
+
+            <span asp-validation-for="@Model.Password"></span>
+        </div>
+        <div class="form-group">
+            <label for="Password2">Repeat a password</label>
+            <input type="password" class="form-control" asp-for="@Model.Password2" id="Password2" aria-describedby="passwordHelp2" placeholder="Enter password" />
+            <small id="passwordHelp2" class="form-text text-muted">Passwords need to match</small>
+            <span asp-validation-for="@Model.Password2"></span>
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Register" />
+        </div>
+    </fieldset>
 </form>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
