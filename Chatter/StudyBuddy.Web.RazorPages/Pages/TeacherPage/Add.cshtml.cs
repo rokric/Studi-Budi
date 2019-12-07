@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         [BindProperty]
         public int SubjectID { get; set; }
+
+        //property for adding custom subject
+        [BindProperty, Required]
+        public string SubjectTitle { get; set; }
         public List<SelectListItem> Options { get; set; }
 
         public AddModel(ITeacherActivity teacherActivity)
@@ -39,13 +44,15 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
 
         public IActionResult OnPost(int teacherID)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
             _teacherActivity.AddSubject(teacherID, SubjectID);
 
+            return RedirectToPage("./Subjects");
+        }
+
+        //request new custom subject
+        public IActionResult OnPostRequest(int teacherID)
+        {
+            _teacherActivity.AddSubject(teacherID, SubjectTitle);
             return RedirectToPage("./Subjects");
         }
     }

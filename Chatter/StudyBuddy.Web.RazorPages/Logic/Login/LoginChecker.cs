@@ -14,12 +14,14 @@ namespace StudyBuddy.Web.RazorPages.Logic
     public class LoginChecker : ILoginChecker
     {
         private readonly StudiBudiContext _context;
+        private readonly IAccessDeniedHandler _accessDeniedHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginChecker(StudiBudiContext context, IHttpContextAccessor httpContextAccessor)
+        public LoginChecker(StudiBudiContext context, IHttpContextAccessor httpContextAccessor, IAccessDeniedHandler accessDeniedHandler)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _accessDeniedHandler = accessDeniedHandler;
         }
 
         public int GetUserIDByUserName(string username) =>
@@ -27,6 +29,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
 
         //returns 0 if user is student or teacher
         //returns 1 if user is admin
+        //returns 2 if user is banned
         //return -1 if login failed
         public async Task<int> IsLogCorrect(string username, string password, string profession)
         {
@@ -36,11 +39,21 @@ namespace StudyBuddy.Web.RazorPages.Logic
                 {
                     if(profession == GetProfessionByUserName(username))
                     {
+                        if (_accessDeniedHandler.IsAccessDenied(GetUserIDByUserName(username)))
+                        {
+                            return 2;
+                        }
+
                         await CreateCookie(username);
                         return 0;
                     }
                     else if(GetProfessionByUserName(username) == "admin")
                     {
+                        if (_accessDeniedHandler.IsAccessDenied(GetUserIDByUserName(username)))
+                        {
+                            return 2;
+                        }
+
                         await CreateCookie(username);
                         return 1;
                     }
@@ -79,11 +92,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
             Encryptor.Decrypt(_context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Password).FirstOrDefault());
         public string GetProfessionByUserName(string username) =>
             _context.User.Where(u => u.Nick == Encryptor.Encrypt(username)).Select(u => u.Profession).FirstOrDefault();
-       
-        
-
-       
-
 
     }
 }

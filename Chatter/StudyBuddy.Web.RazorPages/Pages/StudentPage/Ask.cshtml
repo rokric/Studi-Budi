@@ -9,5 +9,6 @@
 
 <form method="post">
     <textarea asp-for="Message" maxlength="500"></textarea>
-    <input type="submit" value="Send"/> 
+    <input type="submit" value="Send" />
+    <span style="color:red"> @Html.ValidationMessageFor(model => model.MessageError) </span>
 </form>

@@ -57,6 +57,10 @@ namespace StudyBuddy.Web.RazorPages.Pages.LoginRegistration
             {
                 return RedirectToPage("../AdminPage/Index");
             }
+            else if(loginStatus == 2)
+            {
+                return RedirectToPage("../AccessDenied");
+            }
             else
             {
                 ModelState.AddModelError("LoginFailed", "Invalid login attempt.");
