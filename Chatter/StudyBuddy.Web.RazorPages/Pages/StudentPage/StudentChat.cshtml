@@ -1,74 +1,76 @@
-﻿@page 
+﻿@page
+
 @model StudyBuddy.Web.RazorPages.Pages.StudentPage.StudentChatModel
 
 @{
     ViewData["Title"] = "StudentChat";
 }
-
-<h1>Chat</h1>
-
-<a asp-page="/StudentPage/Inbox" asp-route-studentID="@Model.StudentID">View my questions</a>
-
 <form>
-    <select asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
-        <option value=""> All </option>
-    </select>
-    <input type="submit" value="Filter" />
+    <fieldset>
+        <legend style="text-align:center">Questions</legend>
+        <a asp-page="/StudentPage/Inbox" class="nav-link" asp-route-studentID="@Model.StudentID" style="text-align:center">View my questions</a>
+        <div class="form-group">
+            <select class="form-control" asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
+                <option value=""> All </option>
+            </select>
+        </div>
+            <input type="submit" value="Filter" class="btn btn-success" />
+    </fieldset>
 </form>
-
-<table class="table">
+<br />
+<table class="table table-hover" border="1">
     <thead>
         <tr>
-            <th>
+            <th scope="col" class="table-success">
                 Teacher Name
             </th>
 
-            <th>
+            <th scope="col" class="table-success">
                 Unanswered questions
             </th>
 
-            <th>
-                Points
-            </th>
-
-            <th>
+            <th scope="col" class="table-success">
                 Subject
             </th>
 
-            <th>
+            <th scope="col" class="table-success">
+                Points
+            </th>
+
+            <th scope="col" class="table-success">
                 Action
             </th>
         </tr>
     </thead>
     <tbody>
-         @foreach (var item in Model.TeachersAndSubjects)
-            {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TeacherName)
-            </td>
+        @foreach (var item in Model.TeachersAndSubjects)
+        {
+            <tr>
+                <td class="table-dark" style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.UnansweredCount)
-            </td>
+                <td class="table-dark" style="text-align:center">
+                    <span class="badge badge-primary badge-pill" style="background-color: #FF7851">@Html.DisplayFor(modelItem => item.UnansweredCount)</span>
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Points)
-            </td>
+                <td class="table-dark" style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.SubjectTitle)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.SubjectTitle)
-            </td>
+                <td class="table-dark" style="text-align:center">
+                    <span class="badge badge-primary badge-pill">@Html.DisplayFor(modelItem => item.Points)</span>
+                </td>
 
-            <td>
-                <a asp-page="/StudentPage/Ask"
-                   asp-route-teacherName="@item.TeacherName" asp-route-subjectTitle="@item.SubjectTitle"
-                   asp-route-studentID="@Model.StudentID"> Ask question! </a>
-            </td>
-        </tr>
-            }
-            @section Scripts {
-                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-            }
+                <td class="table-dark" style="text-align:center">
+                    <a asp-page="/StudentPage/Ask"
+                       asp-route-teacherName="@item.TeacherName" asp-route-subjectTitle="@item.SubjectTitle"
+                       asp-route-studentID="@Model.StudentID" class="nav-link"> Ask question! </a>
+                </td>
+            </tr>
+        }
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
     </tbody>
 </table>
