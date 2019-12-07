@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace StudyBuddy.Web.RazorPages.Logic.Entities
 {
-    public class TeacherAndSubject
+    public class QuestionGroupKey
     {
-        public string TeacherName { get; set; }
+        public string Name { get; set; }
         public string SubjectTitle { get; set; }
-        public int Points { get; set; }
-        public int UnansweredCount { get; set; }
     }
 }

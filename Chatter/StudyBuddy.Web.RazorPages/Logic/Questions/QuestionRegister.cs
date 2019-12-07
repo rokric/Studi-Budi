@@ -27,7 +27,8 @@ namespace StudyBuddy.Web.RazorPages.Logic
         private void Create(int studentID, string teacherName, string message, string subjectTitle)
         {
             string studentName = GetStudentNameById(studentID);
-            bool isValid = ValidateData(studentName, teacherName, message, subjectTitle);
+            string validationMessage;
+            bool isValid = ValidateData(studentName, teacherName, message, subjectTitle, out validationMessage);
 
             if (isValid)
             {
@@ -44,6 +45,10 @@ namespace StudyBuddy.Web.RazorPages.Logic
                 _context.Add(question);
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new ArgumentException(validationMessage);
+            }
         }
 
         private string GetStudentNameById(int studentID)
@@ -51,28 +56,33 @@ namespace StudyBuddy.Web.RazorPages.Logic
             return _context.User.Where(u => u.Userid == studentID).Select(u => u.Nick).FirstOrDefault();
         }
 
-        private bool ValidateData(string studentName, string teacherName, string message, string subjectTitle)
+        private bool ValidateData(string studentName, string teacherName, string message, string subjectTitle, out string validationMessage)
         {
             if (string.IsNullOrEmpty(studentName))
             {
+                validationMessage = "student name cannot be empty";
                 return false;
             }
 
             if (string.IsNullOrEmpty(teacherName))
             {
+                validationMessage = "teacher name cannot be empty";
                 return false;
             }
 
             if (string.IsNullOrEmpty(message))
             {
+                validationMessage = "message cannot be empty";
                 return false;
             }
 
             if (string.IsNullOrEmpty(subjectTitle))
             {
+                validationMessage = "subject title cannot be empty";
                 return false;
             }
 
+            validationMessage = "valid";
             return true;
         }
     }

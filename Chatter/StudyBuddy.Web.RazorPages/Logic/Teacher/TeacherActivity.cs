@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChatServer;
+using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Models;
 using System;
@@ -20,6 +21,13 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
         {
             _context.Teaching.Add(new Teaching() { Userid = teacherID, Subjectid = subjectID });
              _context.SaveChanges();
+        }
+
+        //creates request to admin for adding new custom subject
+        public void AddSubject(int teacherID, string title)
+        {
+            _context.SubjectRequest.Add(new SubjectRequest {UserID = teacherID, Title = title });
+            _context.SaveChanges();
         }
 
         public async Task DeleteSubject(int teacherID, string subjectTitle)
@@ -65,9 +73,20 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
             return mySubjects;
         }
 
+        public void ReportStudent(string studentName, string message)
+        {
+            _context.Report.Add(new Report {UserID = GetUserIdByName(studentName), Message = message});
+            _context.SaveChanges();
+        }
+
         private Subject GetSubjectByID(int id)
         {
             return _context.Subject.Where(s => s.Subjectid == id).FirstOrDefault();
+        }
+
+        private int GetUserIdByName(string name)
+        {
+            return _context.User.Where(u => u.Nick.Equals(Encryptor.Encrypt(name))).Select(u => u.Userid).FirstOrDefault();
         }
     }
 }

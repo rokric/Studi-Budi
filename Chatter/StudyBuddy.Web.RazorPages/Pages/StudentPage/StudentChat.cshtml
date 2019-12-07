@@ -24,6 +24,10 @@
             </th>
 
             <th>
+                Unanswered questions
+            </th>
+
+            <th>
                 Points
             </th>
 
@@ -42,6 +46,10 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UnansweredCount)
             </td>
 
             <td>

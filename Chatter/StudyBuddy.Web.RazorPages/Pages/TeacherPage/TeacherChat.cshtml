@@ -4,47 +4,116 @@
 @{
     ViewData["Title"] = "TeacherChat";
 }
+
+<style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 400px; /* Could be more or less, depending on screen size */
+        height: 350px;
+    }
+</style>
+
 <h1>Inbox</h1>
 
+<span style="color:red"> @Html.ValidationMessageFor(model => model.ReportError) </span>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].StudentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].SubjectTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions[0].Message)
-            </th>
-            <th>
-                Answer
-            </th>
-        </tr>
-    </thead>
+
     <tbody>
-        @foreach (var item in Model.Questions)
+        @foreach (var group in Model.Questions)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StudentName)
+                    @Html.DisplayFor(modelItem => group.Key.Name), @Html.DisplayFor(modelItem => group.Key.SubjectTitle)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubjectTitle)
+                    <button id="report" onclick="reportStudent('@group.Key.Name')">Report</button>
                 </td>
+            </tr>
+
+            @foreach (var item in group.Questions)
+            {
+            <tr>
                 <td>
                     <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
                 </td>
-                <td>
-                    <form metohd="post" asp-route-questionID="@item.QuestionID">
-                        <textarea asp-for="Answer"></textarea>
-                        <input type="submit" value="send"/>
-                    </form>
-                </td>
+
+                @if (item.Status == 0)
+                {
+                    <td>
+                        <form metohd="post" asp-route-questionID="@item.QuestionID">
+                            <textarea asp-for="Answer"></textarea>
+                            <input type="submit" value="send" />
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+                    </td>
+                }
+
             </tr>
+            }
         }
     </tbody>
 </table>
 
+<div id="reportModal" class="modal">
 
+    <div class="modal-content">
+        <form metohd="post" asp-page-handler="Report">
+            <input asp-for="StudentName" id="student-to-report" type="text" hidden />
+            <br />
+            Why you want to report this student? <br />
+            <textarea asp-for="ReportMessage"></textarea>
+            <input id="submitButton" type="submit" value="Report" />
+            <button id="closeButton">Close</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    var reportModal = document.getElementById("reportModal");
+    var reportButton = document.getElementById("report");
+    var studentToReport = document.getElementById("student-to-report");
+    var submitButton = document.getElementById("submitButton");
+    var closeButton = document.getElementById("closeButton");
+
+
+    function reportStudent(studentName) {
+        reportModal.style.display = "block";
+        studentToReport.value = studentName;
+    }
+
+    submitButton.onclick = function () {
+        reportModal.style.display = "none";
+    }
+
+    closeButton.onclick = function () {
+        reportModal.style.display = "none";
+    }
+</script>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+}
