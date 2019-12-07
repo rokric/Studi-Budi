@@ -23,13 +23,9 @@ namespace StudyBuddy.Web.RazorPages.Logic
         {
             if (!string.IsNullOrEmpty(filter))
             {
-                List<Teaching> Teachings = _context.Teaching.Where(t => t.Subjectid == GetSubjectIdByTitle(filter)).ToList();
+                teachersAndSubjects = teachersAndSubjects.Where(x => x.SubjectTitle == filter).ToList();
 
-                teachersAndSubjects = Teachings.Select(t => new TeacherAndSubject
-                {
-                    TeacherName = GetTeacherNameById(t.Userid),
-                    SubjectTitle = filter
-                }).ToList();
+                teachersAndSubjects.Sort((a, b) => b.Points.CompareTo(a.Points));
             }
 
             return teachersAndSubjects;
@@ -59,18 +55,23 @@ namespace StudyBuddy.Web.RazorPages.Logic
 
         public async Task<List<TeacherAndSubject>> GetTeachersAndSubjects()
         {
-            List<Models.Teaching> teachings = await _context.Teaching.ToListAsync();
+            List<Teaching> teachings = await _context.Teaching.ToListAsync();
 
             List<TeacherAndSubject> teachersAndSubjects = teachings.Select(t => new TeacherAndSubject
             {
                 TeacherName = GetTeacherNameById(t.Userid),
                 SubjectTitle = GetSubjectTitleById(t.Subjectid),
+                
             }).ToList();
 
-            foreach(TeacherAndSubject item in teachersAndSubjects)
+
+            foreach (TeacherAndSubject item in teachersAndSubjects)
             {
                 item.Points = await GetPointsBySubjectAndTeacherName(item.SubjectTitle, item.TeacherName);
+                item.UnansweredCount = await GetUnansweredCount(item.SubjectTitle, item.TeacherName);
             }
+
+            teachersAndSubjects.Sort((a, b) => b.Points.CompareTo(a.Points));
 
             return teachersAndSubjects;
         }
@@ -78,9 +79,17 @@ namespace StudyBuddy.Web.RazorPages.Logic
         private async Task<int> GetPointsBySubjectAndTeacherName(string subjectTitle, string teacherName)
         {
             teacherName = Encryptor.Encrypt(teacherName);
-            List<Models.Question> questions = await _context.Question.ToListAsync();
+            List<Question> questions = await _context.Question.ToListAsync();
             int value = questions.Where(q => q.SubjectTitle.Equals(subjectTitle) && q.TeacherName.Equals(teacherName)).Select(
                 q => q.Points).Sum();
+            return value;
+        }
+
+        private async Task<int> GetUnansweredCount(string subjectTitle, string teacherName)
+        {
+            teacherName = Encryptor.Encrypt(teacherName);
+            List<Question> questions = await _context.Question.ToListAsync();
+            int value = questions.Where(q => q.SubjectTitle.Equals(subjectTitle) && q.TeacherName.Equals(teacherName) && q.Status == 0).Count();
             return value;
         }
     }

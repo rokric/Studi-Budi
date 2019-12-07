@@ -11,5 +11,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
     {
         Task<List<Question>> GetQuestions(string userName, string userType);
         Task<List<QuestionGroup>> GetGroupedQuestionsForTeacher(string userName);
+        Task<List<QuestionGroup>> GetGroupedQuestionsForStudent(string userName);
     }
 }

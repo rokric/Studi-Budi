@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.Web.RazorPages.Data;
 using StudyBuddy.Web.RazorPages.Logic;
+using StudyBuddy.Web.RazorPages.Logic.Entities;
 using StudyBuddy.Web.RazorPages.Models;
 
 namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
@@ -17,7 +18,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
         private IQuestionLoader _questionLoader;
         private IUserInfoLoader _userInfoLoader;
        
-        public IList<Question> Questions { get; set; }
+        public List<QuestionGroup> Questions { get; set; }
 
         public InboxModel(IQuestionLoader questionLoader, IUserInfoLoader userInfoLoader)
         {
@@ -28,7 +29,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.StudentPage
 
         public async Task OnGetAsync(int studentID)
         {
-            Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(studentID), "student");
+            Questions = await _questionLoader.GetGroupedQuestionsForStudent(await _userInfoLoader.GetEncryptedUserNameById(studentID));
         }
     }
 }

@@ -47,13 +47,11 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             _httpContextAccessor = httpContextAccessor;
         }
 
-        //public IList<Question> Questions { get; set; }
         public List<QuestionGroup> Questions { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string message = null)
         {
             TeacherID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //Questions = await _questionLoader.GetQuestions(await _userInfoLoader.GetEncryptedUserNameById(TeacherID), "teacher");
             Questions = await _questionLoader.GetGroupedQuestionsForTeacher(await _userInfoLoader.GetEncryptedUserNameById(TeacherID));
 
             if(message != null)
@@ -74,8 +72,6 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
             {
                 return RedirectToAction("OnGetAsync", new { message = exc.Message});
             }
-
-            
 
             return RedirectToPage();
         }

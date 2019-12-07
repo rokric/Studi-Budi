@@ -68,7 +68,7 @@ namespace StudyBuddy.Web.RazorPages.Logic
             return decryptedQuestions;
         }
 
-        //returns decrypted questions grouped by student name and subject
+        //returns questions grouped by student name and subject
         public async Task<List<QuestionGroup>> GetGroupedQuestionsForTeacher(string userName)
         {
             List<Question> questions = await _context.Question.Where(q => q.TeacherName.Equals(userName)).ToListAsync();
@@ -100,6 +100,33 @@ namespace StudyBuddy.Web.RazorPages.Logic
             QuestionGroupKey decrypted = questionGroupKey;
             decrypted.Name = Encryptor.Decrypt(decrypted.Name);
             return decrypted;
+        }
+
+        //returns questions grouped by student name and subject
+        public async Task<List<QuestionGroup>> GetGroupedQuestionsForStudent(string userName)
+        {
+            List<Question> questions = await _context.Question.Where(q => q.StudentName.Equals(userName)).ToListAsync();
+
+            var groupedQuestions =
+                questions.Where(q => q.StudentName.Equals(userName)).GroupBy(q =>
+                    new { q.TeacherName, q.SubjectTitle });
+
+            List<QuestionGroup> questionGroups = new List<QuestionGroup>();
+
+            foreach (var group in groupedQuestions)
+            {
+                QuestionGroupKey questionGroupKey = new QuestionGroupKey { SubjectTitle = group.Key.SubjectTitle, Name = group.Key.TeacherName };
+                List<Question> questionGroupQuestions = new List<Question>();
+
+                foreach (var item in group)
+                {
+                    questionGroupQuestions.Add(item);
+                }
+
+                questionGroups.Add(new QuestionGroup { Key = DecryptGroupedQuestionsKey(questionGroupKey), Questions = questionGroupQuestions });
+            }
+
+            return questionGroups;
         }
     }
 }
