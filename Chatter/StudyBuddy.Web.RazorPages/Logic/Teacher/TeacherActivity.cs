@@ -99,7 +99,8 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
             int answeredCount = GetAnsweredQuestionsCount(teacherID, subjectTitle);
             int points = GetPoints(teacherID, subjectTitle);
 
-            _context.FAQ.Add(new FAQ { TeacherID = teacherID, Question = question, Answer = answer, Points = points, Answered = answeredCount });
+            _context.FAQ.Add(new FAQ { TeacherID = teacherID, Question = question, Answer = answer, Points = points, 
+                Answered = answeredCount, SubjectID = GetSubjectIdByTitle(subjectTitle)});
             await _context.SaveChangesAsync();
         }
 
@@ -116,6 +117,11 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
         private Subject GetSubjectByID(int id)
         {
             return _context.Subject.Where(s => s.Subjectid == id).FirstOrDefault();
+        }
+
+        private int GetSubjectIdByTitle(string title)
+        {
+            return _context.Subject.Where(s => s.Title == title).Select(s => s.Subjectid).FirstOrDefault();
         }
 
         private int GetUserIdByName(string name)

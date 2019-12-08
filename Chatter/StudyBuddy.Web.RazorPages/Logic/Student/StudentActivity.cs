@@ -105,7 +105,8 @@ namespace StudyBuddy.Web.RazorPages.Logic
                     Answer = f.Answer,
                     Answered = f.Answered,
                     Points = f.Points,
-                    Question = f.Question
+                    Question = f.Question,
+                    Subject = GetSubjectTitleById(f.SubjectID)
                 }
             ).ToList();
 

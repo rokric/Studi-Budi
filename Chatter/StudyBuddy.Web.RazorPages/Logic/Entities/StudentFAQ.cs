@@ -12,5 +12,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Entities
         public string Question { get; set; }
         public int Points { get; set; }
         public int Answered { get; set; }
+
+        public string Subject { get; set; }
     }
 }

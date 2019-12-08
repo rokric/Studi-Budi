@@ -13,6 +13,9 @@
             <th scope="col" class="table-success">
                 Teacher's information
             </th>
+            <th scope="col" class="table-success">
+                Subject
+            </th>
 
             <th scope="col" class="table-success">
                 Question
@@ -26,32 +29,27 @@
     <tbody>
         @foreach (var item in Model.StudentFAQs)
         {
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            Name:  @Html.DisplayFor(modelItem => item.Name)
-                        </li>
-                        <bold><italic>At the moment, when this question was posted teacher had:</italic></bold>
-                        <li>
-                            Points:  @Html.DisplayFor(modelItem => item.Points)
-                        </li>
+        <tr>
+            <td>
+                Name:  <span style="font-weight:bold">@Html.DisplayFor(modelItem => item.Name)</span> <br />
+                <span style="font-style:italic">At the moment, when this question was posted teacher had:</span> <br />
+                Points: <span style="font-weight:bold"> @Html.DisplayFor(modelItem => item.Points)</span> <br />
+                Answered questions: <span style="font-weight:bold"> @Html.DisplayFor(modelItem => item.Answered)</span> 
+            </td>
 
-                        <li>
-                            Answered questions:  @Html.DisplayFor(modelItem => item.Answered)
-                        </li>
-                    </ul>
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
 
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.Question)
-                </td>
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
 
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.Answer)
-                </td>
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>

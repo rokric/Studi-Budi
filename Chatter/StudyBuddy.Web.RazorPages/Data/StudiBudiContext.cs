@@ -175,6 +175,10 @@ namespace StudyBuddy.Web.RazorPages.Data
                 entity.Property(e => e.Points)
                .IsRequired()
                .HasColumnName("points");
+
+                entity.Property(e => e.SubjectID)
+               .IsRequired()
+               .HasColumnName("subjectID");
             });
 
             modelBuilder.Entity<Teaching>().ToTable("Teaching");
