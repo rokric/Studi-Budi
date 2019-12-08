@@ -5,10 +5,15 @@
     Layout = "_LayoutWithoutNavigation";
 }
 
-<h1>Ask question!</h1>
 
 <form method="post">
-    <textarea asp-for="Message" maxlength="500"></textarea>
-    <input type="submit" value="Send" />
-    <span style="color:red"> @Html.ValidationMessageFor(model => model.MessageError) </span>
+    <fieldset>
+        <legend>Ask a question!</legend>
+        <div class="form-group">
+    <label for="exampleTextarea">Your question...</label>
+    <textarea class="form-control" id="exampleTextarea" rows="3" asp-for="Message" maxlength="500"></textarea>
+        </div>
+        <input type="submit" value="Send" class="btn btn-success" />
+        <span style="color:red "badge badge-primary badge-pill""> @Html.ValidationMessageFor(model => model.MessageError) </span>
+    </fieldset>
 </form>

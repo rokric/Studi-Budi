@@ -4,31 +4,35 @@
 @{
     ViewData["Title"] = "My subjects";
 }
-<h1> Teacher Subjects </h1>
+    <fieldset>
+        <legend>Teacher Subjects</legend>
+        <form action="/TeacherPage/Add">
+            <input type="submit" class="btn btn-outline-success" asp-page="/TeacherPage/Add" value="Add new subject" asp-route-teacherID="@Model.TeacherID" />
+        </form>
+    </fieldset>
 
-<a asp-page="/TeacherPage/Add" asp-route-teacherID="@Model.TeacherID">Add new subject</a>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>
+            <th class="table-primary">
                 Subject
             </th>
-            <th>
+            <th class="table-primary">
                 Action
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.MySubjects) { 
-        <tr>
-            <td>
+        <tr class="table-dark">
+            <td >
                 @Html.DisplayFor(modelItem => item)
             </td>
 
-            <td>
+            <td >
                 <form method="post">
-                    <button type="submit" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
+                    <button type="submit" class="btn btn-danger" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
                 </form>
             </td>
         </tr>
