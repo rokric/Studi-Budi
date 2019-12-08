@@ -44,44 +44,45 @@
             cursor: pointer;
         }
 </style>
-
-<h1>Inbox</h1>
-
+    <fieldset>
+        <legend>Inbox</legend>
+    </fieldset>
 <span style="color:red"> @Html.ValidationMessageFor(model => model.ReportError) </span>
-<table class="table">
+<table class="table table-hover">
 
     <tbody>
         @foreach (var group in Model.Questions)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => group.Key.Name), @Html.DisplayFor(modelItem => group.Key.SubjectTitle)
+                <td class="table-primary">
+                    <strong> @Html.DisplayFor(modelItem => group.Key.Name)</strong>, @Html.DisplayFor(modelItem => group.Key.SubjectTitle)
                 </td>
-                <td>
-                    <button id="report" onclick="reportStudent('@group.Key.Name')">Report</button>
+                <td class="table-primary">
+                    <button id="report" onclick="reportStudent('@group.Key.Name')"  class="btn btn-danger">Report Student</button>
                 </td>
             </tr>
 
             @foreach (var item in group.Questions)
             {
             <tr>
-                <td>
-                    <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                <td class="table-dark">
+                    <textarea maxlength="500" readonly rows="3" class="form-control"> @Html.DisplayFor(modelItem => item.Message)</textarea>
                 </td>
 
                 @if (item.Status == 0)
                 {
-                    <td>
+                    <td class="table-dark">
                         <form metohd="post" asp-route-questionID="@item.QuestionID">
-                            <textarea asp-for="Answer"></textarea>
-                            <input type="submit" value="send" />
+                            <textarea asp-for="Answer" rows="3" class="form-control" style="border:dashed 6px #FF7851;"></textarea>
+                            <br />
+                            <input type="submit" value="send"  class="btn btn-outline-success"/>
                         </form>
                     </td>
                 }
                 else
                 {
-                    <td>
-                        <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+                    <td class="table-dark">
+                        <textarea maxlength="500" class="form-control" style="color:#56CC9D" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
                     </td>
                 }
 
@@ -99,8 +100,9 @@
             <input asp-for="StudentName" id="student-to-report" type="text" hidden />
             <br />
             Why you want to report this student? <br />
-            <textarea asp-for="ReportMessage"></textarea>
-            <input id="submitButton" type="submit" value="Report" />
+            <textarea  maxlength="500" class="form-control" style="color:#56CC9D" asp-for="ReportMessage"></textarea>
+            <br />
+            <input id="submitButton" type="submit" value="Report"  class="btn btn-outline-success" />
         </form>
     </div>
 </div>

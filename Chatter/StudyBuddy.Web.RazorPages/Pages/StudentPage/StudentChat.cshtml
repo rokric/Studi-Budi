@@ -8,13 +8,17 @@
 <form>
     <fieldset>
         <legend style="text-align:center">Questions</legend>
-        <a asp-page="/StudentPage/Inbox" class="nav-link" asp-route-studentID="@Model.StudentID" style="text-align:center">View my questions</a>
+        <br />
+        <form action="/StudentPage/Inbox">
+            <input type="submit" class="btn btn-outline-success" asp-page="/StudentPage/Inbox" asp-route-studentID="@Model.StudentID" style="text-align:center" align="middle" value="View my questions" />   
+        </form>
+        <br />
         <div class="form-group">
             <select class="form-control" asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
                 <option value=""> All </option>
             </select>
         </div>
-            <input type="submit" value="Filter" class="btn btn-success" />
+        <input type="submit" value="Filter" class="btn btn-outline-success" />
     </fieldset>
 </form>
 <br />
