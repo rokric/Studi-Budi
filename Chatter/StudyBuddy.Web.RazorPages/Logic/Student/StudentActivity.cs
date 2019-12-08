@@ -92,5 +92,24 @@ namespace StudyBuddy.Web.RazorPages.Logic
             int value = questions.Where(q => q.SubjectTitle.Equals(subjectTitle) && q.TeacherName.Equals(teacherName) && q.Status == 0).Count();
             return value;
         }
+
+        public async Task<List<StudentFAQ>> GetFAQs()
+        {
+            List<StudentFAQ> studentFAQs = new List<StudentFAQ>();
+            List<FAQ> fAQs = await _context.FAQ.ToListAsync();
+
+            studentFAQs = fAQs.Select(f =>
+                new StudentFAQ
+                {
+                    Name = GetTeacherNameById(f.TeacherID),
+                    Answer = f.Answer,
+                    Answered = f.Answered,
+                    Points = f.Points,
+                    Question = f.Question
+                }
+            ).ToList();
+
+            return studentFAQs;
+        }
     }
 }

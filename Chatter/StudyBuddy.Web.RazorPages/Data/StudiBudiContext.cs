@@ -23,6 +23,7 @@ namespace StudyBuddy.Web.RazorPages.Data
         public virtual DbSet<SubjectRequest> SubjectRequest { get; set; }
         public virtual DbSet<Report> Report { get; set; }
         public virtual DbSet<Ban> Ban { get; set; }
+        public virtual DbSet<FAQ> FAQ { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -149,6 +150,31 @@ namespace StudyBuddy.Web.RazorPages.Data
                 entity.Property(e => e.Until)
                  .IsRequired()
                  .HasColumnName("until");
+            });
+
+            modelBuilder.Entity<FAQ>(entity =>
+            {
+                entity.Property(e => e.ID).HasColumnName("id");
+
+                entity.Property(e => e.TeacherID)
+                    .IsRequired()
+                    .HasColumnName("teacherID");
+
+                entity.Property(e => e.Question)
+                 .IsRequired()
+                 .HasColumnName("question");
+
+                entity.Property(e => e.Answered)
+                .IsRequired()
+                .HasColumnName("answered");
+
+                entity.Property(e => e.Answer)
+               .IsRequired()
+               .HasColumnName("answer");
+
+                entity.Property(e => e.Points)
+               .IsRequired()
+               .HasColumnName("points");
             });
 
             modelBuilder.Entity<Teaching>().ToTable("Teaching");
