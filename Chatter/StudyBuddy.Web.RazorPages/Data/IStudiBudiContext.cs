@@ -13,5 +13,6 @@ namespace StudyBuddy.Web.RazorPages.Data
         public DbSet<Teaching> Teaching { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Question> Question { get; set; }
+        public DbSet<FAQ> FAQ { get; set; }
     }
 }

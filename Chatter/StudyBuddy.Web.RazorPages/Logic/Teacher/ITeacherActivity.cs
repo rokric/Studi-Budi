@@ -17,5 +17,6 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
         Task DeleteSubject(int teacherID, string subjectTitle);
 
         void ReportStudent(string studentName, string message);
+        Task Share(int teacherID, string subjectTitle, string question, string answer);
     }
 }

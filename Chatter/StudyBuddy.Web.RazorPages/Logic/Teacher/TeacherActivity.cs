@@ -79,6 +79,40 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
             _context.SaveChanges();
         }
 
+        public async Task Share(int teacherID, string subjectTitle, string question, string answer)
+        {
+            if (string.IsNullOrEmpty(subjectTitle))
+            {
+                throw new ArgumentException("subject cannot be empty");
+            }
+
+            if (string.IsNullOrEmpty(question))
+            {
+                throw new ArgumentException("question cannot be empty");
+            }
+
+            if (string.IsNullOrEmpty(answer))
+            {
+                throw new ArgumentException("answer cannot be empty");
+            }
+
+            int answeredCount = GetAnsweredQuestionsCount(teacherID, subjectTitle);
+            int points = GetPoints(teacherID, subjectTitle);
+
+            _context.FAQ.Add(new FAQ { TeacherID = teacherID, Question = question, Answer = answer, Points = points, Answered = answeredCount });
+            await _context.SaveChangesAsync();
+        }
+
+        private int GetAnsweredQuestionsCount(int teacherID, string subjecTitle)
+        {
+            return _context.Question.Where(q => q.TeacherName == GetUserNamedByID(teacherID) && q.Status == 1 && q.SubjectTitle == subjecTitle).Count();
+        }
+
+        private int GetPoints(int teacherID, string subjecTitle)
+        {
+            return _context.Question.Where(q => q.TeacherName == GetUserNamedByID(teacherID) && q.Status == 1 && q.SubjectTitle == subjecTitle).Sum(q => q.Points);
+        }
+
         private Subject GetSubjectByID(int id)
         {
             return _context.Subject.Where(s => s.Subjectid == id).FirstOrDefault();
@@ -87,6 +121,10 @@ namespace StudyBuddy.Web.RazorPages.Logic.Teacher
         private int GetUserIdByName(string name)
         {
             return _context.User.Where(u => u.Nick.Equals(Encryptor.Encrypt(name))).Select(u => u.Userid).FirstOrDefault();
+        }
+        private string GetUserNamedByID(int id)
+        {
+            return _context.User.Where(u => u.Userid == id).Select(u => u.Nick).FirstOrDefault();
         }
     }
 }

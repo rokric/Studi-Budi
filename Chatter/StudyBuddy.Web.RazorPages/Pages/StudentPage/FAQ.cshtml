@@ -1,0 +1,57 @@
+﻿@page
+@model StudyBuddy.Web.RazorPages.Pages.StudentPage.FAQModel
+@{
+    ViewData["Title"] = "FAQ";
+    Layout = "~/Pages/Shared/_LayoutStudent.cshtml";
+}
+
+<legend style="text-align:center">Frequently asked questions</legend>
+
+<table class="table table-hover" border="1">
+    <thead>
+        <tr>
+            <th scope="col" class="table-success">
+                Teacher's information
+            </th>
+
+            <th scope="col" class="table-success">
+                Question
+            </th>
+
+            <th scope="col" class="table-success">
+                Answer
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StudentFAQs)
+        {
+            <tr>
+                <td>
+                    <ul>
+                        <li>
+                            Name:  @Html.DisplayFor(modelItem => item.Name)
+                        </li>
+                        <bold><italic>At the moment, when this question was posted teacher had:</italic></bold>
+                        <li>
+                            Points:  @Html.DisplayFor(modelItem => item.Points)
+                        </li>
+
+                        <li>
+                            Answered questions:  @Html.DisplayFor(modelItem => item.Answered)
+                        </li>
+                    </ul>
+                </td>
+
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
