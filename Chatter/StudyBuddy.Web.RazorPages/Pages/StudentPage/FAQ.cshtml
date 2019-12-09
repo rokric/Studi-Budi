@@ -5,51 +5,51 @@
     Layout = "~/Pages/Shared/_LayoutStudent.cshtml";
 }
 
-<legend style="text-align:center">Frequently asked questions</legend>
+    <legend style="text-align:center">Frequently asked questions</legend>
 
-<table class="table table-hover" border="1">
-    <thead>
-        <tr>
-            <th scope="col" class="table-success">
-                Teacher's information
-            </th>
-            <th scope="col" class="table-success">
-                Subject
-            </th>
+    <table class="table table-hover" border="1">
+        <thead>
+            <tr>
+                <th scope="col" class="table-success">
+                    Teacher's information
+                </th>
+                <th scope="col" class="table-success">
+                    Subject
+                </th>
 
-            <th scope="col" class="table-success">
-                Question
-            </th>
+                <th scope="col" class="table-success">
+                    Question
+                </th>
 
-            <th scope="col" class="table-success">
-                Answer
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.StudentFAQs)
-        {
-        <tr>
-            <td>
-                Name:  <span style="font-weight:bold">@Html.DisplayFor(modelItem => item.Name)</span> <br />
-                <span style="font-style:italic">At the moment, when this question was posted teacher had:</span> <br />
-                Points: <span style="font-weight:bold"> @Html.DisplayFor(modelItem => item.Points)</span> <br />
-                Answered questions: <span style="font-weight:bold"> @Html.DisplayFor(modelItem => item.Answered)</span> 
-            </td>
+                <th scope="col" class="table-success">
+                    Answer
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.StudentFAQs)
+            {
+                <tr>
+                    <td class="table-dark">
+                        Name:  <span style="font-weight:bold;background-color: #FF7851" class="badge badge-primary badge-pill">@Html.DisplayFor(modelItem => item.Name)</span> <br />
+                        <span style="font-style:italic">At the moment, when this question was posted teacher had:</span> <br />
+                        Points: <span style="font-weight:bold;background-color: #6CC3D5" class="badge badge-primary badge-pill"> @Html.DisplayFor(modelItem => item.Points)</span> <br />
+                        Answered questions: <span style="font-weight:bold" class="badge badge-primary badge-pill"> @Html.DisplayFor(modelItem => item.Answered)</span>
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
+                    <td style="text-align:center" class="table-dark">
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
 
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
+                    <td style="text-align:center" class="table-dark">
+                        @Html.DisplayFor(modelItem => item.Question)
+                    </td>
 
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
+                    <td style="text-align:center" class="table-dark">
+                        <span class="badge badge-primary badge-pill"> @Html.DisplayFor(modelItem => item.Answer)</span>
+                    </td>
 
-        </tr>
-        }
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>

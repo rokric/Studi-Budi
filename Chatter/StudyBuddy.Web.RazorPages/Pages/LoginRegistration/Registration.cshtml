@@ -2,49 +2,50 @@
 @model StudyBuddy.Web.RazorPages.Pages.LoginRegistration.RegistrationModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @Model.Msg
-<form method="post">
-    <fieldset>
-        <div asp-validation-summary="ModelOnly"></div>
-        <legend style="text-align:center">Registration</legend>
+<body style="background-color:#343a40;">
 
-        <div id="RadioButtonGroup" class="form-group">
-            <div class="custom-control custom-radio">
-                <input type="radio" value="student" id="s" class="custom-control-input" asp-for="@Model.Profession" checked="checked" />
-                <label class="custom-control-label" for="s">Student</label>
+    <form method="post">
+        <fieldset>
+            <div asp-validation-summary="ModelOnly"></div>
+            <legend style="text-align:center">Registration</legend>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" value="student" id="option1" autocomplete="off" asp-for="@Model.Profession" checked="checked"> Student
+                </label>
+
+                <label class="btn btn-primary">
+                    <input type="radio" value="teacher" id="option2" autocomplete="off" asp-for="@Model.Profession"> Teacher
+                </label>
             </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" value="teacher" id="t" class="custom-control-input" asp-for="@Model.Profession" />
-                <label class="custom-control-label" for="t">Teacher</label>
+
+            <div class="form-group">
+                <label for="Username">Choose an username</label>
+                <input type="text" class="form-control" asp-for="@Model.Username" id="Username" placeholder="Enter username" />
+                <span asp-validation-for="@Model.Username"></span>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="Username">Choose an username</label>
-            <input type="text" class="form-control" asp-for="@Model.Username" id="Username" placeholder="Enter username" />
-            <span asp-validation-for="@Model.Username"></span>
-        </div>
+            <div class="form-group">
+                <label for="Password">Choose a password</label>
+                <input type="password" class="form-control" asp-for="@Model.Password" id="Password" aria-describedby="passwordHelp" placeholder="Enter password" />
+                <small id="passwordHelp" class="form-text text-muted">Choose your password wisely</small>
 
-        <div class="form-group">
-            <label for="Password">Choose a password</label>
-            <input type="password" class="form-control" asp-for="@Model.Password" id="Password" aria-describedby="passwordHelp" placeholder="Enter password" />
-            <small id="passwordHelp" class="form-text text-muted">Choose your password wisely</small>
+                <span asp-validation-for="@Model.Password"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password2">Repeat a password</label>
+                <input type="password" class="form-control" asp-for="@Model.Password2" id="Password2" aria-describedby="passwordHelp2" placeholder="Enter password" />
+                <small id="passwordHelp2" class="form-text text-muted">Passwords need to match</small>
+                <span asp-validation-for="@Model.Password2"></span>
+            </div>
 
-            <span asp-validation-for="@Model.Password"></span>
-        </div>
-        <div class="form-group">
-            <label for="Password2">Repeat a password</label>
-            <input type="password" class="form-control" asp-for="@Model.Password2" id="Password2" aria-describedby="passwordHelp2" placeholder="Enter password" />
-            <small id="passwordHelp2" class="form-text text-muted">Passwords need to match</small>
-            <span asp-validation-for="@Model.Password2"></span>
-        </div>
-
-        <div>
-            <input type="submit" class="btn btn-primary" value="Register" />
-        </div>
-    </fieldset>
-</form>
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </fieldset>
+    </form>
+    </body>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 

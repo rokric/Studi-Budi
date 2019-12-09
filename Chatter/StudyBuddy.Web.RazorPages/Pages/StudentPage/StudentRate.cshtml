@@ -6,9 +6,10 @@
     Layout = "_LayoutWithoutNavigation";
 }
 
-<h1>Thank you for choosing to leave a feedback!</h1>
+        <h1>Thank you for choosing to leave a feedback!</h1>
 
-<form method="post">
-    <select asp-for="Value" asp-items="Model.Options"></select>
-    <input type="submit" value="Submit!" />
-</form>
+        <form method="post">
+            <select  class="form-control" asp-for="Value" asp-items="Model.Options"></select>
+            <input type="submit" class="btn btn-success" value="Submit!" />
+        </form>
+

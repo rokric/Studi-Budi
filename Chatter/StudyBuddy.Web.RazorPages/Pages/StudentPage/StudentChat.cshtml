@@ -5,76 +5,76 @@
 @{
     ViewData["Title"] = "StudentChat";
 }
-<form>
-    <fieldset>
-        <legend style="text-align:center">Questions</legend>
-        <br />
-        <form action="/StudentPage/Inbox">
-            <input type="submit" class="btn btn-outline-success" asp-page="/StudentPage/Inbox" asp-route-studentID="@Model.StudentID" style="text-align:center" align="middle" value="View my questions" />   
+        <form>
+            <fieldset>
+                <legend style="text-align:center">Questions</legend>
+                <br />
+                <form action="/StudentPage/Inbox">
+                    <input type="submit" class="btn btn-outline-success" asp-page="/StudentPage/Inbox" asp-route-studentID="@Model.StudentID" style="text-align:center" align="middle" value="View my questions" />
+                </form>
+                <br />
+                <div class="form-group">
+                    <select class="form-control" asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
+                        <option value=""> All </option>
+                    </select>
+                </div>
+                <input type="submit" value="Filter" class="btn btn-outline-success" />
+            </fieldset>
         </form>
         <br />
-        <div class="form-group">
-            <select class="form-control" asp-for="SubjectTitleFilter" asp-items="Model.SubjectsTitles">
-                <option value=""> All </option>
-            </select>
-        </div>
-        <input type="submit" value="Filter" class="btn btn-outline-success" />
-    </fieldset>
-</form>
-<br />
-<table class="table table-hover" border="1">
-    <thead>
-        <tr>
-            <th scope="col" class="table-success">
-                Teacher Name
-            </th>
+        <table class="table table-hover" border="1">
+            <thead>
+                <tr>
+                    <th scope="col" class="table-success">
+                        Teacher Name
+                    </th>
 
-            <th scope="col" class="table-success">
-                Unanswered questions
-            </th>
+                    <th scope="col" class="table-success">
+                        Unanswered questions
+                    </th>
 
-            <th scope="col" class="table-success">
-                Subject
-            </th>
+                    <th scope="col" class="table-success">
+                        Subject
+                    </th>
 
-            <th scope="col" class="table-success">
-                Points
-            </th>
+                    <th scope="col" class="table-success">
+                        Points
+                    </th>
 
-            <th scope="col" class="table-success">
-                Action
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.TeachersAndSubjects)
-        {
-            <tr>
-                <td class="table-dark" style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.TeacherName)
-                </td>
+                    <th scope="col" class="table-success">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TeachersAndSubjects)
+                {
+                    <tr>
+                        <td class="table-dark" style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.TeacherName)
+                        </td>
 
-                <td class="table-dark" style="text-align:center">
-                    <span class="badge badge-primary badge-pill" style="background-color: #FF7851">@Html.DisplayFor(modelItem => item.UnansweredCount)</span>
-                </td>
+                        <td class="table-dark" style="text-align:center">
+                            <span class="badge badge-primary badge-pill" style="background-color: #FF7851">@Html.DisplayFor(modelItem => item.UnansweredCount)</span>
+                        </td>
 
-                <td class="table-dark" style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.SubjectTitle)
-                </td>
+                        <td class="table-dark" style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.SubjectTitle)
+                        </td>
 
-                <td class="table-dark" style="text-align:center">
-                    <span class="badge badge-primary badge-pill">@Html.DisplayFor(modelItem => item.Points)</span>
-                </td>
+                        <td class="table-dark" style="text-align:center">
+                            <span class="badge badge-primary badge-pill">@Html.DisplayFor(modelItem => item.Points)</span>
+                        </td>
 
-                <td class="table-dark" style="text-align:center">
-                    <a asp-page="/StudentPage/Ask"
-                       asp-route-teacherName="@item.TeacherName" asp-route-subjectTitle="@item.SubjectTitle"
-                       asp-route-studentID="@Model.StudentID" class="nav-link"> Ask question! </a>
-                </td>
-            </tr>
-        }
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
-    </tbody>
-</table>
+                        <td class="table-dark" style="text-align:center">
+                            <a asp-page="/StudentPage/Ask"
+                               asp-route-teacherName="@item.TeacherName" asp-route-subjectTitle="@item.SubjectTitle"
+                               asp-route-studentID="@Model.StudentID" class="nav-link"> Ask question! </a>
+                        </td>
+                    </tr>
+                }
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }
+            </tbody>
+        </table>

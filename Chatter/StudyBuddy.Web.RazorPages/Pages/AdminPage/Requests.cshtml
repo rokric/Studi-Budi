@@ -20,25 +20,66 @@
         clear: both;
     }
 </style>
+<body style="background-color:#343a40;">
 
-<div class="row">
-    <div class="column" style="padding-right:50px">
-        <h1>Requests</h1>
-        @if (Model.Requests.Count == 0)
-        {
-            <h3> There are no requests! </h3>
-        }
-        else
-        {
-            <span style="color:red"> @Html.ValidationMessageFor(model => model.ErorrApprove) </span>
+    <div class="row">
+        <div class="column" style="padding-right:50px">
+            <h1>Requests</h1>
+            @if (Model.Requests.Count == 0)
+            {
+                <h3> There are no requests! </h3>
+            }
+            else
+            {
+                <span style="color:red"> @Html.ValidationMessageFor(model => model.ErorrApprove) </span>
+                <table class="table" border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                UserID
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Requests)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserID)
+                                </td>
+                                <td>
+                                    <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Title)</textarea>
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        <input type="submit" value="Approve" asp-page-handler="Approve" asp-route-requestID="@item.ID" />
+                                    </form>
+                                    <form method="post">
+                                        <input type="submit" value="Deny" asp-page-handler="Deny" asp-route-requestID="@item.ID" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+
+
+        <div class="column">
+            <h1> Existing subjects </h1>
             <table class="table" border="1">
                 <thead>
                     <tr>
                         <th>
-                            UserID
-                        </th>
-                        <th>
-                            Message
+                            Subject title
                         </th>
                         <th>
                             Action
@@ -46,68 +87,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Requests)
+                    @foreach (var item in Model.Subjects)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.UserID)
+                                @Html.DisplayFor(modelItem => item.Title)
                             </td>
-                            <td>
-                                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Title)</textarea>
-                            </td>
+
                             <td>
                                 <form method="post">
-                                    <input type="submit" value="Approve" asp-page-handler="Approve" asp-route-requestID="@item.ID" />
-                                </form>
-                                <form method="post">
-                                    <input type="submit" value="Deny" asp-page-handler="Deny" asp-route-requestID="@item.ID" />
+                                    <input type="submit" value="Delete" asp-page-handler="Delete" asp-route-subjectID="@item.Subjectid" />
                                 </form>
                             </td>
+
                         </tr>
                     }
                 </tbody>
             </table>
-        }
-
+        </div>
     </div>
-
-
-    <div class="column">
-        <h1> Existing subjects </h1>
-        <table class="table" border="1">
-            <thead>
-                <tr>
-                    <th>
-                        Subject title
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Subjects)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-
-                        <td>
-                            <form method="post">
-                                <input type="submit" value="Delete" asp-page-handler="Delete" asp-route-subjectID="@item.Subjectid" />
-                            </form>
-                        </td>
-
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
-@section scripts{
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
-}
+    </body>
+    @section scripts{
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+    }

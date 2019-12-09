@@ -11,7 +11,7 @@
         <legend>Ask a question!</legend>
         <div class="form-group">
     <label for="exampleTextarea">Your question...</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3" asp-for="Message" maxlength="500"></textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="3" asp-for="Message" maxlength="500" style="border:dashed 6px #FF7851"></textarea>
         </div>
         <input type="submit" value="Send" class="btn btn-success" />
         <span style="color:red "badge badge-primary badge-pill""> @Html.ValidationMessageFor(model => model.MessageError) </span>

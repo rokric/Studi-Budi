@@ -4,51 +4,52 @@
 @{
     ViewData["Title"] = "TeacherPoints";
 }
+        <fieldset>
+            <Legend>Look what others thinks about your answers</Legend>
 
-<h1>Look what others thinks about your answers</h1>
-
-<h2> You have @Model.TotalPoints points</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Student
-            </th>
-            <th>
-                Subject
-            </th>
-            <th>
-                Question
-            </th>
-            <th>
-                Your answer
-            </th>
-            <th>
-                Points received
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Question) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubjectTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Answer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Points)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <Legend> You have  <span class="badge badge-primary badge-pill" style="background-color: #6CC3D5">@Model.TotalPoints</span> points</Legend>
+        </fieldset>
+        <table class="table-hover">
+            <thead>
+                <tr class="table-dark">
+                    <th>
+                        Student
+                    </th>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Question
+                    </th>
+                    <th>
+                        Your answer
+                    </th>
+                    <th>
+                        Points received
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Question)
+                {
+                    <tr>
+                        <td class="table-dark">
+                            <span class="badge badge-primary badge-pill">@Html.DisplayFor(modelItem => item.StudentName)</span>
+                        </td>
+                        <td class="table-dark">
+                            @Html.DisplayFor(modelItem => item.SubjectTitle)
+                        </td>
+                        <td class="table-dark">
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td class="table-dark">
+                            <span class="badge badge-primary badge-pill">  @Html.DisplayFor(modelItem => item.Answer)</span>
+                        </td>
+                        <td class="table-dark" style="text-align:center">
+                            <span class="badge badge-primary badge-pill" style="background-color: #6CC3D5"> @Html.DisplayFor(modelItem => item.Points)</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>

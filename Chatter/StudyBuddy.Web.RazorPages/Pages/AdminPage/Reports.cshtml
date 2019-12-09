@@ -20,88 +20,90 @@
         clear: both;
     }
 </style>
+<body style="background-color:#343a40;">
 
-<div class="row">
-    <div class="column" style="padding-right:50px">
-        <h1>Reports</h1>
-        <table class="table" border="1">
-            <thead>
-                <tr>
-                    <th>
-                        UserID
-                    </th>
-                    <th>
-                        Message
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Reports)
-                {
+    <div class="row">
+        <div class="column" style="padding-right:50px">
+            <h1>Reports</h1>
+            <table class="table" border="1">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserID)
-                        </td>
-                        <td>
-                            <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
-                        </td>
-                        <td>
-                            <form method="post">
-                                <input type="submit" value="Delete" asp-page-handler="Delete" asp-route-reportID="@item.ID" />
-                            </form>
-                        </td>
+                        <th>
+                            UserID
+                        </th>
+                        <th>
+                            Message
+                        </th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-
-    <div class="column">
-        <h1> Reported users </h1>
-        <table class="table" border="1">
-            <thead>
-                <tr>
-                    <th>
-                        UserID
-                    </th>
-                    <th>
-                        Ban this user
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.ReportedUsers)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserID)
-                        </td>
-
-                        @if (item.Banned)
-                        {
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Reports)
+                    {
+                        <tr>
                             <td>
-                                Banned since:  @Html.DisplayFor(modelItem => item.Since)
+                                @Html.DisplayFor(modelItem => item.UserID)
+                            </td>
+                            <td>
+                                <textarea maxlength="500" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                            </td>
+                            <td>
                                 <form method="post">
-                                    <input type="submit" value="Cancel" asp-page-handler="Cancel" asp-route-userID="@item.UserID" />
+                                    <input type="submit" value="Delete" asp-page-handler="Delete" asp-route-reportID="@item.ID" />
                                 </form>
                             </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <form method="post" asp-route-userID="@item.UserID">
-                                    <input type="submit" value="Ban" />
-                                </form>
-                            </td>
-                        }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
+
+        <div class="column">
+            <h1> Reported users </h1>
+            <table class="table" border="1">
+                <thead>
+                    <tr>
+                        <th>
+                            UserID
+                        </th>
+                        <th>
+                            Ban this user
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ReportedUsers)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserID)
+                            </td>
+
+                            @if (item.Banned)
+                            {
+                                <td>
+                                    Banned since:  @Html.DisplayFor(modelItem => item.Since)
+                                    <form method="post">
+                                        <input type="submit" value="Cancel" asp-page-handler="Cancel" asp-route-userID="@item.UserID" />
+                                    </form>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <form method="post" asp-route-userID="@item.UserID">
+                                        <input type="submit" value="Ban" />
+                                    </form>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    </body>

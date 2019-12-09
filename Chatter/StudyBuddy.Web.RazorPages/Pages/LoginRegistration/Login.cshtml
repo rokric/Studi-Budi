@@ -1,47 +1,40 @@
 ﻿@page "/login"
 @model StudyBuddy.Web.RazorPages.Pages.LoginRegistration.LoginModel
-<form method="post" asp-page="Login">
-    <fieldset>
-        <div asp-validation-summary="ModelOnly"></div>
-        <legend style="text-align:center">Login</legend>
-        <div id="RadioButtonGroup" class="form-group">
-            <div class="custom-control custom-radio">
-                <input type="radio" value="student" id="s" class="custom-control-input" asp-for="@Model.Profession" checked="checked" />
-                <label class="custom-control-label" for="s">Student</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" value="teacher" id="t" class="custom-control-input" asp-for="@Model.Profession" />
-                <label class="custom-control-label" for="t">Teacher</label>
-            </div>
-        </div>
-        <!--
-              <div id="RadioButtonGroup" class="btn-group btn-group-toggle" data-toggle="buttons">
+<body style="background-color:#343a40;">
+
+    <form method="post" asp-page="Login">
+        <fieldset>
+            <div asp-validation-summary="ModelOnly"></div>
+            <legend style="text-align:center">Login</legend>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-primary active">
-                    <input type="radio" value="student" name="options" id="option1" autocomplete="off" asp-for="@Model.Profession" checked=""> Student
+                    <input type="radio" value="student"  id="option1" autocomplete="off" asp-for="@Model.Profession" checked="checked"> Student
                 </label>
 
                 <label class="btn btn-primary">
-                    <input type="radio" value="teacher" name="options" id="option2" autocomplete="off" asp-for="@Model.Profession"> Teacher
+                    <input type="radio" value="teacher"  id="option2" autocomplete="off" asp-for="@Model.Profession"> Teacher
                 </label>
-              </div>
-    -->
-        <div class="form-group">
-            <label for="Username">Username</label>
-            <input type="text" class="form-control" asp-for="@Model.Username" id="Username" placeholder="Enter username" />
-            <span asp-validation-for="@Model.Username"></span>
-        </div>
-        <div class="form-group">
-            <label for="Password">Password</label>
-            <input type="password" class="form-control" asp-for="@Model.Password" id="Password" aria-describedby="passwordHelp" placeholder="Enter password" />
-            <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
-            <span asp-validation-for="@Model.Password"></span>
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" value="Login" />
-            <span style="color:red"> @Html.ValidationMessageFor(model => model.LoginFailed) </span>
-        </div>
-    </fieldset>
+            </div>
+
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" class="form-control" asp-for="@Model.Username" id="Username" placeholder="Enter username" />
+                <span asp-validation-for="@Model.Username"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" asp-for="@Model.Password" id="Password" aria-describedby="passwordHelp" placeholder="Enter password" />
+                <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
+                <span asp-validation-for="@Model.Password"></span>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Login" />
+                <span style="color:red"> @Html.ValidationMessageFor(model => model.LoginFailed) </span>
+            </div>
+        </fieldset>
     </form>
+    </body>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

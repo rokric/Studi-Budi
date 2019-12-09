@@ -7,62 +7,66 @@
 }
     <fieldset>
         <Legend>Inbox</Legend>
-        <a asp-page="./StudentChat" class="nav-link">Go back</a>
+        <form action="./StudentChat">
+            <input type="submit" class="btn btn-outline-success" asp-page="./StudentChat" style="text-align:center" align="middle" value="Go back" />
+        </form>
     </fieldset>
-<table class="table table-hover">
+    <table class="table table-hover">
 
-    <tbody>
-        @foreach (var group in Model.Questions) {
-            <tr>
-                <td colspan="3" class="table-primary">
-                    @Html.DisplayFor(modelItem => group.Key.Name),  @Html.DisplayFor(modelItem => group.Key.SubjectTitle)
-                </td>
-            </tr>
-            @foreach (var item in group.Questions) {
+        <tbody>
+            @foreach (var group in Model.Questions)
+            {
                 <tr>
-                    <td class="table-dark">
-                        <div class="form-group">
-                            <textarea maxlength="500" rows="3" class="form-control" readonly> @Html.DisplayFor(modelItem => item.Message)</textarea>
-                        </div>
-
+                    <td colspan="3" class="table-primary">
+                        @Html.DisplayFor(modelItem => group.Key.Name),  @Html.DisplayFor(modelItem => group.Key.SubjectTitle)
                     </td>
-
-                    @if (item.Status == 0)
-                    {
-                        <td class="table-dark">
-                            <p style="color:#FF7851"> Not answered yet</p> 
-                        </td>
-                    }
-                    else
-                    {
-                <td class="table-dark">
-                    <div class="form-group">
-                        <textarea maxlength="500" style="color:#56CC9D" rows="3" class="form-control" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
-                    </div>
-                </td>
-                    }
-
-                    @if (item.Points != 0)
-                    {
-                        <td class="table-dark">
-                            Rated: @Html.DisplayFor(modelItem => item.Points)
-                        </td>
-                    }
-                    else if(item.Status == 1)
-                    {
-                        <td class="table-dark">
-                            <a asp-page="/StudentPage/StudentRate" asp-route-questionID="@item.QuestionID"> Rate the answer! </a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td class="table-dark">
-                           Get answer and then rate it!
-                        </td>
-                    }
-
                 </tr>
+                @foreach (var item in group.Questions)
+                {
+                    <tr>
+                        <td class="table-dark">
+                            <div class="form-group">
+                                <textarea maxlength="500" rows="3" class="form-control" readonly style="border:dashed 6px #FF7851"> @Html.DisplayFor(modelItem => item.Message)</textarea>
+                            </div>
+
+                        </td>
+
+                        @if (item.Status == 0)
+                        {
+                            <td class="table-dark">
+                                <p style="color:#FF7851"> Not answered yet</p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="table-dark">
+                                <div class="form-group">
+                                    <textarea maxlength="500" style="color:#56CC9D;border:dashed 6px #78C2AD;" rows="3" class="form-control" readonly> @Html.DisplayFor(modelItem => item.Answer)</textarea>
+                                </div>
+                            </td>
+                        }
+
+                        @if (item.Points != 0)
+                        {
+                            <td class="table-dark">
+                                Rated: @Html.DisplayFor(modelItem => item.Points)
+                            </td>
+                        }
+                        else if (item.Status == 1)
+                        {
+                            <td class="table-dark">
+                                <a asp-page="/StudentPage/StudentRate" asp-route-questionID="@item.QuestionID"> Rate the answer! </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="table-dark">
+                                Get answer and then rate it!
+                            </td>
+                        }
+
+                    </tr>
+                }
             }
-         }
-    </tbody>
-</table>
+        </tbody>
+    </table>

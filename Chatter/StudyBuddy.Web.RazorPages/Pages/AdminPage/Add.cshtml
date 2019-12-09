@@ -5,15 +5,16 @@
     ViewData["Title"] = "Add";
     Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
 }
+    <body style="background-color:#343a40;">
 
-<h1>Enter new subject title</h1>
+        <h1>Enter new subject title</h1>
 
-<form method="post">
-    <input type="text" asp-for="Title" />
-    <input type="submit" value="Add" />
-    <span style="color:red"> @Html.ValidationMessageFor(model => model.ErrorAdd) </span>
-</form>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        <form method="post">
+            <input type="text" asp-for="Title" />
+            <input type="submit" value="Add" />
+            <span style="color:red"> @Html.ValidationMessageFor(model => model.ErrorAdd) </span>
+        </form>
+        </body>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

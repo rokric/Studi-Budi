@@ -4,41 +4,42 @@
 @{
     ViewData["Title"] = "My subjects";
 }
-    <fieldset>
-        <legend>Teacher Subjects</legend>
-        <form action="/TeacherPage/Add">
-            <input type="submit" class="btn btn-outline-success" asp-page="/TeacherPage/Add" value="Add new subject" asp-route-teacherID="@Model.TeacherID" />
-        </form>
-    </fieldset>
+        <fieldset>
+            <legend>Teacher Subjects</legend>
+            <form action="/TeacherPage/Add">
+                <input type="submit" class="btn btn-outline-success" asp-page="/TeacherPage/Add" value="Add new subject" asp-route-teacherID="@Model.TeacherID" />
+            </form>
+        </fieldset>
 
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th class="table-primary">
-                Subject
-            </th>
-            <th class="table-primary">
-                Action
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.MySubjects) { 
-        <tr class="table-dark">
-            <td >
-                @Html.DisplayFor(modelItem => item)
-            </td>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="table-primary">
+                        Subject
+                    </th>
+                    <th class="table-primary">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MySubjects)
+                {
+                    <tr class="table-dark">
+                        <td>
+                            @Html.DisplayFor(modelItem => item)
+                        </td>
 
-            <td >
-                <form method="post">
-                    <button type="submit" class="btn btn-danger" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
-                </form>
-            </td>
-        </tr>
-        }
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
-    </tbody>
-</table>
+                        <td>
+                            <form method="post">
+                                <button type="submit" class="btn btn-danger" asp-page-handler="Delete" asp-route-subjectTitle=@item.ToString()>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }
+            </tbody>
+        </table>
