@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,5 +19,11 @@ namespace StudyBuddy.Web.RazorPages.Models
 
         //current points
         public int Points { get; set; }
+
+        [ForeignKey("TeacherID")]
+        public User User { get; set; }
+
+        [ForeignKey("SubjectID")]
+        public Subject Subject { get; set; }
     }
 }
