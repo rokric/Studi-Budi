@@ -7,5 +7,7 @@ namespace StudyBuddy.Web.RazorPages.Models
     {
         public int Subjectid { get; set; }
         public string Title { get; set; }
+
+        public ICollection<Teaching> Teachings { get; set; }
     }
 }

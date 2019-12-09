@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudyBuddy.Web.RazorPages.Data;
 
 namespace StudyBuddy.Web.RazorPages.Migrations
 {
     [DbContext(typeof(StudiBudiContext))]
-    partial class StudiBudiContextModelSnapshot : ModelSnapshot
+    [Migration("20191209171606_fk_ban")]
+    partial class fk_ban
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,10 +79,6 @@ namespace StudyBuddy.Web.RazorPages.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("SubjectID");
-
-                    b.HasIndex("TeacherID");
 
                     b.ToTable("FAQ");
                 });
@@ -154,8 +152,6 @@ namespace StudyBuddy.Web.RazorPages.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID");
-
                     b.ToTable("Report");
                 });
 
@@ -198,8 +194,6 @@ namespace StudyBuddy.Web.RazorPages.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID");
-
                     b.ToTable("SubjectRequest");
                 });
 
@@ -215,8 +209,6 @@ namespace StudyBuddy.Web.RazorPages.Migrations
 
                     b.HasKey("Userid", "Subjectid")
                         .HasName("PK__tmp_ms_x__516FA6603C8B3913");
-
-                    b.HasIndex("Subjectid");
 
                     b.ToTable("Teaching");
                 });
@@ -255,56 +247,8 @@ namespace StudyBuddy.Web.RazorPages.Migrations
             modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Ban", b =>
                 {
                     b.HasOne("StudyBuddy.Web.RazorPages.Models.User", "User")
-                        .WithMany("Bans")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.FAQ", b =>
-                {
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.Subject", "Subject")
                         .WithMany()
-                        .HasForeignKey("SubjectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.User", "User")
-                        .WithMany("FAQs")
-                        .HasForeignKey("TeacherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Report", b =>
-                {
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.User", "User")
-                        .WithMany("Reports")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.SubjectRequest", b =>
-                {
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.User", "User")
-                        .WithMany("SubjectRequests")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyBuddy.Web.RazorPages.Models.Teaching", b =>
-                {
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.Subject", "Subject")
-                        .WithMany("Teachings")
-                        .HasForeignKey("Subjectid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudyBuddy.Web.RazorPages.Models.User", "User")
-                        .WithMany("Teachings")
-                        .HasForeignKey("Userid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
