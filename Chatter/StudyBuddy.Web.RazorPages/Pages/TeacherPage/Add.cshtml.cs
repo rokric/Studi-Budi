@@ -21,7 +21,7 @@ namespace StudyBuddy.Web.RazorPages.Pages.TeacherPage
         public int SubjectID { get; set; }
 
         //property for adding custom subject
-        [BindProperty, Required]
+        [BindProperty, Required(ErrorMessage = "Subject title is required")]
         public string SubjectTitle { get; set; }
         public List<SelectListItem> Options { get; set; }
 
