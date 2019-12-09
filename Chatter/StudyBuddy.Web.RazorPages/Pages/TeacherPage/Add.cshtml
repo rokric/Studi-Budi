@@ -32,6 +32,7 @@
                     <form method="post">
                         <input type="text" class="form-control-plaintext" asp-for="SubjectTitle" />
                         <input type="submit" class="btn btn-outline-success" asp-page-handler="Request" value="Request" />
+                        <span style="color:red" asp-validation-for="@Model.SubjectTitle"></span>
                     </form>
                 </div>
             </div>

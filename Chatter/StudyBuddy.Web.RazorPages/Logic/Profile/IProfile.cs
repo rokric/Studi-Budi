@@ -8,7 +8,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
 {
     public interface IProfile
     {
-        bool IsPasswordMaches(string password, int id); // tikrina ar senas slaptazodis sutampa su string
+        bool IsPasswordMaches(string password, int id);
         public string GetPasswordByID(int ID);
         Task PasswordChange( string New, int Id);
          Task NameChange(string New, int Id);

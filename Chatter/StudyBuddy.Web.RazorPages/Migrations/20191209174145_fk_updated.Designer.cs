@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudyBuddy.Web.RazorPages.Data;
 
 namespace StudyBuddy.Web.RazorPages.Migrations
 {
     [DbContext(typeof(StudiBudiContext))]
-    partial class StudiBudiContextModelSnapshot : ModelSnapshot
+    [Migration("20191209174145_fk_updated")]
+    partial class fk_updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -18,7 +18,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
         }
 
         public string GetPasswordByID(int ID)
-        {
+        {//gets encrypted password
             return (_context.User.Where(u => u.Userid == ID).Select(u => u.Password).FirstOrDefault());
         }
         public string GetProfesionByID(int ID)
@@ -33,7 +33,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
         }
 
         public bool IsPasswordMaches(string password, int id)
-        {
+        {//tikrina ar senas slaptazodis sutampa su senu
              if (string.Equals(GetPasswordByID(id), Encryptor.Encrypt(password)))
              {
                  return true;
@@ -58,6 +58,9 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
             await _context.SaveChangesAsync();
 
         }
+
+
+
         public async Task NameChange(string New, int Id)
         {
             User user = FindUserById(Id);
@@ -68,7 +71,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
         }
 
         public bool IsStringGood(string password)
-        {
+        {//tikrina ar stringas reikiamo ilgio ir ar nera null
             if(password==null)
             {
                 return false;
@@ -81,7 +84,7 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
         }
 
         public bool IsStringsMaches(string password, string password2)
-        {
+        {//tikrina ar string reiksmes sutampa
             if (password == null || password2 == null)
             {
                 return false;
