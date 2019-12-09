@@ -13,7 +13,6 @@ namespace StudyBuddy.Web.RazorPages.Tests
         [Test]
         public async Task GetEncryptedUsernameByID_gets_encrypted_username_by_id()
         {
-        
             var service = new UserInfoLoader(context);
             string result = await service.GetEncryptedUserNameById(1);
 

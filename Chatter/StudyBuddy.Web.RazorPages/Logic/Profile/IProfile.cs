@@ -10,8 +10,6 @@ namespace StudyBuddy.Web.RazorPages.Logic.Profile
     {
         bool IsPasswordMaches(string password, int id); // tikrina ar senas slaptazodis sutampa su string
         public string GetPasswordByID(int ID);
-
-
         Task PasswordChange( string New, int Id);
          Task NameChange(string New, int Id);
         public bool IsStringGood(string password);
