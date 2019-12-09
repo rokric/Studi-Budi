@@ -9,5 +9,6 @@ namespace StudyBuddy.Web.RazorPages.Models
         public string Nick { get; set; }
         public string Password { get; set; }
         public string Profession { get; set; }
+        public ICollection<Ban> Bans { get; set; }
     }
 }
