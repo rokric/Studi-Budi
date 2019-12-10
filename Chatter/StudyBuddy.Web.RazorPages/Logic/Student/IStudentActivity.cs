@@ -12,7 +12,6 @@ namespace StudyBuddy.Web.RazorPages.Logic
         Task<List<TeacherAndSubject>> GetTeachersAndSubjects();
         List<TeacherAndSubject> FilterTeachersAndSubjects(string filter, List<TeacherAndSubject> teachersAndSubjects);
 
-        //return FAQ (teacherID is replaced by teacher name)
-        Task<List<StudentFAQ>> GetFAQs();
+        Task<List<StudentFAQ>> GetFAQs(bool all);
     }
 }
