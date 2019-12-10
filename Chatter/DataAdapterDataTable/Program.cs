@@ -22,79 +22,20 @@ namespace DataAdapterDataTable
             string lastname = "viska";
             ExtensionMethods.PrintDataOnNameAndLasName(connectionString, name, lastname);
 
-            name = "Juozas";
+            name = "Jonas";
             lastname = "Kavaliauskas";
-            int metai = 20;
-            int raktas = 9;
-            //ExtensionMethods.InsertDataIntoTable(connectionString, name, lastname, metai);
+            int metai = 33;
+            int raktas = 1;
 
+
+            Console.WriteLine(" insert data"); 
+            ExtensionMethods.InsertDataIntoTable(connectionString, name, lastname, metai);
+            ExtensionMethods.PrintDataOnNameAndLasName(connectionString, "parodyk", "viska");
+
+            Console.WriteLine(" change metai ");
             ExtensionMethods.ChangeData(connectionString, metai, raktas);
-
-            //ExtensionMethods.Deleterow(connectionString, raktas);
-
-
-            /*
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(
-                    "SELECT * FROM dbo.Laikina;", connection);
-                connection.Open();
-
-                SqlDataReader rdr = command.ExecuteReader();
-
-                while (rdr.HasRows)
-                {
-                    Console.WriteLine("\t{0}\t{1}", rdr.GetName(0),
-                        rdr.GetName(1));
-                    while (rdr.Read())
-                    {
-                        Console.WriteLine("\t{0}\t{1}\t{2}\t{3}", rdr.GetValue(0),
-                            rdr.GetValue(1), rdr.GetValue(2),rdr.GetValue(3));
-                    }
-                    rdr.NextResult();
-                }
-                rdr.Close();
-
-                string queryString ="SELECT * FROM [dbo].Laikina;";
-
-
-                SqlDataAdapter adapter = new SqlDataAdapter(queryString, connectionString);
-                adapter.UpdateCommand = new SqlCommand(
-                "UPDATE Laikina SET pavarde = @pavarde " +
-                "WHERE Id = @Id ", connection);
-
-                adapter.UpdateCommand.Parameters.Add(
-                   "@pavarde", SqlDbType.NVarChar, 10, "pavarde");
-
-                SqlParameter parameter = adapter.UpdateCommand.Parameters.Add("@Id", SqlDbType.Int);
-                parameter.SourceColumn = "Id";
-                parameter.SourceVersion = DataRowVersion.Original;
-
-
-                DataTable categoryTable = new DataTable();
-                adapter.Fill(categoryTable);
-
-                
-
-                DataRow categoryRow = categoryTable.Rows[0];
-                categoryRow["pavarde"] = "hk";
-
-                adapter.Update(categoryTable);
-
-                Console.WriteLine("Rows after update.");
-
-                foreach (DataRow row in categoryTable.Rows)
-                {
-                    {
-                        Console.WriteLine("\t{0} \t{1} \t{2} \t{3}", row[0], row[1], row[2], row[3]);
-                    }
-                }
-                
-
-
-            }
-
-            */
+            ExtensionMethods.PrintDataOnNameAndLasName(connectionString, "parodyk", "viska");
+            
 
 
         }
@@ -123,7 +64,7 @@ namespace DataAdapterDataTable
 
         public static void PrintRowsD(DataTable dataTable)
         {
-                Console.WriteLine("Rows after update.");
+                Console.WriteLine("lentele po pakeitimo");
                 foreach (DataRow row in dataTable.Rows)
                 {
                     foreach (DataColumn column in dataTable.Columns)
@@ -195,44 +136,13 @@ namespace DataAdapterDataTable
             {
 
                 Console.WriteLine("pavyko!! Duomenys po pakeitimo ");
-                PrintDataOnNameAndLasName(connectionString, "parodyk", "parodyk");
             }
             else Console.WriteLine("nepavyko");
 
             cn.Close();
+
         }
-
-        /*public static void Deleterow(string connectionString, int raktas)
-        {
-            SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = connectionString;
-            cn.Open();
-
-
-            /*SqlCommand sql = new SqlCommand();
-            sql.Connection = cn;
-            sql.CommandType = CommandType.Text;
-            sql.CommandText = " SELECT * FROM dbo.Laikina WHERE Id = @Id ";
-
-            sql.Parameters.AddWithValue("@Id", raktas);///
-
-            SqlDataAdapter da = new SqlDataAdapter(" SELECT * FROM dbo.Laikina WHERE Id = @Id ", cn);
-            da.SelectCommand.Parameters.AddWithValue("@Id", raktas);
-            SqlCommandBuilder sqlCommandBuilder = new SqlCommandBuilder(da);
-
-            DataSet ds = new DataSet("Laikina");
-            da.Fill(ds, "Laikina");
-            DataRow row = ds.Tables["Laikina"].Rows[0];
-            ds.Tables["Laikina"].Rows.Remove(row);
-            da.Update(ds, "Laikina");
-
-
-                Console.WriteLine("pavyko!! Duomenys po pakeitimo ");
-                PrintDataOnNameAndLasName(connectionString, "parodyk", "parodyk");
-
-
-            cn.Close();
-        }*/
+        
         public static void  InsertDataIntoTable(string connectionString, string name, string lastname, int metai)
         {
             SqlConnection cn = new SqlConnection();
@@ -262,7 +172,7 @@ namespace DataAdapterDataTable
             newRow["metai"] = metai;
             dt.Rows.Add(newRow);
 
-            PrintRows(ds);
+
 
             da.Update(ds,"Laikina");
             cn.Close();
