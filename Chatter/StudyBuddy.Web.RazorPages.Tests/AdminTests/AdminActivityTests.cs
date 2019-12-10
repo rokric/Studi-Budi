@@ -17,7 +17,7 @@ namespace StudyBuddy.Web.RazorPages.Tests.AdminTests
             var service = new AdminActivity(context);
 
             ArgumentException ex = Assert.ThrowsAsync<ArgumentException>(async () => await service.ApproveNewSubjectRequest(1));
-            Assert.That(ex.Message, Is.EqualTo("request cannot be approved: subject already exist."));
+            Assert.That(ex.Message, Is.EqualTo("request cannot be approved: subject already exists."));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace StudyBuddy.Web.RazorPages.Tests.AdminTests
             var service = new AdminActivity(context);
 
             ArgumentException ex = Assert.ThrowsAsync<ArgumentException>(async () => await service.ApproveNewSubjectRequest(2));
-            Assert.That(ex.Message, Is.EqualTo("request cannot be approved: subject already exist."));
+            Assert.That(ex.Message, Is.EqualTo("request cannot be approved: subject already exists."));
         }
 
         [Test]
@@ -49,15 +49,14 @@ namespace StudyBuddy.Web.RazorPages.Tests.AdminTests
         }
 
         [Test]
-        public void SuspendUser_throws_invalid_date()
+        public void AddSubject_throws_that_subject_exists()
         {
             var service = new AdminActivity(context);
 
-            ArgumentException ex = Assert.Throws<ArgumentException>(() => service.SuspendUser(1, new DateTime(2019, 10, 11)));
-            Assert.That(ex.Message, Is.EqualTo("User cannot be banned: Date is not valid. It has already gone."));
+            ArgumentException ex = Assert.Throws<ArgumentException>(() => service.AddSubject(""));
+            Assert.That(ex.Message, Is.EqualTo("subject title cannot be empty."));
         }
 
-        //todo check ban table
         [Test]
         public void SuspendUser_suspends_user()
         {
@@ -65,7 +64,7 @@ namespace StudyBuddy.Web.RazorPages.Tests.AdminTests
 
             DateTime dateTime = DateTime.Now;
             service.SuspendUser(1, dateTime);
-            Assert.AreEqual(1, context.Report.Count());
+            Assert.AreEqual(1, context.Ban.Count());
         }
 
         override

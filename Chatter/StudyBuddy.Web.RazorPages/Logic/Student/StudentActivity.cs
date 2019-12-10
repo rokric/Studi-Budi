@@ -93,10 +93,11 @@ namespace StudyBuddy.Web.RazorPages.Logic
             return value;
         }
 
-        public async Task<List<StudentFAQ>> GetFAQs()
+        //return FAQ (teacherID is replaced by teacher name)
+        public async Task<List<StudentFAQ>> GetFAQs(bool all)
         {
             List<StudentFAQ> studentFAQs = new List<StudentFAQ>();
-            List<FAQ> fAQs = await _context.FAQ.ToListAsync();
+            List<FAQ> fAQs = await GetRecentFAQs(all);
 
             studentFAQs = fAQs.Select(f =>
                 new StudentFAQ
@@ -111,6 +112,23 @@ namespace StudyBuddy.Web.RazorPages.Logic
             ).ToList();
 
             return studentFAQs;
+        }
+
+        private async Task<List<FAQ>> GetRecentFAQs(bool all)
+        {
+            List<FAQ> fAQs;
+
+            if (all)
+            {
+                fAQs = await _context.FAQ.ToListAsync();
+            }
+            else
+            {
+                int totalFAQ = _context.FAQ.Count();
+                fAQs = await _context.FAQ.Skip(totalFAQ - 1).Take(1).ToListAsync();
+            }
+
+            return fAQs;
         }
     }
 }
